@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="FullSpline.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="1099" topLine="25" />
+	</File>
+	<File name="FullSpline.h" open="0" top="0" tabpos="9">
+		<Cursor position="535" topLine="0" />
+	</File>
+	<File name="HeadingMatrix.cpp" open="0" top="0" tabpos="8">
+		<Cursor position="3051" topLine="83" />
+	</File>
+	<File name="HeadingMatrix.h" open="0" top="0" tabpos="5">
+		<Cursor position="37" topLine="12" />
+	</File>
+	<File name="MyEventReceiver.h" open="0" top="0" tabpos="0">
+		<Cursor position="34" topLine="0" />
+	</File>
+	<File name="PathSpline.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="3194" topLine="83" />
+	</File>
+	<File name="PathSpline.h" open="0" top="0" tabpos="4">
+		<Cursor position="598" topLine="8" />
+	</File>
+	<File name="Track.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="8581" topLine="230" />
+	</File>
+	<File name="Track.h" open="0" top="0" tabpos="7">
+		<Cursor position="594" topLine="2" />
+	</File>
+	<File name="TrackMesh.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="6242" topLine="237" />
+	</File>
+	<File name="TrackMesh.h" open="0" top="0" tabpos="3">
+		<Cursor position="97" topLine="0" />
+	</File>
+	<File name="TrackNode.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="40" topLine="0" />
+	</File>
+	<File name="TrackNode.h" open="0" top="0" tabpos="0">
+		<Cursor position="722" topLine="0" />
+	</File>
+	<File name="irrlicht.h" open="0" top="0" tabpos="0">
+		<Cursor position="23" topLine="0" />
+	</File>
+	<File name="main.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="9320" topLine="235" />
+	</File>
+	<File name="meshmain.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="852" topLine="25" />
+	</File>
+	<File name="testmain.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="164" topLine="16" />
+	</File>
+</CodeBlocks_layout_file>

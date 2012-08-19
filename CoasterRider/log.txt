@@ -1,0 +1,28 @@
+2012:Aug:15:AM:01:43
+	+	added some track functions and yesterday i added track mesh.
+	+	track length now seems to work
+2012:Aug:15:PM:08:11
+	+	track draws now, but it takes too long to wrap the spline to the mesh points
+	+	consider some type of lookup table for mapping progress to up vectors
+		(use approximation if needed. )
+	+	TODO: Make  a heading approximation table for distance progressions along the track.  
+	+	TODO: make a similar point approximation table with more entries.
+	+	TODO: give Track::GetElmtStartHeadingAndPt() an extra boolean flag parameter to 
+			   use a lookup table or not
+	+	TODO: make a table for element start headings and 
+	+	TODO: add a boolean flag parameter to Track::GetElmtStartHeadingAndPt() to use 
+				a lookup table or not.
+2012:Aug:17:PM:07:52
+	+	Added tables to optimize the spline wrapping (still somewhat slow)
+	+	added TrackMesh::UpdateNormals() to be called in accordance with spline wrapper.
+	+	Fixed camera and lighting
+	+	Defined some splines for hills and quarter turns.
+	+	Added startbank to Track class and exitbank to PathSpline.  
+	+	NOTE: banking will not affect the permanent orientation of the spline from element 
+	   to element, but will affect heading of track and vehicle at any given point along 
+	   the track.
+	+	TODO: apply the new banking values to GetHeadingAt function somehow.
+	+	TODO: fix the corkscrew up vectors.  They look off...
+	+	TODO: Distance2Scale in PathSpline
+	
+	

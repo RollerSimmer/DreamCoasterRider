@@ -1,0 +1,10 @@
+Irrlicht Engine version 1.7.2
+Linux 2.6.32-21-generic-pae #32-Ubuntu SMP Fri Apr 16 09:39:35 UTC 2010 i686
+Creating X window...
+Visual chosen: : 39
+Using renderer: OpenGL 3.2.0
+GeForce G100/PCI/SSE2: NVIDIA Corporation
+OpenGL driver version is 1.2 or better.
+GLSL version: 1.5
+ConformMeshToTrackSpline() processed 6336 vertices.
+Quit message received.

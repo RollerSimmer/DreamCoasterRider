@@ -1,0 +1,802 @@
+The track length is 276.967 units
+The HeadingMatrix variable named hdg[0] contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0 | 1 ]
+the core::vector3df variable pt[0] contains: 
+	 X=0	 Y=0	 Z=0
+The HeadingMatrix variable named hdg[1] contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0 | 1 ]
+the core::vector3df variable pt[1] contains: 
+	 X=0	 Y=0	 Z=10
+The HeadingMatrix variable named hdg[2] contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0 | 1 ]
+the core::vector3df variable pt[2] contains: 
+	 X=0	 Y=0	 Z=20
+The HeadingMatrix variable named hdg[3] contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0 | 1 ]
+the core::vector3df variable pt[3] contains: 
+	 X=0	 Y=0	 Z=30
+********************** At distance=0 **********************
+The HeadingMatrix variable named hdg(0) contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0 | 1 ]
+the core::vector3df variable pt(0) contains: 
+	 X=0	 Y=0	 Z=0
+********************** At distance=2.5 **********************
+The HeadingMatrix variable named hdg(2.5) contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0 | 1 ]
+the core::vector3df variable pt(2.5) contains: 
+	 X=0	 Y=0	 Z=2.26562
+********************** At distance=5 **********************
+The HeadingMatrix variable named hdg(5) contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0 | 1 ]
+the core::vector3df variable pt(5) contains: 
+	 X=0	 Y=0	 Z=5
+********************** At distance=7.5 **********************
+The HeadingMatrix variable named hdg(7.5) contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0 | 1 ]
+the core::vector3df variable pt(7.5) contains: 
+	 X=0	 Y=0	 Z=7.73438
+********************** At distance=10 **********************
+The HeadingMatrix variable named hdg(10) contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0 | 1 ]
+the core::vector3df variable pt(10) contains: 
+	 X=0	 Y=0	 Z=10
+********************** At distance=12.5 **********************
+The HeadingMatrix variable named hdg(12.5) contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0 | 1 ]
+the core::vector3df variable pt(12.5) contains: 
+	 X=0	 Y=0	 Z=12.2656
+********************** At distance=15 **********************
+The HeadingMatrix variable named hdg(15) contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0 | 1 ]
+the core::vector3df variable pt(15) contains: 
+	 X=0	 Y=0	 Z=15
+********************** At distance=17.5 **********************
+The HeadingMatrix variable named hdg(17.5) contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0 | 1 ]
+the core::vector3df variable pt(17.5) contains: 
+	 X=0	 Y=0	 Z=17.7344
+********************** At distance=20 **********************
+The HeadingMatrix variable named hdg(20) contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0 | 1 ]
+the core::vector3df variable pt(20) contains: 
+	 X=0	 Y=0	 Z=20
+********************** At distance=22.5 **********************
+The HeadingMatrix variable named hdg(22.5) contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0 | 1 ]
+the core::vector3df variable pt(22.5) contains: 
+	 X=0	 Y=0	 Z=22.2656
+********************** At distance=25 **********************
+The HeadingMatrix variable named hdg(25) contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0 | 1 ]
+the core::vector3df variable pt(25) contains: 
+	 X=0	 Y=0	 Z=25
+********************** At distance=27.5 **********************
+The HeadingMatrix variable named hdg(27.5) contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0 | 1 ]
+the core::vector3df variable pt(27.5) contains: 
+	 X=0	 Y=0	 Z=27.7344
+********************** At distance=30 **********************
+The HeadingMatrix variable named hdg(30) contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0 | 1 ]
+the core::vector3df variable pt(30) contains: 
+	 X=0	 Y=0	 Z=30
+********************** At distance=32.5 **********************
+The HeadingMatrix variable named hdg(32.5) contains the following matrix:
+	 rgt  = [ 0.758321 | 0 | -0.651881 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0.651881 | 0 | 0.758321 ]
+the core::vector3df variable pt(32.5) contains: 
+	 X=0.435396	 Y=0	 Z=32.7409
+********************** At distance=35 **********************
+The HeadingMatrix variable named hdg(35) contains the following matrix:
+	 rgt  = [ 0.593533 | 0 | -0.804809 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0.804809 | 0 | 0.593533 ]
+the core::vector3df variable pt(35) contains: 
+	 X=1.60698	 Y=0	 Z=35.1186
+********************** At distance=37.5 **********************
+The HeadingMatrix variable named hdg(37.5) contains the following matrix:
+	 rgt  = [ 0.409278 | 0 | -0.91241 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0.91241 | 0 | 0.409278 ]
+the core::vector3df variable pt(37.5) contains: 
+	 X=3.31283	 Y=0	 Z=37.0827
+********************** At distance=40 **********************
+The HeadingMatrix variable named hdg(40) contains the following matrix:
+	 rgt  = [ 0.291629 | 0 | -0.956531 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0.956531 | 0 | 0.291629 ]
+the core::vector3df variable pt(40) contains: 
+	 X=5.35105	 Y=0	 Z=38.5826
+********************** At distance=42.5 **********************
+The HeadingMatrix variable named hdg(42.5) contains the following matrix:
+	 rgt  = [ 0.171611 | 0 | -0.985165 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0.985165 | 0 | 0.171611 ]
+the core::vector3df variable pt(42.5) contains: 
+	 X=7.51972	 Y=0	 Z=39.5679
+********************** At distance=45 **********************
+The HeadingMatrix variable named hdg(45) contains the following matrix:
+	 rgt  = [ 0.0308075 | 0 | -0.999525 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0.999525 | 0 | 0.0308075 ]
+the core::vector3df variable pt(45) contains: 
+	 X=9.61695	 Y=0	 Z=39.9882
+********************** At distance=47.5 **********************
+The HeadingMatrix variable named hdg(47.5) contains the following matrix:
+	 rgt  = [ -0.615182 | 0 | -0.788385 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0.788385 | 0 | -0.615182 ]
+the core::vector3df variable pt(47.5) contains: 
+	 X=12.2338	 Y=0	 Z=39.7135
+********************** At distance=50 **********************
+The HeadingMatrix variable named hdg(50) contains the following matrix:
+	 rgt  = [ -0.779121 | 0 | -0.626874 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0.626874 | 0 | -0.779121 ]
+the core::vector3df variable pt(50) contains: 
+	 X=14.6863	 Y=0	 Z=38.6695
+********************** At distance=52.5 **********************
+The HeadingMatrix variable named hdg(52.5) contains the following matrix:
+	 rgt  = [ -0.894318 | 0 | -0.447431 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0.447431 | 0 | -0.894318 ]
+the core::vector3df variable pt(52.5) contains: 
+	 X=16.7349	 Y=0	 Z=37.0519
+********************** At distance=55 **********************
+The HeadingMatrix variable named hdg(55) contains the following matrix:
+	 rgt  = [ -0.94962 | 0 | -0.313404 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0.313404 | 0 | -0.94962 ]
+the core::vector3df variable pt(55) contains: 
+	 X=18.3292	 Y=0	 Z=35.0626
+********************** At distance=57.5 **********************
+The HeadingMatrix variable named hdg(57.5) contains the following matrix:
+	 rgt  = [ -0.980544 | 0 | -0.196301 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0.196301 | 0 | -0.980544 ]
+the core::vector3df variable pt(57.5) contains: 
+	 X=19.4187	 Y=0	 Z=32.9035
+********************** At distance=60 **********************
+The HeadingMatrix variable named hdg(60) contains the following matrix:
+	 rgt  = [ -0.998175 | 0 | -0.0603833 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0.0603833 | 0 | -0.998175 ]
+the core::vector3df variable pt(60) contains: 
+	 X=19.953	 Y=0	 Z=30.7765
+********************** At distance=62.5 **********************
+The HeadingMatrix variable named hdg(62.5) contains the following matrix:
+	 rgt  = [ -0.980593 | 0.141107 | -0.13611 ]
+	 up  = [ 0.12439 | 0.984406 | 0.12439 ]
+	 fwd  = [ 0.194731 | 0.620499 | -0.759645 ]
+the core::vector3df variable pt(62.5) contains: 
+	 X=20.0035	 Y=0.142682	 Z=28.0268
+********************** At distance=65 **********************
+The HeadingMatrix variable named hdg(65) contains the following matrix:
+	 rgt  = [ -0.923334 | 0.3765 | -0.0755087 ]
+	 up  = [ 0.332627 | 0.88245 | 0.332627 ]
+	 fwd  = [ 0.351182 | 0.748403 | -0.562641 ]
+the core::vector3df variable pt(65) contains: 
+	 X=20.0648	 Y=0.912753	 Z=25.3857
+********************** At distance=67.5 **********************
+The HeadingMatrix variable named hdg(67.5) contains the following matrix:
+	 rgt  = [ -0.799154 | 0.599056 | 0.049838 ]
+	 up  = [ 0.529659 | 0.662512 | 0.529659 ]
+	 fwd  = [ 0.542654 | 0.754605 | -0.368915 ]
+the core::vector3df variable pt(67.5) contains: 
+	 X=20.2758	 Y=2.18699	 Z=23.3987
+********************** At distance=70 **********************
+The HeadingMatrix variable named hdg(70) contains the following matrix:
+	 rgt  = [ -0.593502 | 0.767951 | 0.240847 ]
+	 up  = [ 0.672539 | 0.30884 | 0.672539 ]
+	 fwd  = [ 0.741234 | 0.638146 | -0.208186 ]
+the core::vector3df variable pt(70) contains: 
+	 X=20.7297	 Y=3.7793	 Z=21.9726
+********************** At distance=72.5 **********************
+The HeadingMatrix variable named hdg(72.5) contains the following matrix:
+	 rgt  = [ -0.357309 | 0.787278 | 0.502518 ]
+	 up  = [ 0.701168 | -0.129327 | 0.701168 ]
+	 fwd  = [ 0.878606 | 0.465839 | -0.105094 ]
+the core::vector3df variable pt(72.5) contains: 
+	 X=21.5195	 Y=5.50364	 Z=21.0144
+********************** At distance=75 **********************
+The HeadingMatrix variable named hdg(75) contains the following matrix:
+	 rgt  = [ -0.19924 | 0.626846 | 0.753238 ]
+	 up  = [ 0.599644 | -0.529957 | 0.599644 ]
+	 fwd  = [ 0.930491 | 0.362125 | -0.0552352 ]
+the core::vector3df variable pt(75) contains: 
+	 X=22.7383	 Y=7.17391	 Z=20.4311
+********************** At distance=77.5 **********************
+The HeadingMatrix variable named hdg(77.5) contains the following matrix:
+	 rgt  = [ -0.0858716 | 0.423348 | 0.901888 ]
+	 up  = [ 0.41829 | -0.806267 | 0.41829 ]
+	 fwd  = [ 0.96924 | 0.245065 | -0.0227497 ]
+the core::vector3df variable pt(77.5) contains: 
+	 X=24.479	 Y=8.60406	 Z=20.1296
+********************** At distance=80 **********************
+The HeadingMatrix variable named hdg(80) contains the following matrix:
+	 rgt  = [ -0.0210188 | 0.211868 | 0.977072 ]
+	 up  = [ 0.211465 | -0.954235 | 0.211465 ]
+	 fwd  = [ 0.992404 | 0.122905 | -0.00530195 ]
+the core::vector3df variable pt(80) contains: 
+	 X=26.8347	 Y=9.608	 Z=20.0169
+********************** At distance=82.5 **********************
+The HeadingMatrix variable named hdg(82.5) contains the following matrix:
+	 rgt  = [ -2.00174e-05 | 0.00588534 | 0.999983 ]
+	 up  = [ 0.00588536 | -0.999965 | 0.00588536 ]
+	 fwd  = [ 0.999994 | 0.00340121 | 0 ]
+the core::vector3df variable pt(82.5) contains: 
+	 X=29.8985	 Y=9.99965	 Z=20
+********************** At distance=85 **********************
+The HeadingMatrix variable named hdg(85) contains the following matrix:
+	 rgt  = [ 0.121735 | -0.225957 | 0.966501 ]
+	 up  = [ -0.199225 | -0.959489 | -0.199225 ]
+	 fwd  = [ 0.691016 | -0.679711 | -0.245946 ]
+the core::vector3df variable pt(85) contains: 
+	 X=33.006	 Y=9.64969	 Z=19.9858
+********************** At distance=87.5 **********************
+The HeadingMatrix variable named hdg(87.5) contains the following matrix:
+	 rgt  = [ 0.0378623 | -0.459588 | 0.887325 ]
+	 up  = [ -0.406475 | -0.818265 | -0.406475 ]
+	 fwd  = [ 0.490492 | -0.765087 | -0.417205 ]
+the core::vector3df variable pt(87.5) contains: 
+	 X=35.4007	 Y=8.67653	 Z=19.8813
+********************** At distance=90 **********************
+The HeadingMatrix variable named hdg(90) contains the following matrix:
+	 rgt  = [ -0.111215 | -0.669369 | 0.734559 ]
+	 up  = [ -0.590568 | -0.549962 | -0.590568 ]
+	 fwd  = [ 0.306181 | -0.726268 | -0.615457 ]
+the core::vector3df variable pt(90) contains: 
+	 X=37.1749	 Y=7.26625	 Z=19.5935
+********************** At distance=92.5 **********************
+The HeadingMatrix variable named hdg(92.5) contains the following matrix:
+	 rgt  = [ -0.323698 | -0.802119 | 0.501822 ]
+	 up  = [ -0.698547 | -0.155124 | -0.698547 ]
+	 fwd  = [ 0.161664 | -0.569465 | -0.805962 ]
+the core::vector3df variable pt(92.5) contains: 
+	 X=38.4217	 Y=5.60492	 Z=19.0293
+********************** At distance=95 **********************
+The HeadingMatrix variable named hdg(95) contains the following matrix:
+	 rgt  = [ -0.606092 | -0.738143 | 0.296306 ]
+	 up  = [ -0.677887 | 0.284497 | -0.677887 ]
+	 fwd  = [ 0.0850084 | -0.430507 | -0.898575 ]
+the core::vector3df variable pt(95) contains: 
+	 X=39.2341	 Y=3.87862	 Z=18.0956
+********************** At distance=97.5 **********************
+The HeadingMatrix variable named hdg(97.5) contains the following matrix:
+	 rgt  = [ -0.817059 | -0.555964 | 0.152704 ]
+	 up  = [ -0.540112 | 0.645413 | -0.540112 ]
+	 fwd  = [ 0.0416373 | -0.321063 | -0.946142 ]
+the core::vector3df variable pt(97.5) contains: 
+	 X=39.7052	 Y=2.27342	 Z=16.6996
+********************** At distance=100 **********************
+The HeadingMatrix variable named hdg(100) contains the following matrix:
+	 rgt  = [ -0.936088 | -0.347101 | 0.0570918 ]
+	 up  = [ -0.344766 | 0.873082 | -0.344766 ]
+	 fwd  = [ 0.0148727 | -0.201209 | -0.979436 ]
+the core::vector3df variable pt(100) contains: 
+	 X=39.9279	 Y=0.975394	 Z=14.748
+********************** At distance=102.5 **********************
+The HeadingMatrix variable named hdg(102.5) contains the following matrix:
+	 rgt  = [ -0.990586 | -0.136617 | 0.00870901 ]
+	 up  = [ -0.136521 | 0.981185 | -0.136521 ]
+	 fwd  = [ 0.00215641 | -0.0791827 | -0.996858 ]
+the core::vector3df variable pt(102.5) contains: 
+	 X=39.9954	 Y=0.170611	 Z=12.1479
+********************** At distance=105 **********************
+The HeadingMatrix variable named hdg(105) contains the following matrix:
+	 rgt  = [ -0.987025 | 0.075934 | -0.14148 ]
+	 up  = [ 0.0669847 | 0.995503 | 0.0669847 ]
+	 fwd  = [ 0.159489 | 0.565676 | -0.809058 ]
+the core::vector3df variable pt(105) contains: 
+	 X=40.0006	 Y=0.0428982	 Z=8.89425
+********************** At distance=107.5 **********************
+The HeadingMatrix variable named hdg(107.5) contains the following matrix:
+	 rgt  = [ -0.94525 | 0.310985 | -0.0989485 ]
+	 up  = [ 0.27447 | 0.921592 | 0.27447 ]
+	 fwd  = [ 0.303141 | 0.724414 | -0.619136 ]
+the core::vector3df variable pt(107.5) contains: 
+	 X=40.0366	 Y=0.638837	 Z=6.05385
+********************** At distance=110 **********************
+The HeadingMatrix variable named hdg(110) contains the following matrix:
+	 rgt  = [ -0.841706 | 0.539874 | 0.00821056 ]
+	 up  = [ 0.477626 | 0.737392 | 0.477626 ]
+	 fwd  = [ 0.486891 | 0.765499 | -0.420651 ]
+the core::vector3df variable pt(110) contains: 
+	 X=40.1964	 Y=1.79093	 Z=3.89343
+********************** At distance=112.5 **********************
+The HeadingMatrix variable named hdg(112.5) contains the following matrix:
+	 rgt  = [ -0.659026 | 0.729981 | 0.181142 ]
+	 up  = [ 0.641689 | 0.420084 | 0.641689 ]
+	 fwd  = [ 0.687438 | 0.682332 | -0.2487 ]
+the core::vector3df variable pt(112.5) contains: 
+	 X=40.5731	 Y=3.3131	 Z=2.31995
+********************** At distance=115 **********************
+The HeadingMatrix variable named hdg(115) contains the following matrix:
+	 rgt  = [ -0.40629 | 0.815579 | 0.412018 ]
+	 up  = [ 0.707098 | -0.00496622 | 0.707098 ]
+	 fwd  = [ 0.862302 | 0.491387 | -0.122374 ]
+the core::vector3df variable pt(115) contains: 
+	 X=41.2597	 Y=5.01928	 Z=1.24038
+********************** At distance=117.5 **********************
+The HeadingMatrix variable named hdg(117.5) contains the following matrix:
+	 rgt  = [ -0.239532 | 0.67837 | 0.694578 ]
+	 up  = [ 0.638881 | -0.428557 | 0.638881 ]
+	 fwd  = [ 0.917159 | 0.392791 | -0.0673336 ]
+the core::vector3df variable pt(117.5) contains: 
+	 X=42.3492	 Y=6.72339	 Z=0.561687
+********************** At distance=120 **********************
+The HeadingMatrix variable named hdg(120) contains the following matrix:
+	 rgt  = [ -0.112562 | 0.481951 | 0.868938 ]
+	 up  = [ 0.473353 | -0.742882 | 0.473353 ]
+	 fwd  = [ 0.959919 | 0.278645 | -0.0302006 ]
+the core::vector3df variable pt(120) contains: 
+	 X=43.9347	 Y=8.23937	 Z=0.190824
+********************** At distance=122.5 **********************
+The HeadingMatrix variable named hdg(122.5) contains the following matrix:
+	 rgt  = [ -0.034475 | 0.270773 | 0.962026 ]
+	 up  = [ 0.269832 | -0.924327 | 0.269832 ]
+	 fwd  = [ 0.987546 | 0.15708 | -0.00882251 ]
+the core::vector3df variable pt(122.5) contains: 
+	 X=46.1092	 Y=9.38113	 Z=0.0347594
+********************** At distance=125 **********************
+The HeadingMatrix variable named hdg(125) contains the following matrix:
+	 rgt  = [ -0.00181833 | 0.0624608 | 0.998046 ]
+	 up  = [ 0.0624523 | -0.996092 | 0.0624523 ]
+	 fwd  = [ 0.999347 | 0.0361388 | -0.000440981 ]
+the core::vector3df variable pt(125) contains: 
+	 X=48.9658	 Y=9.9626	 Z=0.000456374
+********************** At distance=127.5 **********************
+The HeadingMatrix variable named hdg(127.5) contains the following matrix:
+	 rgt  = [ 0.133616 | -0.160095 | 0.978016 ]
+	 up  = [ -0.141121 | -0.979883 | -0.141121 ]
+	 fwd  = [ 0.74465 | -0.634975 | -0.205675 ]
+the core::vector3df variable pt(127.5) contains: 
+	 X=52.2133	 Y=9.8182	 Z=-0.00512164
+********************** At distance=130 **********************
+The HeadingMatrix variable named hdg(130) contains the following matrix:
+	 rgt  = [ 0.0677867 | -0.39532 | 0.916039 ]
+	 up  = [ -0.349353 | -0.869428 | -0.349353 ]
+	 fwd  = [ 0.546325 | -0.753555 | -0.365627 ]
+the core::vector3df variable pt(130) contains: 
+	 X=54.798	 Y=9.00044	 Z=-0.0750112
+********************** At distance=132.5 **********************
+The HeadingMatrix variable named hdg(132.5) contains the following matrix:
+	 rgt  = [ -0.0628585 | -0.61551 | 0.785619 ]
+	 up  = [ -0.54402 | -0.638814 | -0.54402 ]
+	 fwd  = [ 0.354418 | -0.749635 | -0.55896 ]
+the core::vector3df variable pt(132.5) contains: 
+	 X=56.7363	 Y=7.69357	 Z=-0.302249
+********************** At distance=135 **********************
+The HeadingMatrix variable named hdg(135) contains the following matrix:
+	 rgt  = [ -0.258924 | -0.777177 | 0.573545 ]
+	 up  = [ -0.679803 | -0.275201 | -0.679803 ]
+	 fwd  = [ 0.197169 | -0.623819 | -0.75629 ]
+the core::vector3df variable pt(135) contains: 
+	 X=58.1211	 Y=6.08366	 Z=-0.779871
+********************** At distance=137.5 **********************
+The HeadingMatrix variable named hdg(137.5) contains the following matrix:
+	 rgt  = [ -0.52708 | -0.777371 | 0.343338 ]
+	 up  = [ -0.697433 | 0.164847 | -0.697433 ]
+	 fwd  = [ 0.100372 | -0.458134 | -0.883198 ]
+the core::vector3df variable pt(137.5) contains: 
+	 X=59.0455	 Y=4.35679	 Z=-1.60091
+********************** At distance=140 **********************
+The HeadingMatrix variable named hdg(140) contains the following matrix:
+	 rgt  = [ -0.76868 | -0.611304 | 0.18825 ]
+	 up  = [ -0.587064 | 0.557415 | -0.587064 ]
+	 fwd  = [ 0.0519892 | -0.353047 | -0.93416 ]
+the core::vector3df variable pt(140) contains: 
+	 X=59.6025	 Y=2.69901	 Z=-2.85841
+********************** At distance=142.5 **********************
+The HeadingMatrix variable named hdg(142.5) contains the following matrix:
+	 rgt  = [ -0.910341 | -0.406276 | 0.0788642 ]
+	 up  = [ -0.401983 | 0.822691 | -0.401983 ]
+	 fwd  = [ 0.0208156 | -0.235265 | -0.971708 ]
+the core::vector3df variable pt(142.5) contains: 
+	 X=59.8853	 Y=1.29642	 Z=-4.64541
+********************** At distance=145 **********************
+The HeadingMatrix variable named hdg(145) contains the following matrix:
+	 rgt  = [ -0.980663 | -0.194898 | 0.01777 ]
+	 up  = [ -0.194593 | 0.961388 | -0.194593 ]
+	 fwd  = [ 0.00446321 | -0.113048 | -0.99358 ]
+the core::vector3df variable pt(145) contains: 
+	 X=59.9868	 Y=0.335085	 Z=-7.05493
+********************** At distance=147.5 **********************
+The HeadingMatrix variable named hdg(147.5) contains the following matrix:
+	 rgt  = [ -0.989815 | 0.0117126 | -0.14188 ]
+	 up  = [ 0.0103485 | 0.999893 | 0.0103485 ]
+	 fwd  = [ 0.12837 | 0.504296 | -0.853936 ]
+the core::vector3df variable pt(147.5) contains: 
+	 X=60	 Y=0.00106328	 Z=-10.1779
+********************** At distance=150 **********************
+The HeadingMatrix variable named hdg(150) contains the following matrix:
+	 rgt  = [ -0.96238 | 0.245056 | -0.117352 ]
+	 up  = [ 0.216101 | 0.952156 | 0.216101 ]
+	 fwd  = [ 0.258285 | 0.691055 | -0.675079 ]
+the core::vector3df variable pt(150) contains: 
+	 X=60.018	 Y=0.40834	 Z=-13.2249
+********************** At distance=152.5 **********************
+The HeadingMatrix variable named hdg(152.5) contains the following matrix:
+	 rgt  = [ -0.877955 | 0.477909 | -0.0282592 ]
+	 up  = [ 0.422743 | 0.801609 | 0.422743 ]
+	 fwd  = [ 0.432568 | 0.766599 | -0.474563 ]
+the core::vector3df variable pt(152.5) contains: 
+	 X=60.1339	 Y=1.42376	 Z=-15.566
+********************** At distance=155 **********************
+The HeadingMatrix variable named hdg(155) contains the following matrix:
+	 rgt  = [ -0.718541 | 0.683943 | 0.12618 ]
+	 up  = [ 0.603009 | 0.522264 | 0.603009 ]
+	 fwd  = [ 0.631762 | 0.717738 | -0.292795 ]
+the core::vector3df variable pt(155) contains: 
+	 X=60.4406	 Y=2.86126	 Z=-17.2941
+********************** At distance=157.5 **********************
+The HeadingMatrix variable named hdg(157.5) contains the following matrix:
+	 rgt  = [ -0.480425 | 0.807181 | 0.343002 ]
+	 up  = [ 0.702038 | 0.119522 | 0.702038 ]
+	 fwd  = [ 0.819549 | 0.55244 | -0.152148 ]
+the core::vector3df variable pt(157.5) contains: 
+	 X=61.0312	 Y=4.53476	 Z=-18.5023
+********************** At distance=160 **********************
+The HeadingMatrix variable named hdg(160) contains the following matrix:
+	 rgt  = [ -0.283139 | 0.725523 | 0.627254 ]
+	 up  = [ 0.670408 | -0.317974 | 0.670408 ]
+	 fwd  = [ 0.902874 | 0.422237 | -0.0808342 ]
+the core::vector3df variable pt(160) contains: 
+	 X=61.9988	 Y=6.25818	 Z=-19.2837
+********************** At distance=162.5 **********************
+The HeadingMatrix variable named hdg(162.5) contains the following matrix:
+	 rgt  = [ -0.143132 | 0.539563 | 0.82969 ]
+	 up  = [ 0.525655 | -0.66886 | 0.525655 ]
+	 fwd  = [ 0.949402 | 0.311646 | -0.0388856 ]
+the core::vector3df variable pt(162.5) contains: 
+	 X=63.4364	 Y=7.84545	 Z=-19.7312
+********************** At distance=165 **********************
+The HeadingMatrix variable named hdg(165) contains the following matrix:
+	 rgt  = [ -0.0514879 | 0.329954 | 0.942592 ]
+	 up  = [ 0.328024 | -0.88589 | 0.328024 ]
+	 fwd  = [ 0.981438 | 0.191314 | -0.0133598 ]
+the core::vector3df variable pt(165) contains: 
+	 X=65.4369	 Y=9.11051	 Z=-19.9379
+********************** At distance=167.5 **********************
+The HeadingMatrix variable named hdg(167.5) contains the following matrix:
+	 rgt  = [ -0.0067023 | 0.119867 | 0.992767 ]
+	 up  = [ 0.119803 | -0.985543 | 0.119803 ]
+	 fwd  = [ 0.997584 | 0.0694517 | -0.00165078 ]
+the core::vector3df variable pt(167.5) contains: 
+	 X=68.0936	 Y=9.86727	 Z=-19.9968
+********************** At distance=170 **********************
+The HeadingMatrix variable named hdg(170) contains the following matrix:
+	 rgt  = [ 0.140441 | -0.0947143 | 0.985548 ]
+	 up  = [ -0.0835275 | -0.992999 | -0.0835275 ]
+	 fwd  = [ 0.795177 | -0.582272 | -0.169271 ]
+the core::vector3df variable pt(170) contains: 
+	 X=71.3629	 Y=9.934	 Z=-20.0011
+********************** At distance=172.5 **********************
+The HeadingMatrix variable named hdg(172.5) contains the following matrix:
+	 rgt  = [ 0.0926811 | -0.330008 | 0.939417 ]
+	 up  = [ -0.291343 | -0.911174 | -0.291343 ]
+	 fwd  = [ 0.602798 | -0.732335 | -0.316733 ]
+the core::vector3df variable pt(172.5) contains: 
+	 X=74.1449	 Y=9.28617	 Z=-20.0436
+********************** At distance=175 **********************
+The HeadingMatrix variable named hdg(175) contains the following matrix:
+	 rgt  = [ -0.0197247 | -0.557334 | 0.830054 ]
+	 up  = [ -0.493027 | -0.716832 | -0.493027 ]
+	 fwd  = [ 0.405431 | -0.763351 | -0.502912 ]
+the core::vector3df variable pt(175) contains: 
+	 X=76.2544	 Y=8.09724	 Z=-20.2175
+********************** At distance=177.5 **********************
+The HeadingMatrix variable named hdg(177.5) contains the following matrix:
+	 rgt  = [ -0.197957 | -0.74188 | 0.640646 ]
+	 up  = [ -0.651488 | -0.388751 | -0.651488 ]
+	 fwd  = [ 0.236594 | -0.670419 | -0.703251 ]
+the core::vector3df variable pt(177.5) contains: 
+	 X=77.7845	 Y=6.55327	 Z=-20.6158
+********************** At distance=180 **********************
+The HeadingMatrix variable named hdg(180) contains the following matrix:
+	 rgt  = [ -0.439083 | -0.808399 | 0.392042 ]
+	 up  = [ -0.706509 | 0.041112 | -0.706509 ]
+	 fwd  = [ 0.117216 | -0.48417 | -0.867087 ]
+the core::vector3df variable pt(180) contains: 
+	 X=78.8282	 Y=4.84034	 Z=-21.3316
+********************** At distance=182.5 **********************
+The HeadingMatrix variable named hdg(182.5) contains the following matrix:
+	 rgt  = [ -0.712423 | -0.663846 | 0.227512 ]
+	 up  = [ -0.628252 | 0.458911 | -0.628252 ]
+	 fwd  = [ 0.0636896 | -0.384034 | -0.92112 ]
+the core::vector3df variable pt(182.5) contains: 
+	 X=79.4785	 Y=3.14453	 Z=-22.4577
+********************** At distance=185 **********************
+The HeadingMatrix variable named hdg(185) contains the following matrix:
+	 rgt  = [ -0.879093 | -0.465067 | 0.10444 ]
+	 up  = [ -0.457653 | 0.762304 | -0.457653 ]
+	 fwd  = [ 0.0279192 | -0.268978 | -0.962742 ]
+the core::vector3df variable pt(185) contains: 
+	 X=79.8285	 Y=1.6519	 Z=-24.0874
+********************** At distance=187.5 **********************
+The HeadingMatrix variable named hdg(187.5) contains the following matrix:
+	 rgt  = [ -0.966814 | -0.253688 | 0.0302195 ]
+	 up  = [ -0.25294 | 0.933832 | -0.25294 ]
+	 fwd  = [ 0.00770293 | -0.147176 | -0.98908 ]
+the core::vector3df variable pt(187.5) contains: 
+	 X=79.9713	 Y=0.548536	 Z=-26.3136
+********************** At distance=190 **********************
+The HeadingMatrix variable named hdg(190) contains the following matrix:
+	 rgt  = [ -0.998941 | -0.0459959 | 0.000986487 ]
+	 up  = [ -0.0459926 | 0.997882 | -0.0459926 ]
+	 fwd  = [ 0.000237532 | -0.0265984 | -0.999646 ]
+the core::vector3df variable pt(190) contains: 
+	 X=79.9998	 Y=0.0205038	 Z=-29.2294
+********************** At distance=192.5 **********************
+The HeadingMatrix variable named hdg(192.5) contains the following matrix:
+	 rgt  = [ -0.975106 | 0.179124 | -0.130699 ]
+	 up  = [ 0.157895 | 0.97475 | 0.157895 ]
+	 fwd  = [ 0.216944 | 0.648781 | -0.729396 ]
+the core::vector3df variable pt(192.5) contains: 
+	 X=80.0071	 Y=0.225327	 Z=-32.4486
+********************** At distance=195 **********************
+The HeadingMatrix variable named hdg(195) contains the following matrix:
+	 rgt  = [ -0.908297 | 0.414052 | -0.0596429 ]
+	 up  = [ 0.366004 | 0.855618 | 0.366004 ]
+	 fwd  = [ 0.380297 | 0.757896 | -0.530063 ]
+the core::vector3df variable pt(195) contains: 
+	 X=80.0863	 Y=1.08956	 Z=-34.9776
+********************** At distance=197.5 **********************
+The HeadingMatrix variable named hdg(197.5) contains the following matrix:
+	 rgt  = [ -0.771527 | 0.631603 | 0.0763167 ]
+	 up  = [ 0.55801 | 0.614206 | 0.55801 ]
+	 fwd  = [ 0.575304 | 0.743856 | -0.340153 ]
+the core::vector3df variable pt(197.5) contains: 
+	 X=80.3303	 Y=2.42785	 Z=-36.8676
+********************** At distance=200 **********************
+The HeadingMatrix variable named hdg(200) contains the following matrix:
+	 rgt  = [ -0.553198 | 0.785534 | 0.277323 ]
+	 up  = [ 0.686263 | 0.241012 | 0.686263 ]
+	 fwd  = [ 0.771063 | 0.608841 | -0.18648 ]
+the core::vector3df variable pt(200) contains: 
+	 X=80.8323	 Y=4.05413	 Z=-38.2117
+********************** At distance=202.5 **********************
+The HeadingMatrix variable named hdg(202.5) contains the following matrix:
+	 rgt  = [ -0.329509 | 0.766778 | 0.550886 ]
+	 up  = [ 0.692817 | -0.200023 | 0.692817 ]
+	 fwd  = [ 0.887729 | 0.450295 | -0.0957746 ]
+the core::vector3df variable pt(202.5) contains: 
+	 X=81.6851	 Y=5.78234	 Z=-39.1029
+********************** At distance=205 **********************
+The HeadingMatrix variable named hdg(205) contains the following matrix:
+	 rgt  = [ -0.177572 | 0.595529 | 0.783462 ]
+	 up  = [ 0.574002 | -0.583989 | 0.574002 ]
+	 fwd  = [ 0.93774 | 0.343884 | -0.0488565 ]
+the core::vector3df variable pt(205) contains: 
+	 X=82.982	 Y=7.42639	 Z=-39.6344
+********************** At distance=207.5 **********************
+The HeadingMatrix variable named hdg(207.5) contains the following matrix:
+	 rgt  = [ -0.0721758 | 0.389172 | 0.918333 ]
+	 up  = [ 0.385547 | -0.838276 | 0.385547 ]
+	 fwd  = [ 0.974073 | 0.225435 | -0.0189785 ]
+the core::vector3df variable pt(207.5) contains: 
+	 X=84.8159	 Y=8.80021	 Z=-39.899
+********************** At distance=210 **********************
+The HeadingMatrix variable named hdg(210) contains the following matrix:
+	 rgt  = [ -0.0148056 | 0.177971 | 0.983924 ]
+	 up  = [ 0.177745 | -0.967891 | 0.177745 ]
+	 fwd  = [ 0.994652 | 0.103213 | -0.003702 ]
+the core::vector3df variable pt(210) contains: 
+	 X=87.2798	 Y=9.71773	 Z=-39.9899
+********************** At distance=212.5 **********************
+The HeadingMatrix variable named hdg(212.5) contains the following matrix:
+	 rgt  = [ 0.142268 | -0.0301807 | 0.989368 ]
+	 up  = [ -0.026651 | -0.999289 | -0.026651 ]
+	 fwd  = [ 0.841472 | -0.522658 | -0.136944 ]
+the core::vector3df variable pt(212.5) contains: 
+	 X=90.4528	 Y=9.99303	 Z=-40
+********************** At distance=215 **********************
+The HeadingMatrix variable named hdg(215) contains the following matrix:
+	 rgt  = [ 0.112545 | -0.264155 | 0.957891 ]
+	 up  = [ -0.232992 | -0.944155 | -0.232992 ]
+	 fwd  = [ 0.659005 | -0.701651 | -0.27092 ]
+the core::vector3df variable pt(215) contains: 
+	 X=93.4392	 Y=9.52965	 Z=-40.0225
+********************** At distance=217.5 **********************
+The HeadingMatrix variable named hdg(217.5) contains the following matrix:
+	 rgt  = [ 0.018229 | -0.496072 | 0.86809 ]
+	 up  = [ -0.438858 | -0.784097 | -0.438858 ]
+	 fwd  = [ 0.458768 | -0.767291 | -0.448104 ]
+the core::vector3df variable pt(217.5) contains: 
+	 X=95.7273	 Y=8.47318	 Z=-40.1504
+********************** At distance=220 **********************
+The HeadingMatrix variable named hdg(220) contains the following matrix:
+	 rgt  = [ -0.141573 | -0.697991 | 0.701972 ]
+	 up  = [ -0.614921 | -0.493705 | -0.614921 ]
+	 fwd  = [ 0.279683 | -0.708427 | -0.648003 ]
+the core::vector3df variable pt(220) contains: 
+	 X=97.4099	 Y=7.00968	 Z=-40.4766
+********************** At distance=222.5 **********************
+The HeadingMatrix variable named hdg(222.5) contains the following matrix:
+	 rgt  = [ -0.362502 | -0.811218 | 0.458823 ]
+	 up  = [ -0.704628 | -0.0836653 | -0.704628 ]
+	 fwd  = [ 0.142981 | -0.534887 | -0.832738 ]
+the core::vector3df variable pt(222.5) contains: 
+	 X=98.5801	 Y=5.32523	 Z=-41.0942
+********************** At distance=225 **********************
+The HeadingMatrix variable named hdg(225) contains the following matrix:
+	 rgt  = [ -0.647658 | -0.71241 | 0.270205 ]
+	 up  = [ -0.662162 | 0.35083 | -0.662162 ]
+	 fwd  = [ 0.0767811 | -0.41385 | -0.907101 ]
+the core::vector3df variable pt(225) contains: 
+	 X=99.331	 Y=3.6059	 Z=-42.0964
+********************** At distance=227.5 **********************
+The HeadingMatrix variable named hdg(227.5) contains the following matrix:
+	 rgt  = [ -0.841736 | -0.523026 | 0.133884 ]
+	 up  = [ -0.510867 | 0.691397 | -0.510867 ]
+	 fwd  = [ 0.0362424 | -0.302165 | -0.952566 ]
+the core::vector3df variable pt(227.5) contains: 
+	 X=99.7556	 Y=2.03777	 Z=-43.576
+********************** At distance=230 **********************
+The HeadingMatrix variable named hdg(230) contains the following matrix:
+	 rgt  = [ -0.948692 | -0.31281 | 0.046191 ]
+	 up  = [ -0.311226 | 0.897929 | -0.311226 ]
+	 fwd  = [ 0.0119382 | -0.18141 | -0.983335 ]
+the core::vector3df variable pt(230) contains: 
+	 X=99.9469	 Y=0.806906	 Z=-45.6262
+********************** At distance=232.5 **********************
+The HeadingMatrix variable named hdg(232.5) contains the following matrix:
+	 rgt  = [ -0.994651 | -0.103175 | 0.00496064 ]
+	 up  = [ -0.103135 | 0.989306 | -0.103135 ]
+	 fwd  = [ 0.00122027 | -0.0597581 | -0.998212 ]
+the core::vector3df variable pt(232.5) contains: 
+	 X=99.998	 Y=0.0993827	 Z=-48.3399
+********************** At distance=235 **********************
+The HeadingMatrix variable named hdg(235) contains the following matrix:
+	 rgt  = [ -0.983761 | 0.113566 | -0.138984 ]
+	 up  = [ 0.100131 | 0.989923 | 0.100131 ]
+	 fwd  = [ 0.179397 | 0.598288 | -0.78094 ]
+the core::vector3df variable pt(235) contains: 
+	 X=100.002	 Y=0.0938545	 Z=-51.6151
+********************** At distance=237.5 **********************
+The HeadingMatrix variable named hdg(237.5) contains the following matrix:
+	 rgt  = [ -0.933174 | 0.348987 | -0.0859942 ]
+	 up  = [ 0.308189 | 0.900022 | 0.308189 ]
+	 fwd  = [ 0.330585 | 0.739463 | -0.586437 ]
+the core::vector3df variable pt(237.5) contains: 
+	 X=100.052	 Y=0.79236	 Z=-54.3392
+********************** At distance=240 **********************
+The HeadingMatrix variable named hdg(240) contains the following matrix:
+	 rgt  = [ -0.817865 | 0.574537 | 0.0316733 ]
+	 up  = [ 0.508165 | 0.695368 | 0.508165 ]
+	 fwd  = [ 0.519038 | 0.760383 | -0.390406 ]
+the core::vector3df variable pt(240) contains: 
+	 X=100.24	 Y=2.01692	 Z=-56.3984
+********************** At distance=242.5 **********************
+The HeadingMatrix variable named hdg(242.5) contains the following matrix:
+	 rgt  = [ -0.621778 | 0.75306 | 0.215159 ]
+	 up  = [ 0.660595 | 0.356692 | 0.660595 ]
+	 fwd  = [ 0.71888 | 0.657783 | -0.224795 ]
+the core::vector3df variable pt(242.5) contains: 
+	 X=100.661	 Y=3.58147	 Z=-57.8857
+********************** At distance=245 **********************
+The HeadingMatrix variable named hdg(245) contains the following matrix:
+	 rgt  = [ -0.377837 | 0.800373 | 0.465448 ]
+	 up  = [ 0.704998 | -0.077171 | 0.704998 ]
+	 fwd  = [ 0.87182 | 0.476806 | -0.112188 ]
+the core::vector3df variable pt(245) contains: 
+	 X=101.406	 Y=5.29993	 Z=-58.8941
+********************** At distance=247.5 **********************
+The HeadingMatrix variable named hdg(247.5) contains the following matrix:
+	 rgt  = [ -0.215779 | 0.648991 | 0.729554 ]
+	 up  = [ 0.617012 | -0.488459 | 0.617012 ]
+	 fwd  = [ 0.924998 | 0.375178 | -0.0601625 ]
+the core::vector3df variable pt(247.5) contains: 
+	 X=102.57	 Y=6.98623	 Z=-59.5167
+********************** At distance=250 **********************
+The HeadingMatrix variable named hdg(250) contains the following matrix:
+	 rgt  = [ -0.0966418 | 0.448115 | 0.888737 ]
+	 up  = [ 0.441749 | -0.780843 | 0.441749 ]
+	 fwd  = [ 0.965463 | 0.259266 | -0.0257411 ]
+the core::vector3df variable pt(250) contains: 
+	 X=104.244	 Y=8.45429	 Z=-59.8465
+********************** At distance=252.5 **********************
+The HeadingMatrix variable named hdg(252.5) contains the following matrix:
+	 rgt  = [ -0.0262605 | 0.23663 | 0.971245 ]
+	 up  = [ 0.236042 | -0.942639 | 0.236042 ]
+	 fwd  = [ 0.99051 | 0.13728 | -0.00666503 ]
+the core::vector3df variable pt(252.5) contains: 
+	 X=106.523	 Y=9.51804	 Z=-59.9766
+********************** At distance=255 **********************
+The HeadingMatrix variable named hdg(255) contains the following matrix:
+	 rgt  = [ -0.000415414 | 0.0296028 | 0.999562 ]
+	 up  = [ 0.0296021 | -0.999123 | 0.0296021 ]
+	 fwd  = [ 0.999854 | 0.0171105 | -9.12053e-05 ]
+the core::vector3df variable pt(255) contains: 
+	 X=109.498	 Y=9.99141	 Z=-60
+********************** At distance=257.5 **********************
+The HeadingMatrix variable named hdg(257.5) contains the following matrix:
+	 rgt  = [ 0.127356 | -0.198184 | 0.971856 ]
+	 up  = [ -0.174707 | -0.968997 | -0.174707 ]
+	 fwd  = [ 0.713909 | -0.661898 | -0.22853 ]
+the core::vector3df variable pt(257.5) contains: 
+	 X=112.679	 Y=9.72682	 Z=-60.0096
+********************** At distance=260 **********************
+The HeadingMatrix variable named hdg(260) contains the following matrix:
+	 rgt  = [ 0.0510797 | -0.432685 | 0.900097 ]
+	 up  = [ -0.382568 | -0.841002 | -0.382568 ]
+	 fwd  = [ 0.513876 | -0.76142 | -0.395184 ]
+the core::vector3df variable pt(260) contains: 
+	 X=115.153	 Y=8.81734	 Z=-60.0987
+********************** At distance=262.5 **********************
+The HeadingMatrix variable named hdg(262.5) contains the following matrix:
+	 rgt  = [ -0.090214 | -0.647302 | 0.756876 ]
+	 up  = [ -0.571596 | -0.588691 | -0.571596 ]
+	 fwd  = [ 0.326131 | -0.737273 | -0.591665 ]
+the core::vector3df variable pt(262.5) contains: 
+	 X=116.995	 Y=7.44884	 Z=-60.3601
+********************** At distance=265 **********************
+The HeadingMatrix variable named hdg(265) contains the following matrix:
+	 rgt  = [ -0.296018 | -0.792982 | 0.532496 ]
+	 up  = [ -0.691891 | -0.206331 | -0.691891 ]
+	 fwd  = [ 0.176126 | -0.593236 | -0.785526 ]
+the core::vector3df variable pt(265) contains: 
+	 X=118.299	 Y=5.8074	 Z=-60.8869
+********************** At distance=267.5 **********************
+The HeadingMatrix variable named hdg(267.5) contains the following matrix:
+	 rgt  = [ -0.573929 | -0.755544 | 0.315847 ]
+	 up  = [ -0.687341 | 0.234785 | -0.687341 ]
+	 fwd  = [ 0.0913007 | -0.442326 | -0.892195 ]
+the core::vector3df variable pt(267.5) contains: 
+	 X=119.158	 Y=4.07909	 Z=-61.7723
+********************** At distance=270 **********************
+The HeadingMatrix variable named hdg(270) contains the following matrix:
+	 rgt  = [ -0.797601 | -0.579547 | 0.167209 ]
+	 up  = [ -0.560494 | 0.609667 | -0.560494 ]
+	 fwd  = [ 0.0458358 | -0.334643 | -0.94123 ]
+the core::vector3df variable pt(270) contains: 
+	 X=119.664	 Y=2.44997	 Z=-63.1091
+********************** At distance=272.5 **********************
+The HeadingMatrix variable named hdg(272.5) contains the following matrix:
+	 rgt  = [ -0.925879 | -0.372045 | 0.0658044 ]
+	 up  = [ -0.369002 | 0.853039 | -0.369002 ]
+	 fwd  = [ 0.0172366 | -0.215581 | -0.976334 ]
+the core::vector3df variable pt(272.5) contains: 
+	 X=119.912	 Y=1.10614	 Z=-64.9905
+********************** At distance=275 **********************
+The HeadingMatrix variable named hdg(275) contains the following matrix:
+	 rgt  = [ -0.986865 | -0.16109 | 0.0121227 ]
+	 up  = [ -0.160927 | 0.973758 | -0.160927 ]
+	 fwd  = [ 0.00301638 | -0.0934035 | -0.995624 ]
+the core::vector3df variable pt(275) contains: 
+	 X=119.992	 Y=0.233649	 Z=-67.5094
