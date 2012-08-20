@@ -417,7 +417,7 @@ void Track::CreateATestTrack()
 			for(int i=0;i<2;i++)
 				{
 				path.push_back(lturn);
-				path.back().ScaleSpline(1.75);
+				path.back().ScaleSpline(2.05);
 				}
 			path.push_back(str8);
 			path.back().ScaleSpline(5.0);

@@ -24,5 +24,18 @@
 	+	TODO: apply the new banking values to GetHeadingAt function somehow.
 	+	TODO: fix the corkscrew up vectors.  They look off...
 	+	TODO: Distance2Scale in PathSpline
+2012:Aug:19:AM:03:02
+	+	finally added the project to github under "DreamCoasterRider"
+	+	TODO: need to add supports next.  These should be easy:
+		[]	just check intervals along the track for up vectors have positive Y values.
+		[]	on positive Y-valued up vectors, move DOWN the up vector a little (it should 
+		   touch the track, and add a vertical support tube mesh from that point to the 
+		   ground.
+		[] Just put all the code in a TrackMesh::AddSupport() function with progress point
+			and color as the primary arguments. 
+	+	added a sky bowl.
+	+	added a flat terrain.  both were easy to do in irrlicht.
+	+	it is already looking like a real track.  gotta keep going though.
+
 	
 	

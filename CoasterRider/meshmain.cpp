@@ -67,7 +67,7 @@ int main(int argc, char* argv[])
 	ISceneNode*sky;
 	sky=smgr->addSkyDomeSceneNode(driver->getTexture("./textures/skydome.jpg"));
 	sky->setPosition(vector3df(0.0,0.0,0.0));
-	sky->setScale(vector3df(20.0,20.0,20.0));
+	sky->setScale(vector3df(10.0,10.0,10.0));
 
 	//add a terrain:
 	#if 0
@@ -91,7 +91,7 @@ int main(int argc, char* argv[])
 				,-1
 				,vector3df(0.0,0.0,0.0)
 				,vector3df(0.0,0.0,0.0)
-				,vector3df(20.0,2.0,20.0)
+				,vector3df(10.0,10.0,10.0)
 				,video::SColor(255,67,100,11)	//green
 				////,video::SColor(255,67,11,100)	//purple
 				);
@@ -109,8 +109,12 @@ int main(int argc, char* argv[])
 	Track track;
 	////track.load("track.xml");	//load a track
 	track.CreateATestTrack();
-	TrackMesh mesh(&track);
+	TrackMesh mesh(&track,smgr->getSceneCollisionManager(),driver);
+
+	driver->beginScene(true, true, SColor(0xff000000));
+	////smgr->drawAll();
 	mesh.init(&track,1.0,driver);
+	driver->endScene();
 
 	// Add the mesh to the scene graph
 	IMeshSceneNode* meshnode = smgr -> addMeshSceneNode(mesh.mesh);
@@ -128,29 +132,15 @@ int main(int argc, char* argv[])
 	ILightSceneNode *node = smgr->addLightSceneNode(0, vector3df(0,0,1000000),
 									SColorf(1.0f,1.0f,1.0f,1.0f), 1.0f);
 	node->setLightType(ELT_DIRECTIONAL);
-	node->setRotation(vector3df(90.0,0.0,0.0));
-	node->enableCastShadow(true);
-	////node->setRotation(vector3df(270.0,0.0,0.0));
-	////node->getLightData().AmbientColor.set(0.1,0.1,0.1);
-	////node->getLightData().AmbientColor.set(255,64,0,0);
-	////node->getLightData().AmbientColor.set(1.0,0.0,0.0);
-	////ECM_AMBIENT
+	node->setRotation(vector3df(60.0,0.0,0.0));
+	/*
+	ILightSceneNode *backlight = smgr->addLightSceneNode(0, vector3df(0,0,1000000),
+									SColorf(1.0f,0.1f,0.1f,0.1f), 1.0f);
+	backlight->setLightType(ELT_DIRECTIONAL);
+	backlight->setRotation(vector3df(-60.0,0.0,0.0));
+	*/
 
-	#if 0
-	if(node)
-		{
-		node->getLightData().Attenuation.set(0.f, 1.f/500.f, 0.f);
-		ISceneNodeAnimator* anim = smgr->createFlyCircleAnimator(vector3df(0,150,0),250.0f);
-
-		if(anim)
-			{
-			node->addAnimator(anim);
-			anim->drop();
-			}
-		}
-	#endif
-
-	#define do_FPS 1
+	#define do_FPS 0
 	#if do_FPS
 		ICameraSceneNode* camera = smgr->
 			addCameraSceneNodeFPS

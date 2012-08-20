@@ -1,5 +1,7 @@
 #include "TrackMesh.h"
 #include "Track.h"
+#include "LadderTrackMeshPatternFactory.h"
+#include "SkinnyTubeSupportMeshFactory.h"
 
 #include <cassert>
 #include <cmath>
@@ -43,10 +45,13 @@ void TrackMesh::init(Track*t,f32 _scale,IVideoDriver*driver)
 		const u32 maxprim=driver->getMaximalPrimitiveCount();
 		seglen=1.0*scale;
 		runglen=1.0*scale;
-		SMeshBuffer*pat=
-			CreateLadderPattern(seglen,runglen,scale*0.1,scale*0.075
-									  ,SColor(255,255,0,0),SColor(255,0,0,255)
-									  ,driver);
+		////TrackMeshPatternFactory*factory;
+		////	LadderTrackMeshPatternFactory::getinstance();
+		TrackMeshPattern*pat=
+			LadderTrackMeshPatternFactory::getinstance()->create(
+									 seglen,runglen,scale*0.1,scale*0.075
+									,SColor(255,255,0,0),SColor(255,0,0,255)
+									,driver);
 
 		static bool segsinited=false;
 		amtsegs=(int)(t->CalcTrackLen(0.25)+0.99f/seglen);
@@ -61,9 +66,9 @@ void TrackMesh::init(Track*t,f32 _scale,IVideoDriver*driver)
 			if(mesh->getMeshBufferCount()<amtsegs)
 				{
 				mesh->addMeshBuffer(segary[i]);
-				mesh->getMeshBuffer(i)->recalculateBoundingBox();
 				}
 		ConformMeshToTrackSpline();
+		RecalculateAllBoundingBoxes();
 		mesh->recalculateBoundingBox();
 		}
 	}
@@ -78,157 +83,17 @@ void TrackMesh::init(Track*t,f32 _scale,IVideoDriver*driver)
 		\return the ladder track segment.
 #########################################################*/
 
-SMeshBuffer*TrackMesh::MakeSegFromPattern(SMeshBuffer*pat,int pos)
+TrackMeshPattern*TrackMesh::MakeSegFromPattern(TrackMeshPattern*pat,int pos)
 	{
 	f32 fpos;
 	fpos=pos;
 	fpos*=seglen;
-	SMeshBuffer*seg=new SMeshBuffer();
+	TrackMeshPattern*seg=new TrackMeshPattern();
 	if(seg==0||pat==0)	return 0;
 	*seg=*pat;
 	for(int i=0;i<seg->getVertexCount();i++)
 		seg->Vertices[i].Pos+=vector3df(0.0f,0.0f,fpos);
 	return seg;
-	}
-
-/**########################################################
-	CreateLadderPattern()
-		Actions: create a ladder track mesh pattern.
-		Arguments:
-			\param raillen - the length of the rail (meters?).
-			\param rungwidth - the length of the rung/crossbar.
-			\param railrad - the radius of the rail's tube.
-			\param rungRad - the radius of the rung's tube.
-			\param patcolor1 - the pattern color.
-			\param patcolor2 - the pattern color.
-			\param driver - the video driver.
-		\return a pointer to the SMeshBuffer containing the mesh
-		   pattern.
-#########################################################*/
-
-SMeshBuffer*TrackMesh::CreateLadderPattern( f32 raillen,f32 rungwidth
-   												    ,f32 railrad,f32 rungRad
-													    ,SColor patcolor1
-													    ,SColor patcolor2
-													    ,IVideoDriver*driver)
-	{
-	static SMeshBuffer*pat=0;
-
-	const f32 dpiover6=2*3.1415927/6;
-	static f32 ndpiover6[6];
-
-	if(pat==0)
-		{
-		//init angles:
-			////static bool anginit=false;
-			////if(!anginit)
-				////{
-				for(int i=0;i<6;i++)
-					{
-					f32 fi=i;
-					ndpiover6[i]=fi*dpiover6;
-					}
-				////anginit=true;
-				////}
-		pat=new SMeshBuffer();
-		}
-	pat->getMaterial().SpecularColor=SColor(255,255,255,255);
-	pat->getMaterial().Shininess=20.0f;
-	u32 maxprim=driver->getMaximalPrimitiveCount();
-	assert(maxprim>=36);
-	pat->Vertices.set_used(36);
-	//initialize j to one:
-		int j=0,k=18;
-	//set up x,y,z
-		f32 x,y,z;
-	//make rail vertices:
-		for(f32 cx=-rungwidth/2;cx<=rungwidth/2;cx+=rungwidth)
-		////if(1)
-			{
-			////f32 cx=-rungwidth/2;
-			f32 cz=0;
-			f32 cz_back=raillen;
-			f32 cy=0;
-			for(int i=0;i<6;i++)
-				{
-				x=cx+railrad*cosf(ndpiover6[i]);
-				y=cy+railrad*sinf(ndpiover6[i]);
-				z=cz;
-					{
-					S3DVertex&v=pat->Vertices[j];
-					v.Pos.set(x,y,z);
-					v.Normal.set(x-cx,y-cy,0.0);
-					v.Normal.normalize();
-					v.Color=patcolor1;
-					v.TCoords.set(0.0,0.0);
-					}
-				z=cz_back;
-					{
-					S3DVertex&v=pat->Vertices[k];
-					v.Pos.set(x,y,z);
-					v.Normal.set(x-cx,y-cy,0.0);
-					v.Normal.normalize();
-					v.Color=patcolor1;
-					v.TCoords.set(0.0,0.0);
-					}
-				j++;
-				k++;
-				}
-			}
-	//make rung vertices:
-		f32 cx=-rungwidth/2.f;
-		f32 cx_right=rungwidth/2.f;
-		f32 cz=raillen/2.f;
-
-		f32 cy=0;
-		for(int i=0;i<6;i++)
-			{
-			y=cy+rungRad*sinf(ndpiover6[5-i]);
-			z=cz+rungRad*cosf(ndpiover6[5-i]);
-			x=cx;
-				{
-				S3DVertex&v=pat->Vertices[j];
-				v.Pos.set(x,y,z);
-				v.Normal.set(0.0,y-cy,z-cz);
-				v.Normal.normalize();
-				v.Color=patcolor2;
-				v.TCoords.set(0.0,0.0);
-				}
-			x=cx_right;
-				{
-				S3DVertex&v=pat->Vertices[k];
-				v.Pos.set(x,y,z);
-				v.Normal.set(0.0,y-cy,z-cz);
-				v.Normal.normalize();
-				v.Color=patcolor2;
-				v.TCoords.set(0.0,0.0);
-				}
-			j++;
-			k++;
-			}
-
-
-	//make faces:
-		{
-		pat->Indices.set_used(6*3*6);
-		int j=0;
-		for(int i=0;i<18;i++)
-			{
-			int ilat;
-			if(i%6<5)	//no wrap-around
-				ilat=1;
-			else	//wrap-around
-				ilat=-5;
-			pat->Indices[j++]=i;
-			pat->Indices[j++]=i+18;
-			pat->Indices[j++]=i+ilat;
-			pat->Indices[j++]=i+ilat;
-			pat->Indices[j++]=i+18+ilat;
-			pat->Indices[j++]=i+18;
-			}
-		}
-	//return the pattern:
-		return pat;
 	}
 
 /**#########################################
@@ -297,6 +162,7 @@ void TrackMesh::ConformMeshToTrackSpline()
 			}
 		}
 	mesh->recalculateBoundingBox();
+	UpdateSupports();
 	FixNormals();
 	cout<<"ConformMeshToTrackSpline() processed "<<nloops<<" vertices."<<endl;
 	}
@@ -316,6 +182,7 @@ void TrackMesh::FixNormals()
 			{
 			for(int j=0;j<buf->getIndexCount();j+=6)
 				{
+
 				core::vector3df a,b,c,ab,ac,norm;
 				a=vertary[idxary[j]].Pos;
 				b=vertary[idxary[j+1]].Pos;
@@ -325,10 +192,108 @@ void TrackMesh::FixNormals()
 				norm=ac.crossProduct(ab);
 				norm.normalize();
 				for(int k=0;k<6;k++)
+					{
 					vertary[idxary[j+k]].Normal=norm;
+					}
+
 				}
 			}
+		else
+			cout<<"What?"<<endl;
 		}
 	}
 
+/**###########################################################
+	AddSupports() - add supports to the track mesh
+############################################################*/
+
+void TrackMesh::AddSupports()
+	{
+	SColor supcolor(255,255,255,0);	//yellow
+	if(mesh==0)	return;
+	firstsupidx=mesh->getMeshBufferCount();
+	amtsupports++;
+	for(int i=0;i<amtsegs;i+=segsPerSupport)
+		{
+		HeadingMatrix objhdg;
+		#if 0
+			/*
+			TrackMeshPattern*buf=(TrackMeshPattern*)mesh->getMeshBuffer(i);
+			int jsnap=buf->supportSnapVertexIdx;
+			int jside=buf->supportSideVertexIdx;
+			vector3df snap=buf->Vertices[jsnap].Pos;
+			vector3df side=buf->Vertices[jside].Pos;
+			float snappos=buf->supportSnapTrackPos;
+			track->GetHeadingAndPtAt(snappos,objhdg,
+			*/
+		#endif
+		#if 1
+			IMeshBuffer*buf=mesh->getMeshBuffer(i);
+			S3DVertex*vertary=(S3DVertex*)buf->getVertices();
+			int amtvert=buf->getVertexCount();
+			int jsnap,jside,jfwd,jup;
+			jsnap=amtvert-4;
+			jside=amtvert-3;
+			jfwd=amtvert-2;
+			jup=amtvert-1;
+			vector3df snap,side,fwd,up;
+			snap=vertary[jsnap].Pos;
+			side=vertary[jside].Pos;
+			fwd=vertary[jfwd].Pos;
+			up=vertary[jup].Pos;
+			up=up-snap;
+			fwd=fwd-snap;
+			objhdg.setfromupfwd(up,fwd);
+		#endif
+		SupportMesh*sup;
+		sup=SkinnyTubeSupportMeshFactory::getinstance()->create(
+								 snap,side,supcolor,objhdg
+								,colmgr,driver
+								);
+		supary.push_back(sup);
+		if(sup!=0)
+			{
+			mesh->addMeshBuffer(supary.back());
+			}
+
+		////delete sup;
+
+		}
+	}
+
+/**###########################################################
+	AddSupports() - add supports to the track mesh
+############################################################*/
+
+void TrackMesh::DelSupports()
+	{
+	if(mesh==0) return;
+	if(amtsupports>0)
+		{
+		//stub
+			//put delete code here
+		}
+	}
+
+/**###########################################################
+	AddSupports() - update supports in the track mesh
+############################################################*/
+
+void TrackMesh::UpdateSupports()
+	{
+	segsPerSupport=10;	//default for now...
+	DelSupports();
+	AddSupports();
+	}
+
+/**###########################################################
+	RecalculateAllBoundingBoxes() - recalc all mesh buffer bounding boxes.
+############################################################*/
+
+void TrackMesh::RecalculateAllBoundingBoxes()
+	{
+	int amt=mesh->getMeshBufferCount();
+	for(int i=0;i<amt;i++)
+		mesh->getMeshBuffer(i)->recalculateBoundingBox();
+	}
 

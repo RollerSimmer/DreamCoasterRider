@@ -1039,3 +1039,123 @@
 	<iostream>
 	<sstream>
 
+1345063718 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/FullSpline.cpp
+	"FullSpline.h"
+	<cmath>
+
+1345012765 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/FullSpline.h
+	<irrlicht.h>
+
+1345162585 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/HeadingMatrix.cpp
+	"HeadingMatrix.h"
+	<iostream>
+
+1345162805 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/HeadingMatrix.h
+	"irrlicht.h"
+
+1344983798 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/irrlicht.h
+	<irrlicht.h>
+
+1345259595 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/PathSpline.cpp
+	"PathSpline.h"
+
+1345259605 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/PathSpline.h
+	"FullSpline.h"
+	"HeadingMatrix.h"
+	<irrlicht.h>
+
+1345451590 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Track.cpp
+	"Track.h"
+	<iostream>
+	<sstream>
+
+1345252159 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Track.h
+	"PathSpline.h"
+	<deque>
+	<irrlicht.h>
+
+1345448587 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackMesh.cpp
+	"TrackMesh.h"
+	"Track.h"
+	"LadderTrackMeshPatternFactory.h"
+	"SkinnyTubeSupportMeshFactory.h"
+	<cassert>
+	<cmath>
+	<algorithm>
+	<iostream>
+	<sstream>
+
+1345446030 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackMesh.h
+	"irrlicht.h"
+	"TrackMeshPattern.h"
+	"SupportMesh.h"
+	<vector>
+
+1344729387 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackNode.cpp
+	"TrackNode.h"
+	<vector>
+
+1344729381 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackNode.h
+	<irrlicht.h>
+
+1344806166 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/main.cpp
+	<irrlicht.h>
+	"driverChoice.h"
+	<cmath>
+	<vector>
+
+1345451356 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/meshmain.cpp
+	"irrlicht.h"
+	"Track.h"
+	"TrackMesh.h"
+	"MyEventReceiver.h"
+
+1344983251 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/MyEventReceiver.h
+	<irrlicht.h>
+
+1345158901 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/testmain.cpp
+	"Track.h"
+	<iostream>
+	<sstream>
+
+1345437111 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/SupportMesh.cpp
+	"SupportMesh.h"
+
+1345437098 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/SupportMesh.h
+	"irrlicht.h"
+
+1345429021 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/SupportMeshFactory.cpp
+	"SupportMeshFactory.h"
+
+1345429019 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/SupportMeshFactory.h
+	"SupportMesh.h"
+	"irrlicht.h"
+	"HeadingMatrix.h"
+
+1345418754 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackMeshPattern.cpp
+	"TrackMeshPattern.h"
+
+1345438299 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackMeshPattern.h
+	"irrlicht.h"
+
+1345441440 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/LadderTrackMeshPatternFactory.cpp
+	"LadderTrackMeshPatternFactory.h"
+	<cassert>
+
+1345422323 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/LadderTrackMeshPatternFactory.h
+	"TrackMeshPatternFactory.h"
+
+1345420251 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackMeshPatternFactory.h
+	"TrackMeshPattern.h"
+
+1345419737 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackMeshPatternFactory.cpp
+	"TrackMeshPatternFactory.h"
+
+1345449317 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/SkinnyTubeSupportMeshFactory.cpp
+	"SkinnyTubeSupportMeshFactory.h"
+	"irrlicht.h"
+	<cassert>
+
+1345429021 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/SkinnyTubeSupportMeshFactory.h
+	"SupportMeshFactory.h"
+
