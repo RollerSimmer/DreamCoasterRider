@@ -36,6 +36,16 @@
 	+	added a sky bowl.
 	+	added a flat terrain.  both were easy to do in irrlicht.
 	+	it is already looking like a real track.  gotta keep going though.
+2012:Aug:20:AM:09:46
+	+	added displays for speed, position and track length
+	+	TODO: I added full circuit code, but i need to fix the lengths.  It freezes at the end of the track.  
+2012:Aug:22:AM:03:47
+	+	Tried multiple tracks in one scene.  Got really slow after 5 or so.
+	+	The track length is better, but still has a way to go.
+	+	Still need to do a Distance2Scale in FullSpline.  spline scale is not consistent with linear distance.
+		I think using the ratios of three control point spans (|AB|,|BC|,|CD|) to the total span would 
+		be close enough of an approximation without being too slow.
+		
 
 	
 	

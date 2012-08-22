@@ -30,8 +30,29 @@ void Track::Orientation::debugprint(char*name,int i)
 #########################################################*/
 
 Track::Track()
+	:	path()
+	,	fullpath()
+	,	elmtstarts()
+	,	appxOris()
 	{
 	//ctor
+	path.clear();
+	fullpath.clear();
+	elmtstarts.clear();
+	appxOris.clear();
+	}
+
+/**########################################################
+	~Track()	- destruct a Track object.
+#########################################################*/
+
+Track::~Track()
+	{
+	//dtor
+	path.clear();
+	fullpath.clear();
+	appxOris.clear();
+	elmtstarts.clear();
 	}
 
 /**########################################################
@@ -64,19 +85,26 @@ void Track::InsertSpline(PathSpline spline,int pos)
 /**########################################################
 	CalcTrackLen()	- calculate (estimate) the length of the whole track
 		\return the length calculated.
+		Note: ideally, this should only be called once per
+		      track change.  InitTables() should be the
+		      only caller.
 #########################################################*/
 
-float Track::CalcTrackLen(float interval)
+float Track::CalcTrackLen(float interval,bool usetable)
 	{
 	float len=0.0;
-	HeadingMatrix hdg;
-	//init heading:
-		hdg.setup(startup);
-		hdg.setfwd(startfwd);
-		hdg.setrgt(startup.crossProduct(startfwd));
+	HeadingMatrix hdg,starthdg;
+	elmtlens.clear();
+	bool tablebigenough=fullpath.size()>=path.size();
 	for(int i=0;i<path.size();i++)
 		{
-		len+=path.at(i).CalcLen(interval);
+		bool docircuit=i==path.size()-1&&fullcircuit;
+
+		if(docircuit&&usetable&&tablebigenough)
+			elmtlens.push_back(fullpath.at(i).CalcLen(interval));
+		else
+			elmtlens.push_back(path.at(i).CalcLen(interval));
+		len+=elmtlens.back();
 		}
 	return len;
 	}
@@ -169,7 +197,7 @@ void Track::GetHeadingAndPtAt( float distance
 		{
 		while(!done)
 			{
-			distancesum_next=distancesum+path[i].CalcLen(0.1);
+			distancesum_next=distancesum+elmtlens[i];
 			done=distancesum_next>distance;
 			if(!done)
 				{
@@ -181,15 +209,17 @@ void Track::GetHeadingAndPtAt( float distance
 			{
 			float progress_scale= (distance-distancesum)
 										/(distancesum_next-distancesum);
-			if(useElmtStartTable)
-				elmtori=LookupElmtStartOrientation(i);
-			else
-				GetElmtStartHeadingAndPt(i,elmtori.hdg,elmtori.pos);
 			FullSpline fspline;
 			if(useFullPathTable)
 				fspline=fullpath[i];
 			else
+				{
+				if(useElmtStartTable)
+					elmtori=LookupElmtStartOrientation(i);
+				else
+					GetElmtStartHeadingAndPt(i,elmtori.hdg,elmtori.pos);
 				fspline=path[i].MakeFullSpline(elmtori.hdg,elmtori.pos);
+				}
 
 			core::vector3df rgt,up,fwd;
 			pt=fspline.ptInterpolate(progress_scale);
@@ -224,297 +254,6 @@ void Track::GetHeadingAndPtAt( float distance
 			}
 		}
 	return;
-	}
-
-/**########################################################
-	CreateATestTrack() - creates a predefined test track with
-	                     some elements.
-#########################################################*/
-
-void Track::CreateATestTrack()
-	{
-	path.clear();
-	////PathSpline curspline;
-	DefineElements: 	//define some elements:
-		PathSpline str8;
-			str8.setcp(0,core::vector3df(0.0,0.0,7.5));
-			str8.setcp(1,core::vector3df(0.0,0.0,10.0));
-			str8.setup(0,core::vector3df(0.0,1.0,0.0));
-			str8.setup(1,core::vector3df(0.0,1.0,0.0));
-			str8.setup(2,core::vector3df(0.0,1.0,0.0));
-			str8.setStartLen(2.5);
-		PathSpline lcorky;
-			vector3df corkcp[2],corkline[2],corkup[2];
-			float corkcp_span=10.0;
-			corkcp[0].set(0.0,0.0,corkcp_span);
-			corkcp[1].set(corkcp_span-10.0,10.0,10.0);
-			corkline[0].set(-5.0,5.0,5.0);
-			corkline[1].set(-5.0,5.0,5.0);
-			for(int i=0;i<2;i++)	corkup[i]=corkline[i]-corkcp[i];
-			lcorky.setcp(0,corkcp[1]);
-			lcorky.setcp(1,core::vector3df(-10.0,10.0,10.0));
-			lcorky.setup(0,corkup[0]);
-			lcorky.setup(1,corkup[1]);
-			lcorky.setup(2,core::vector3df(0.0,-1.0,0.0));
-			lcorky.normalize();
-			lcorky.setStartLen(8.0);
-			////lcorky.ScaleSpline(1.0f);
-		PathSpline rcorky;
-			rcorky=lcorky;
-			rcorky.MirrorX();
-		PathSpline lturn;
-			f32 turn_cp_span=10.0-5.0;
-			lturn.setcp(0,core::vector3df(-turn_cp_span,0.0,10.0));
-			lturn.setcp(1,core::vector3df(-10.0,0.0,10.0));
-			lturn.setup(0,core::vector3df(0.0,1.0,0.0));
-			lturn.setup(1,core::vector3df(0.0,1.0,0.0));
-			lturn.setup(2,core::vector3df(0.0,1.0,0.0));
-			lturn.setStartLen(turn_cp_span);
-		PathSpline rturn;
-			rturn=lturn;
-			rturn.MirrorX();
-		PathSpline hillup;
-			f32 hill_height=5.0f;
-			hillup.setcp(0,core::vector3df(0.0,hill_height,6.0));
-			hillup.setcp(1,core::vector3df(0.0,hill_height,10.0));
-			hillup.setup(0,core::vector3df(0.0,1.0,-1.0));
-			hillup.setup(1,core::vector3df(0.0,1.0,-1.0));
-			hillup.setup(2,core::vector3df(0.0,1.0,0.0));
-			hillup.normalize();
-			hillup.setStartLen(6.0);
-		PathSpline hilldn;
-			hilldn.setcp(0,core::vector3df(0.0,-hill_height,4.0));
-			hilldn.setcp(1,core::vector3df(0.0,-hill_height,10.0));
-			hilldn.setup(0,core::vector3df(0.0,1.0,1.0));
-			hilldn.setup(1,core::vector3df(0.0,1.0,1.0));
-			hilldn.setup(2,core::vector3df(0.0,1.0,0.0));
-			hilldn.normalize();
-			hilldn.setStartLen(4.0);
-		PathSpline rqturn;
-			rqturn=rturn;
-			f32 sqrt_onehalf=sqrt(0.5f);
-			f32 qturn_cpspan=2.4f;
-			f32 qturn_cpspan_45deg=qturn_cpspan*sqrt_onehalf;
-			rqturn.setcp(0,core::vector3df(10.0f-10.0f*sqrt_onehalf-qturn_cpspan_45deg,0.0f,10.0f*sqrt_onehalf-qturn_cpspan_45deg));
-			rqturn.setcp(1,core::vector3df(10.0f-10.0f*sqrt_onehalf,0.0f,10.0f*sqrt_onehalf));
-			rqturn.setStartLen(qturn_cpspan);
-		PathSpline lqturn;
-			lqturn=rqturn;
-			lqturn.MirrorX();
-		PathSpline ruhalfloop;
-			float loop_sz=30.0;
-			float loop_base=loop_sz;
-			float loop_wd=loop_sz/12.0;
-
-			ruhalfloop.setcp(0,core::vector3df(loop_wd,loop_sz,loop_sz));
-			ruhalfloop.setcp(1,core::vector3df(loop_wd,loop_sz,loop_sz/2.0));
-			ruhalfloop.setup(0,core::vector3df(0.0,0.0,-1.0));
-			ruhalfloop.setup(1,core::vector3df(0.0,0.0,-1.0));
-			ruhalfloop.setup(2,core::vector3df(0.0,-1.0,0.0));
-			ruhalfloop.normalize();
-			ruhalfloop.setStartLen(loop_base);
-		PathSpline luhalfloop;
-			luhalfloop=ruhalfloop;
-			luhalfloop.MirrorX();
-		PathSpline rdhalfloop;
-			rdhalfloop.setcp(0,core::vector3df(loop_wd,loop_sz,loop_base-loop_sz/2.0));
-			rdhalfloop.setcp(1,core::vector3df(loop_wd,loop_sz,0.0-loop_sz/2.0));
-			rdhalfloop.setup(0,core::vector3df(0.0,0.0,-1.0));
-			rdhalfloop.setup(1,core::vector3df(0.0,0.0,-1.0));
-			rdhalfloop.setup(2,core::vector3df(0.0,-1.0,0.0));
-			rdhalfloop.normalize();
-			rdhalfloop.setStartLen(loop_sz/2.0);
-		PathSpline ldhalfloop;
-			ldhalfloop=rdhalfloop;
-			ldhalfloop.MirrorX();
-		PathSpline valley30deg;
-			valley30deg.setcp(0,core::vector3df(0.0,0.5,5.0+sqrt(3.0f)*2.5f/5.0f));
-			valley30deg.setcp(1,core::vector3df(0.0,2.5f,5.0+sqrt(3.0f)*2.5f));
-			valley30deg.setup(0,core::vector3df(0.0,1.0,0.0));
-			valley30deg.setup(1,core::vector3df(0.0,2.0,-1.0));
-			valley30deg.setup(2,core::vector3df(0.0,2.0,-1.0));
-			valley30deg.normalize();
-			valley30deg.setStartLen(2.5);
-		PathSpline crest30deg;
-			crest30deg.setcp(0,core::vector3df(0.0,-0.5,5.0+sqrt(3.0f)*2.5f/5.0f));
-			crest30deg.setcp(1,core::vector3df(0.0,-2.5f,5.0+sqrt(3.0f)*2.5f));
-			crest30deg.setup(0,core::vector3df(0.0,1.0,0.0));
-			crest30deg.setup(1,core::vector3df(0.0,2.0,1.0));
-			crest30deg.setup(2,core::vector3df(0.0,2.0,1.0));
-			crest30deg.normalize();
-			crest30deg.setStartLen(2.5);
-
-	AddElements:
-		#if 1 //full
-			int ei=0;	//element index
-			path.push_back(valley30deg);
-			path.push_back(str8);
-			path.back().ScaleSpline(10.0);	//a straight track 10x longer than normal
-			path.push_back(crest30deg);
-			////path.back().ScaleSpline(1.0);
-			path.push_back(hilldn);
-			path.back().ScaleSpline(10.0);	//a hill 10x longer than normal
-
-			float cobrascale=1.25;
-			path.push_back(ruhalfloop);
-			path.back().ScaleSpline(cobrascale);
-			path.push_back(lcorky);
-			path.back().ScaleSpline(cobrascale);
-			path.push_back(rcorky);
-			path.back().ScaleSpline(cobrascale);
-			path.push_back(ldhalfloop);
-			path.back().ScaleSpline(cobrascale);
-			path.push_back(hillup);
-			path.back().ScaleSpline(6.0);
-			path.push_back(hilldn);
-			path.back().ScaleSpline(6.0);
-			path.push_back(hillup);
-			path.back().ScaleSpline(5.0);
-			path.push_back(rturn);
-			path.back().ScaleSpline(2.0);
-			path.push_back(hilldn);
-			path.back().ScaleSpline(5.0);
-			path.push_back(ruhalfloop);
-			path.back().ScaleSpline(0.7);
-			path.push_back(rdhalfloop);
-			path.back().ScaleSpline(0.7);
-			path.push_back(luhalfloop);
-			path.back().ScaleSpline(0.7);
-			path.push_back(ldhalfloop);
-			path.back().ScaleSpline(0.7);
-			path.push_back(hillup);
-			path.back().ScaleSpline(3.5);
-			path.push_back(rturn);
-			path.back().ScaleSpline(1.5);
-			path.push_back(rqturn);
-			path.back().ScaleSpline(1.0);
-			path.push_back(hilldn);
-			path.back().ScaleSpline(3.5);
-			for(int i=0;i<4;i++)
-				{
-				path.push_back(rcorky);
-				path.back().ScaleSpline(1.5);
-				}
-			path.push_back(rqturn);
-			path.back().ScaleSpline(1.0);
-			path.push_back(rturn);
-			path.back().ScaleSpline(2.0);
-			for(int i=0;i<2;i++)
-				{
-				path.push_back(valley30deg);
-				path.back().ScaleSpline(2.0);
-				path.push_back(crest30deg);
-				path.back().ScaleSpline(2.0);
-				path.push_back(crest30deg);
-				path.back().ScaleSpline(2.0);
-				path.push_back(valley30deg);
-				path.back().ScaleSpline(2.0);
-				}
-			path.push_back(valley30deg);
-			path.back().ScaleSpline(1.5);
-			path.push_back(crest30deg);
-			path.back().ScaleSpline(1.5);
-			for(int i=0;i<2;i++)
-				{
-				path.push_back(lturn);
-				path.back().ScaleSpline(2.05);
-				}
-			path.push_back(str8);
-			path.back().ScaleSpline(5.0);
-			float scale30deg=1.44;
-			path.push_back(crest30deg);
-			path.back().ScaleSpline(scale30deg);
-			path.push_back(valley30deg);
-			path.back().ScaleSpline(scale30deg);
-			path.push_back(str8);
-			path.back().ScaleSpline(6.4);
-
-		#endif
-
-		#if 0	//loops
-			int n;
-			path.push_back(str8);
-			path.back().ScaleSpline(10.0);
-			path.push_back(ruhalfloop);
-			path.back().ScaleSpline(1.0);
-			path.push_back(rdhalfloop);
-			path.back().ScaleSpline(1.0);
-			path.push_back(ruhalfloop);
-			path.back().ScaleSpline(1.0);
-			path.push_back(rdhalfloop);
-			path.back().ScaleSpline(1.0);
-			for(int i=0;i<2;i++)
-				{	path.push_back(valley30deg);
-					path.back().ScaleSpline(2.0);	}
-			for(int i=0;i<2;i++)
-				{	path.push_back(rturn);
-					path.back().ScaleSpline(2.0);	}
-			for(int i=0;i<2;i++)
-				{	path.push_back(valley30deg);
-					path.back().ScaleSpline(2.0);	}
-			path.push_back(str8);
-			path.back().ScaleSpline(15.0);
-		#endif
-
-
-		#if 0 //bunny hill
-			path.push_back(valley30deg);
-			path.push_back(crest30deg);
-			path.push_back(crest30deg);
-			path.push_back(valley30deg);
-		#endif
-
-		#if 0	//cobra roll
-			int n;
-			path.push_back(ruhalfloop);
-			path.push_back(lcorky);
-			path.push_back(rcorky);
-			path.push_back(ldhalfloop);
-			path.push_back(lturn);
-			path.push_back(lturn);
-		#endif
-
-		#if 0		//small track with hills and corkscrews
-			int n;
-			#if 1
-			n=5;
-			for(int i=0;i<n;i++)
-				{	path.push_back(hillup);	path.push_back(hilldn);	}
-			path.push_back(hillup);
-			path.push_back(lturn);
-			path.push_back(lqturn);
-			path.push_back(hilldn);
-			#endif
-			n=5*2;
-			for(int i=0;i<n;i++)	path.push_back(lcorky);
-			#if 1
-			path.push_back(lqturn);
-			path.push_back(lqturn);
-			path.push_back(str8);
-			path.push_back(lqturn);
-			path.push_back(lturn);
-			n=5;
-			for(int i=0;i<n;i++)	path.push_back(str8);
-			//mirror entire track:
-				////for(int i=0;i<path.size();i++)	path[i].MirrorX();
-			#endif
-		#endif
-
-		#if 0
-		n=4;
-		for(int i=0;i<n;i++)		path.push_back(str8);
-		n=3;
-		for(int i=0;i<n;i++)		path.push_back(lturn);
-		n=2;
-		for(int i=0;i<n;i++)		path.push_back(rcorky);
-		n=3;
-		for(int i=0;i<n;i++)		path.push_back(rturn);
-		#endif
-
-	SetTrackStart:
-		startpos.set(0.0,5.0,0.0);
-		startup.set(0.0,1.0,0.0);
-		startfwd.set(0.0,0.0,1.0);
 	}
 
 /**########################################################
@@ -586,14 +325,21 @@ Track::Orientation&Track::LookupElmtStartOrientation(int i)
 void Track::MakeFullPath(bool useElmtStartTable)
 	{
 	fullpath.clear();
-	Orientation ori;
+	Orientation ori,startori;
+
 	for(int i=0;i<path.size();i++)
 		{
+		bool domakecircuit=fullcircuit&&i==path.size()-1;
+		if(domakecircuit)
+			{
+			startori.pos=startpos;
+			startori.hdg.setfromupfwd(startup,startfwd);
+			}
 		if(useElmtStartTable)
 			ori=elmtstarts[i];
 		else
 			StepOrientation(i,ori);
-		fullpath.push_back(path.at(i).MakeFullSpline(ori.hdg,ori.pos));
+		fullpath.push_back(path.at(i).MakeFullSpline(ori.hdg,ori.pos,startori.hdg,startori.pos,domakecircuit));
 		}
 	}
 
@@ -608,7 +354,6 @@ void Track::MakeAppxOrientationTable(float interval)
 	Orientation ori;
 	float distance=0.0f;
 	approximation_interval=interval;
-	tracklen=CalcTrackLen(0.1);
 	appxOris.clear();
 	int i,amt_appxs;
 	i=0;
@@ -641,7 +386,7 @@ Track::Orientation&Track::LookupOrientationAt(float distance)
 		ori.hdg.setfromupfwd(startup,startfwd);
 	if(approximation_interval==0) return ori;
 	if(appxOris.size()==0)	return ori;
-	distance=min(distance,tracklen-0.01f);
+	distance=min(distance,tracklen-0.001f);
 	float fi=distance/approximation_interval;
 	float fi_next=ceil(fi);
 	float fi_prev=floor(fi);
@@ -672,4 +417,16 @@ Track::Orientation&Track::LookupOrientationAt(float distance)
 	return ori;
 	}
 
+/**#######################################################
+	InitTables() - initialize the lookup tables for headings,
+	               lengths, and full splines, as well as
+	               the total track length value.
+########################################################*/
 
+void Track::initTablesFromPathSpline()
+	{
+	MakeElmtHeadingTable();
+	MakeFullPath();
+	tracklen=CalcTrackLen(0.001);
+	MakeAppxOrientationTable();
+	}

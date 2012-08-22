@@ -38,13 +38,15 @@ void PathSpline::ScaleSpline(float scale)
 ############################################*/
 
 FullSpline&PathSpline::MakeFullSpline(
-                         HeadingMatrix hdg
-								,core::vector3df pt)
+								HeadingMatrix hdg,vector3df pt
+							  ,HeadingMatrix starthdg,vector3df startpt
+							  ,bool docircuit)
 	{
 	static FullSpline fs;
 	core::vector3df cp,up;
 	//normalize the heading:
 		hdg.normalize();
+		starthdg.normalize();
 	//the first point is just the previous point:
 		cp=pt;
 		fs.setcp(0,cp);
@@ -52,17 +54,34 @@ FullSpline&PathSpline::MakeFullSpline(
 		cp=startlen*hdg.getfwd();
 		cp+=pt;
 		fs.setcp(1,cp);
-	//the third is the first point plus heading matrix * cp[0]
-		cp=hdg*cpary[0];
-		cp+=pt;
-		fs.setcp(2,cp);
-	//the fourth is the first point plus heading matrix * cp[1]
-		cp=hdg*cpary[1];
-		cp+=pt;
-		fs.setcp(3,cp);
-	//the first up is the previous up:
-		up=hdg.getup();
-		fs.setup(0,up);
+	if(docircuit)
+		{
+		//the fourth cp is the start point
+			cp=startpt;
+			fs.setcp(3,cp);
+		//the third cp is the start point minus endlen*start fwd
+			f32 endlen=cpary[0].getDistanceFrom(cpary[1]);
+			cp=-endlen*starthdg.getfwd();
+			cp+=startpt;
+			fs.setcp(2,cp);
+		//the fourth up is the start up;
+			up=starthdg.getup();
+			fs.setup(3,up);
+		}
+	else
+		{
+		//the third is the first point plus heading matrix * cp[0]
+			cp=hdg*cpary[0];
+			cp+=pt;
+			fs.setcp(2,cp);
+		//the fourth is the first point plus heading matrix * cp[1]
+			cp=hdg*cpary[1];
+			cp+=pt;
+			fs.setcp(3,cp);
+		//the fourth up is heading matrix * up[2]:
+			up=hdg*upary[2];
+			fs.setup(3,up);
+		}
 	//the first up is the previous up:
 		up=hdg.getup();
 		fs.setup(0,up);
@@ -72,9 +91,7 @@ FullSpline&PathSpline::MakeFullSpline(
 	//the third up is heading matrix * up[1]:
 		up=hdg*upary[1];
 		fs.setup(2,up);
-	//the fourth up is heading matrix * up[2]:
-		up=hdg*upary[2];
-		fs.setup(3,up);
+
 	//return the full spline:
 		return fs;
 	}

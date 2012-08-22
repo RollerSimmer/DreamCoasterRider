@@ -54,12 +54,12 @@ void TrackMesh::init(Track*t,f32 _scale,IVideoDriver*driver)
 									,driver);
 
 		static bool segsinited=false;
-		amtsegs=(int)(t->CalcTrackLen(0.25)+0.99f/seglen);
+		amtsegs=(int)((t->getTrackLen()+0.99f)/seglen);
 		CleanUpForInit();
 		for(int i=0;i<amtsegs;i++)
 			{
-			if(segary.size()==i)
-				std::cout<<"";
+			////if(segary.size()==i)
+			////	std::cout<<"";
 			segary.push_back(MakeSegFromPattern(pat,i));
 			}
 		for(int i=0;i<amtsegs;i++)
@@ -104,17 +104,11 @@ TrackMeshPattern*TrackMesh::MakeSegFromPattern(TrackMeshPattern*pat,int pos)
 //note: try using a table for headings at matching z points:
 void TrackMesh::ConformMeshToTrackSpline()
 	{
-	float tracklen;
 	int nloops=0;
 	if(!track)	return;
-	else			tracklen=track->CalcTrackLen(0.05f);
-	//initialize element start table:
-		track->MakeElmtHeadingTable();
-	//initialize full path table:
-		track->MakeFullPath();
-	//initialize orientation approximation table:
-		track->MakeAppxOrientationTable(0.5f);
+	float tracklen=track->getTrackLen();
 	for(int i=0;i<mesh->getMeshBufferCount();i++) //step through mesh buffers;
+
 		{
 		IMeshBuffer*buf=mesh->getMeshBuffer(i);
 		if(buf->getVertexType()==EVT_STANDARD)

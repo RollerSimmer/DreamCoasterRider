@@ -46,6 +46,8 @@
 		<Unit filename="SupportMeshFactory.h" />
 		<Unit filename="Track.cpp" />
 		<Unit filename="Track.h" />
+		<Unit filename="TrackFactory.cpp" />
+		<Unit filename="TrackFactory.h" />
 		<Unit filename="TrackMesh.cpp" />
 		<Unit filename="TrackMesh.h" />
 		<Unit filename="TrackMeshPattern.cpp" />

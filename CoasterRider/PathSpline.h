@@ -20,13 +20,15 @@ class PathSpline
 		void setup(int i,core::vector3df up)	{	upary[i]=up;	}
 		void setStartLen(float _startlen)	{	startlen=_startlen;	}
 		core::vector3df&getcp(int i)	{	return cpary[i];	}
-		core::vector3df&getup(int i)	{	return upary[i];	}		
-		float getStartLen()	{	return startlen;	}		
+		core::vector3df&getup(int i)	{	return upary[i];	}
+		float getStartLen()	{	return startlen;	}
 	public:	//functions
 		void ScaleSpline(float scale);
-		FullSpline&MakeFullSpline( HeadingMatrix hdg
-										  ,core::vector3df pt);
-		void normalize();	
+		FullSpline&MakeFullSpline( HeadingMatrix hdg,vector3df pt
+		                          ,HeadingMatrix starthdg=HeadingMatrix()
+		                          ,vector3df startpt=vector3df(0,0,0)
+		                          ,bool docircuit=false);
+		void normalize();
 		float CalcLen(float progress_step);
 		void MirrorX();
 };

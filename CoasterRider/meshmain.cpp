@@ -3,8 +3,13 @@
 #include "irrlicht.h"
 
 #include "Track.h"
+#include "TrackFactory.h"
 #include "TrackMesh.h"
 #include "MyEventReceiver.h"
+#include <sstream>
+#include <cstdlib>
+#include <cmath>
+
 
 /*
 Much of this is code taken from some of the examples. We merely set
@@ -33,6 +38,25 @@ int main(int argc, char* argv[])
 	IVideoDriver *driver = device->getVideoDriver();
 	ISceneManager *smgr = device->getSceneManager();
 	device->setWindowCaption(L"Coaster Rider");
+
+   IGUIEnvironment* guienv = device->getGUIEnvironment();
+
+   IGUIFont*font=guienv->getBuiltInFont();
+   vector<IGUIStaticText*> msgary;
+   msgary.clear();
+	msgary.push_back(guienv->addStaticText(L"text line 1",
+                				rect<s32>(0,0,160,12), true)		);
+	msgary.push_back(guienv->addStaticText(L"text line 2",
+                				rect<s32>(0,12,160,24), true)		);
+	msgary.push_back(guienv->addStaticText(L"text line 3",
+                				rect<s32>(0,24,160,36), true)		);
+	for(int i=0;i<msgary.size();i++)
+		{
+		msgary[i]->setBackgroundColor(SColor(127,255,255,255));
+		msgary[i]->setDrawBackground(true);
+		msgary[i]->setDrawBorder(true);
+		msgary[i]->setWordWrap(true);
+		}
 
 	//add a sky
 	/*
@@ -85,6 +109,9 @@ int main(int argc, char* argv[])
 	)
 	#endif
 
+
+	#define doterrain 1
+	#if doterrain
 	ITerrainSceneNode*ter;
 	ter=smgr->addTerrainSceneNode("./terrain/heightmap.png"
 				,0
@@ -102,30 +129,47 @@ int main(int argc, char* argv[])
 	terpos=ter->getPosition();
 	terpos-=tercenter;
 	ter->setPosition(terpos);
+	#endif
 
-	/*
-	Create the custom mesh and initialize with a heightmap
-	*/
-	Track track;
-	////track.load("track.xml");	//load a track
-	track.CreateATestTrack();
-	TrackMesh mesh(&track,smgr->getSceneCollisionManager(),driver);
+	CreateTrackA:
 
-	driver->beginScene(true, true, SColor(0xff000000));
-	////smgr->drawAll();
-	mesh.init(&track,1.0,driver);
-	driver->endScene();
+		//Create the track and track mesh:
+		Track*track;
+		track=TrackFactory::getinstance()->createTestTrack(vector3df(0.0,5.0,0.0));
+		TrackMesh mesh(track,smgr->getSceneCollisionManager(),driver);
 
-	// Add the mesh to the scene graph
-	IMeshSceneNode* meshnode = smgr -> addMeshSceneNode(mesh.mesh);
-	meshnode->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
-	meshnode->setMaterialFlag(video::EMF_POINTCLOUD, false);
-	meshnode->setMaterialFlag(video::EMF_GOURAUD_SHADING, true);
-	meshnode->setMaterialFlag(video::EMF_COLOR_MATERIAL,ECM_DIFFUSE_AND_AMBIENT);
-	meshnode->getMaterial(0).AmbientColor.set(255,255,0,0);
-	////meshnode->setMaterialFlag(video::, true);
-	////meshnode->getMaterial(0).AmbientColor.color=0xffffffff;
+		mesh.init(track,1.0,driver);
 
+		// Add the mesh to the scene graph:
+		IMeshSceneNode* meshnode = smgr -> addMeshSceneNode(mesh.mesh);
+		meshnode->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
+		meshnode->setMaterialFlag(video::EMF_POINTCLOUD, false);
+		meshnode->setMaterialFlag(video::EMF_GOURAUD_SHADING, true);
+		meshnode->setMaterialFlag(video::EMF_COLOR_MATERIAL,ECM_DIFFUSE_AND_AMBIENT);
+		meshnode->getMaterial(0).AmbientColor.set(255,255,0,0);
+
+	CreateTrackB:
+		//Create the track and track mesh:
+		deque<Track*> trackB;
+		deque<TrackMesh*> meshB;
+		deque<IMeshSceneNode*> meshnodeB;
+
+		int n=1;
+		for(int i=0;i<n;i++)
+			{
+			float x=200.0*(float)(i+1);
+			trackB.push_back(TrackFactory::getinstance()->createTestTrack(vector3df(x,5.0,0.0)));
+			meshB.push_back(new TrackMesh(trackB.back(),smgr->getSceneCollisionManager(),driver));
+			meshB.back()->init(trackB.back(),1.0,driver);
+
+			// Add the mesh to the scene graph:
+			meshnodeB.push_back(smgr -> addMeshSceneNode(meshB.back()->mesh));
+			meshnodeB.back()->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
+			meshnodeB.back()->setMaterialFlag(video::EMF_POINTCLOUD, false);
+			meshnodeB.back()->setMaterialFlag(video::EMF_GOURAUD_SHADING, true);
+			meshnodeB.back()->setMaterialFlag(video::EMF_COLOR_MATERIAL,ECM_DIFFUSE_AND_AMBIENT);
+			meshnodeB.back()->getMaterial(0).AmbientColor.set(255,255,0,0);
+			}
 
 	// light is just for nice effects
 
@@ -155,6 +199,7 @@ int main(int argc, char* argv[])
 		camera->setPosition(vector3df(0.f, 25.f, 0.f));
 		camera->setTarget(vector3df(0.f, 0.f, 0.f));
 		camera->setFarValue(20000.0f);
+		camera->setNearValue(0.05f);
 		}
 
 	/*
@@ -163,7 +208,7 @@ int main(int argc, char* argv[])
 	*/
 	f32 trackpos=0.0f;
 	f32 trackpos_inc=0.01f;
-	f32 tracklen=track.CalcTrackLen(1.0f/3.0f);
+	f32 tracklen=track->getTrackLen();
 
 	while(device->run())
 		{
@@ -174,48 +219,105 @@ int main(int argc, char* argv[])
 			}
 
 		meshnode->setMaterialFlag(video::EMF_WIREFRAME, false);
+		for(int i=0;i<meshnodeB.size();i++)
+			meshnodeB.at(i)->setMaterialFlag(video::EMF_WIREFRAME, false);
 		if(receiver.IsKeyDown(irr::KEY_KEY_W))
 			{
 			////meshnode->setMaterialFlag(video::EMF_WIREFRAME, !meshnode->getMaterial(0).Wireframe);
-			if(!meshnode->getMaterial(0).Wireframe)
-				meshnode->setMaterialFlag(video::EMF_WIREFRAME, true);
+			meshnode->setMaterialFlag(video::EMF_WIREFRAME, true);
+			for(int i=0;i<meshnodeB.size();i++)
+				meshnodeB.at(i)->setMaterialFlag(video::EMF_WIREFRAME, true);
 			}
 
-		if(receiver.IsKeyDown(irr::KEY_ADD)||receiver.IsKeyDown(irr::KEY_PLUS))
+
+		ModifySpeed:
+			const float max_speed=30.0f;
+			float accel=0.0;
+			float speedmul;
+			speedmul=1.0f;
+			speedmul*=(receiver.IsKeyDown(irr::KEY_LSHIFT)||receiver.IsKeyDown(irr::KEY_RSHIFT))?	10.0f	: 1.0;
+			speedmul*=(receiver.IsKeyDown(irr::KEY_LCONTROL)||receiver.IsKeyDown(irr::KEY_RCONTROL))?	0.01f	: 1.0;
+			accel=0.001f*speedmul;
+			if(receiver.IsKeyDown(irr::KEY_ADD)||receiver.IsKeyDown(irr::KEY_PLUS))
+				trackpos_inc=(trackpos_inc+accel<max_speed)?	trackpos_inc+accel : max_speed;
+			else if(receiver.IsKeyDown(irr::KEY_MINUS)||receiver.IsKeyDown(irr::KEY_SUBTRACT))
+				trackpos_inc=(trackpos_inc-accel>-max_speed)?	trackpos_inc-accel : -max_speed;
+
+
+		if(receiver.IsKeyDown(irr::KEY_KEY_S))
 			{
-			if(trackpos_inc<3.f)	trackpos_inc+=0.0001f;
-			else trackpos_inc=3.f;
-			////device->sleep(10);
-			}
-		else if(receiver.IsKeyDown(irr::KEY_MINUS)||receiver.IsKeyDown(irr::KEY_SUBTRACT))
-			{
-			if(trackpos_inc>0.001f)	trackpos_inc-=0.0001f;
-			else trackpos_inc=0;
+			trackpos_inc=0;
 			////'device->sleep(10);
 			}
 
 		#if !do_FPS
 
-		f32 headht=0.75;		//0.75 meters off the track
+		float raisemul=speedmul;
+
+		static f32 headht=0.75;		//0.75 meters off the track
+		////static float headht=0.2;
+
+		if(receiver.IsKeyDown(irr::KEY_UP))
+			{
+			//inverted coaster
+			headht+=raisemul*0.0001f;
+			}
+		if(receiver.IsKeyDown(irr::KEY_DOWN))
+			{
+			//inverted coaster
+			headht-=raisemul*0.0001f;
+			}
 
 		if(receiver.IsKeyDown(irr::KEY_KEY_I))
 			{
 			//inverted coaster
-			headht=-headht;
+			headht=-std::abs((float)headht);
+			}
+		else
+			{
+			headht=std::abs((float)headht);
 			}
 
 		if(camera)
 			{
 			Track::Orientation ori;
-			track.GetHeadingAndPtAt( trackpos,ori.hdg,ori.pos
+			track->GetHeadingAndPtAt( trackpos,ori.hdg,ori.pos
 											,false,false,true);
 			ori.pos=ori.pos+headht*ori.hdg.getup();
 			camera->setPosition(ori.pos);
 			camera->setTarget(ori.pos+ori.hdg.getfwd());
 			camera->setUpVector(ori.hdg.getup());
 			camera->setFarValue(20000.0f);
+			camera->setNearValue(0.05f);
 			trackpos+=trackpos_inc;
 			trackpos=fmod(trackpos,tracklen);
+			if(trackpos<0.0)	trackpos+=tracklen;
+			DisplayInfo:
+				{
+				int i=0;
+				stringstream ss;
+				char s[64];
+				wchar_t wcs[64];
+				ss.str("");
+				////memset(s,0,sizeof(s));
+				ss<<"tracklen="<<tracklen;
+				strcpy(s,ss.str().c_str());
+				memset(wcs,0,sizeof(wcs));
+				mbstowcs (wcs,s,strlen(s));
+				msgary[i++]->setText(wcs);
+				ss.str("");
+				ss<<"trackpos="<<trackpos;
+				strcpy(s,ss.str().c_str());
+				memset(wcs,0,sizeof(wcs));
+				mbstowcs (wcs,s,strlen(s));
+				msgary[i++]->setText(wcs);
+				ss.str("");
+				ss<<"speed="<<trackpos_inc;
+				strcpy(s,ss.str().c_str());
+				memset(wcs,0,sizeof(wcs));
+				mbstowcs (wcs,s,strlen(s));
+				msgary[i++]->setText(wcs);
+				}
 			}
 		#endif
 
@@ -224,7 +326,8 @@ int main(int argc, char* argv[])
 			//top-down view:
 				camera->setPosition(vector3df(0.0f,200.0f,0.0f));
 				camera->setTarget(vector3df(0.0f,0.0f,0.0f));
-				camera->setFarValue(20000.0f);
+				////camera->setFarValue(20000.0f);
+				////camera->setNearValue(0.05f);
 			////'device->sleep(10);
 			}
 
@@ -232,6 +335,7 @@ int main(int argc, char* argv[])
 
 		driver->beginScene(true, true, SColor(0xff000000));
 		smgr->drawAll();
+		guienv->drawAll();
 		driver->endScene();
 		}
 
