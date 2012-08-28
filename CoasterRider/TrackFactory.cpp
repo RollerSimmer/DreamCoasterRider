@@ -150,7 +150,7 @@ Track*TrackFactory::createTestTrack(vector3df startpos)
 			crest30deg.setStartLen(2.5);
 
 	AddElements:
-		#if 0 //full
+		#if 1 //full
 			int ei=0;	//element index
 			t->path.push_back(str8);
 			t->path.back().ScaleSpline(3.0);	//a straight track 5x longer than normal
@@ -250,7 +250,7 @@ Track*TrackFactory::createTestTrack(vector3df startpos)
 			////t->path.back().ScaleSpline(1.0);
 		#endif
 
-		#if 1	//corkscrew test
+		#if 0	//corkscrew test
 			t->path.push_back(valley30deg);
 			t->path.push_back(str8);
 			t->path.back().ScaleSpline(4.5);

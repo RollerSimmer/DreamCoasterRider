@@ -1,10 +1,15 @@
 #if 0
 
+#include "irrlicht.h"
+#include "MyEventReceiver.h"
+
 #include "Track.h"
 #include "TrackFactory.h"
 
+
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 using namespace std;
 
@@ -12,6 +17,7 @@ int main_Track();
 #define main_track_defined
 int main_TrackLen();
 int main_dist2scale();
+int main_testtimer();
 
 void printvector(core::vector3df v,char*name);
 
@@ -19,7 +25,8 @@ int main()
 	{
 	#define dotesttrack 0
 	#define dotestlen 0
-	#define dotestdist2scale 1
+	#define dotestdist2scale 0
+	#define dotesttimer 1
 
 	if(dotesttrack)
 		return main_Track();
@@ -27,6 +34,8 @@ int main()
 		return main_TrackLen();
 	if(dotestdist2scale)
 		return main_dist2scale();
+	if(dotesttimer)
+		return main_testtimer();
 	}
 
 void printvector(core::vector3df v,char*name)
@@ -125,6 +134,73 @@ int main_dist2scale()
 		dist+=splinelen/10.0;
 		}
 	}
+
+int main_testtimer()
+	{
+	video::E_DRIVER_TYPE driverType=video::EDT_OPENGL;
+
+	MyEventReceiver receiver;
+	IrrlichtDevice* device = createDevice(driverType,
+													  core::dimension2du(640,480), 32, false, false, false,
+													  &receiver);
+	if(device == 0)
+		return 1;
+
+	IVideoDriver *driver = device->getVideoDriver();
+	ISceneManager *smgr = device->getSceneManager();
+	device->setWindowCaption(L"Timer Test");
+
+	ITimer*timer;
+	timer=device->getTimer( );
+
+   IGUIEnvironment* guienv = device->getGUIEnvironment();
+
+   IGUIFont*font=guienv->getBuiltInFont();
+   vector<IGUIStaticText*> msgary;
+   msgary.clear();
+	msgary.push_back(guienv->addStaticText(L"text line 1",
+                				rect<s32>(0,0,160,12), true)		);
+
+	int i=0;
+
+	msgary[i]->setBackgroundColor(SColor(127,255,255,255));
+	msgary[i]->setDrawBackground(true);
+	msgary[i]->setDrawBorder(true);
+	msgary[i]->setWordWrap(true);
+
+	timer->setSpeed(1);
+	timer->setTime(0);
+	timer->start();
+
+	while(device->run())
+		{
+		u32 time,timerspeed;
+		time=timer->getTime();
+		timerspeed=timer->getSpeed();
+
+		DisplayInfo:
+			{
+			int i=0;
+			stringstream ss;
+			char s[64];
+			wchar_t wcs[64];
+			ss.str("");
+			////memset(s,0,sizeof(s));
+			ss<<"time="<<time<<"\ttimerspeed="<<timerspeed<<endl;
+			strcpy(s,ss.str().c_str());
+			memset(wcs,0,sizeof(wcs));
+			mbstowcs (wcs,s,strlen(s));
+			msgary[i++]->setText(wcs);
+			}
+
+		driver->beginScene(true, true, SColor(0xff000000));
+		smgr->drawAll();
+		guienv->drawAll();
+		driver->endScene();
+		}
+
+	}
+
 
 #endif
 

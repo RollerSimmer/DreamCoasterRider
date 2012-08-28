@@ -23,7 +23,10 @@ class Car
 		float speed;			/// the current speed of the car in m/s
 		float power;			/// extra power produced by car to produce speed
 		Orientation ori;		/// the current orientation of the car (pos and hdg)
+		Orientation prevori;	/// the previous orientation of the car (pos and hdg)
 		float linpos;			/// the linear position of the car along track.
+		vector3df gforces;	/// the three g-forces exerted on car
+
 #if(!car_is_struct)
 	public:
 		Car();

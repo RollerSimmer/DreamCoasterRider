@@ -1105,11 +1105,14 @@
 	<cmath>
 	<vector>
 
-1346142251 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/meshmain.cpp
+1346166357 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/meshmain.cpp
 	"irrlicht.h"
 	"Track.h"
 	"TrackFactory.h"
 	"TrackMesh.h"
+	"TrackOperator.h"
+	"TrainFactory.h"
+	"unitconv.h"
 	"MyEventReceiver.h"
 	<sstream>
 	<cstdlib>
@@ -1118,11 +1121,14 @@
 1344983251 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/MyEventReceiver.h
 	<irrlicht.h>
 
-1345810142 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/testmain.cpp
+1346158373 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/testmain.cpp
+	"irrlicht.h"
+	"MyEventReceiver.h"
 	"Track.h"
 	"TrackFactory.h"
 	<iostream>
 	<sstream>
+	<vector>
 
 1345437111 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/SupportMesh.cpp
 	"SupportMesh.h"
@@ -1165,7 +1171,7 @@
 1345429021 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/SkinnyTubeSupportMeshFactory.h
 	"SupportMeshFactory.h"
 
-1345802338 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackFactory.cpp
+1346163435 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackFactory.cpp
 	"TrackFactory.h"
 
 1345621262 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackFactory.h
@@ -1184,7 +1190,7 @@
 1346138598 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Car.cpp
 	"Car.h"
 
-1346148003 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Car.h
+1346167613 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Car.h
 	"Orientation.h"
 
 1346142203 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Orientation.cpp
@@ -1199,12 +1205,21 @@
 	"Car.h"
 	<deque>
 
-1346147476 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackOperator.cpp
+1346168234 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackOperator.cpp
 	"TrackOperator.h"
+	<cmath>
 
-1346142524 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackOperator.h
+1346167131 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackOperator.h
 	"Train.h"
 	"Track.h"
 	"Block.h"
 	<deque>
+
+1346164212 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrainFactory.cpp
+	"TrainFactory.h"
+
+1346148730 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrainFactory.h
+	"Train.h"
+
+1346158855 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/unitconv.h
 

@@ -50,7 +50,7 @@
 		<Cursor position="376" topLine="0" />
 	</File>
 	<File name="Track.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="11696" topLine="428" />
+		<Cursor position="11696" topLine="409" />
 	</File>
 	<File name="Track.h" open="0" top="0" tabpos="4">
 		<Cursor position="2190" topLine="42" />
@@ -82,8 +82,8 @@
 	<File name="TrackNode.h" open="0" top="0" tabpos="0">
 		<Cursor position="671" topLine="5" />
 	</File>
-	<File name="TrackOperator.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="1509" topLine="42" />
+	<File name="TrackOperator.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="3164" topLine="115" />
 	</File>
 	<File name="TrackOperator.h" open="0" top="0" tabpos="0">
 		<Cursor position="725" topLine="0" />
@@ -91,8 +91,8 @@
 	<File name="Train.h" open="0" top="0" tabpos="0">
 		<Cursor position="154" topLine="0" />
 	</File>
-	<File name="TrainFactory.cpp" open="1" top="1" tabpos="3">
-		<Cursor position="878" topLine="41" />
+	<File name="TrainFactory.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="878" topLine="22" />
 	</File>
 	<File name="irrlicht.h" open="0" top="0" tabpos="7">
 		<Cursor position="23" topLine="0" />

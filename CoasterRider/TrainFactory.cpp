@@ -44,11 +44,12 @@ Train*TrainFactory::createATestTrain()
 	train=new Train();
 	Car simpcar;
 		simpcar.mass=300.0f;		//300 kg
-		simpcar.drag=0.9999f;	//very little drag
+		simpcar.drag=0.985f;	   //very little drag
 		simpcar.speed=0.0f;		//idle
 		simpcar.power=0.0f;		//not self-powered
 		simpcar.linpos=0.0f;
-	const int amtcars=6;
+		simpcar.gforces.set(0.0f,1.0f,0.0f);
+	const int amtcars=8;
 
 	train->speed=0.0f;
 	train->cars.clear();

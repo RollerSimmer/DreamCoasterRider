@@ -5,6 +5,9 @@
 #include "Track.h"
 #include "TrackFactory.h"
 #include "TrackMesh.h"
+#include "TrackOperator.h"
+#include "TrainFactory.h"
+#include "unitconv.h"
 #include "MyEventReceiver.h"
 #include <sstream>
 #include <cstdlib>
@@ -43,13 +46,17 @@ int main(int argc, char* argv[])
 
    IGUIFont*font=guienv->getBuiltInFont();
    vector<IGUIStaticText*> msgary;
+   const int amtmsgs=8;
    msgary.clear();
-	msgary.push_back(guienv->addStaticText(L"text line 1",
-                				rect<s32>(0,0,160,12), true)		);
-	msgary.push_back(guienv->addStaticText(L"text line 2",
-                				rect<s32>(0,12,160,24), true)		);
-	msgary.push_back(guienv->addStaticText(L"text line 3",
-                				rect<s32>(0,24,160,36), true)		);
+   {
+   int y=0;
+   for(int i=0;i<amtmsgs;i++)
+		{
+		msgary.push_back(guienv->addStaticText(L"text line",
+                				rect<s32>(0,y,160,y+12), true)		);
+		y+=12;
+		}
+   }
 	for(int i=0;i<msgary.size();i++)
 		{
 		msgary[i]->setBackgroundColor(SColor(127,255,255,255));
@@ -57,6 +64,18 @@ int main(int argc, char* argv[])
 		msgary[i]->setDrawBorder(true);
 		msgary[i]->setWordWrap(true);
 		}
+
+	//set up timer:
+	ITimer*timer;
+	timer=device->getTimer( );
+
+	timer->setSpeed(1);
+	timer->setTime(0);
+	timer->start();
+
+	u32 thistime,lasttime;
+	float timeElapsed;
+	thistime=timer->getTime();
 
 	//add a sky
 	/*
@@ -148,6 +167,15 @@ int main(int argc, char* argv[])
 		meshnode->setMaterialFlag(video::EMF_COLOR_MATERIAL,ECM_DIFFUSE_AND_AMBIENT);
 		meshnode->getMaterial(0).AmbientColor.set(255,255,0,0);
 
+	CreateTrackOperatorA:
+		TrackOperator*trackop;
+		trackop=new TrackOperator(track);
+		trackop->minspeed=miles_per_hour_to_meter_per_second*7.0f;
+		trackop->trains.clear();
+		trackop->blocks.clear();
+		trackop->trains.push_back(TrainFactory::getinstance()
+		                          ->createATestTrain());
+
 	CreateTrackB:
 		//Create the track and track mesh:
 		deque<Track*> trackB;
@@ -209,6 +237,7 @@ int main(int argc, char* argv[])
 	f32 trackpos=0.0f;
 	f32 trackpos_inc=0.01f;
 	f32 tracklen=track->getTrackLen();
+	f32 trainspeed=0.0f;
 
 	while(device->run())
 		{
@@ -229,6 +258,11 @@ int main(int argc, char* argv[])
 				meshnodeB.at(i)->setMaterialFlag(video::EMF_WIREFRAME, true);
 			}
 
+		UpdateTime:
+			lasttime=thistime;
+			thistime=timer->getTime();
+			timeElapsed=thistime-lasttime;
+			timeElapsed/=1000.0f;
 
 		ModifySpeed:
 			const float max_speed=30.0f;
@@ -280,44 +314,61 @@ int main(int argc, char* argv[])
 
 		if(camera)
 			{
-			Orientation ori;
-			track->GetHeadingAndPtAt( trackpos,ori.hdg,ori.pos
-											,false,false,true);
-			ori.pos=ori.pos+headht*ori.hdg.getup();
-			camera->setPosition(ori.pos);
-			camera->setTarget(ori.pos+ori.hdg.getfwd());
-			camera->setUpVector(ori.hdg.getup());
-			camera->setFarValue(20000.0f);
-			camera->setNearValue(0.05f);
-			trackpos+=trackpos_inc;
-			trackpos=fmod(trackpos,tracklen);
-			if(trackpos<0.0)	trackpos+=tracklen;
+			SetOrientation:
+				Orientation ori;
+				#if 0	//manual speed control:
+					ori=track->getori( trackpos);
+					trackpos+=trackpos_inc;
+					trackpos=fmod(trackpos,tracklen);
+					if(trackpos<0.0)	trackpos+=tracklen;
+				#else	//Track operator and physics:
+					trackop->MoveTrain(0,timeElapsed);
+					Car&car=trackop->trains.at(0)->cars.at(0);
+					ori=car.ori;
+					trainspeed=trackop->trains.at(0)->speed;
+					trackpos=trackop->trains.at(0)->cars.at(0).linpos;
+				#endif
+			SetCamera:
+				ori.pos=ori.pos+headht*ori.hdg.getup();
+				camera->setPosition(ori.pos);
+				camera->setTarget(ori.pos+ori.hdg.getfwd());
+				camera->setUpVector(ori.hdg.getup());
+				camera->setFarValue(20000.0f);
+				camera->setNearValue(0.05f);
 			DisplayInfo:
-				{
-				int i=0;
-				stringstream ss;
-				char s[64];
-				wchar_t wcs[64];
-				ss.str("");
-				////memset(s,0,sizeof(s));
-				ss<<"tracklen="<<tracklen;
-				strcpy(s,ss.str().c_str());
-				memset(wcs,0,sizeof(wcs));
-				mbstowcs (wcs,s,strlen(s));
-				msgary[i++]->setText(wcs);
-				ss.str("");
-				ss<<"trackpos="<<trackpos;
-				strcpy(s,ss.str().c_str());
-				memset(wcs,0,sizeof(wcs));
-				mbstowcs (wcs,s,strlen(s));
-				msgary[i++]->setText(wcs);
-				ss.str("");
-				ss<<"speed="<<trackpos_inc;
-				strcpy(s,ss.str().c_str());
-				memset(wcs,0,sizeof(wcs));
-				mbstowcs (wcs,s,strlen(s));
-				msgary[i++]->setText(wcs);
-				}
+				if(timer->getTime()%20==0)
+					{
+					int i=0;
+					stringstream ss;
+					char s[64];
+					wchar_t wcs[64];
+					////memset(s,0,sizeof(s));
+					for(int i=0;i<msgary.size();i++)
+						{
+						ss.str("");
+						switch(i)
+							{
+							case 0:	ss<<"tracklen="<<tracklen; break;
+							case 1:	ss<<"trackpos="<<trackpos;	break;
+							case 2:	ss<<"pos_inc="<<trackpos_inc;	break;
+							case 3:	ss<<"train speed (m/s)="<<trainspeed;	break;
+							case 4:	ss<<"train speed (mph)="<<(trainspeed/miles_per_hour_to_meter_per_second);	break;
+							case 5: case 6: case 7:
+								{
+								vector3df&gf=trackop->trains.at(0)->cars.at(0).gforces;
+								if(i==5)			ss<<"lat g's:"<<gf.X;
+								else if(i==6)	ss<<"vrt g's:"<<gf.Y;
+								else if(i==7)	ss<<"acc g's:"<<gf.Z;
+								break;
+								}
+							default: ss<<"___________";	break;
+							}
+						strcpy(s,ss.str().c_str());
+						memset(wcs,0,sizeof(wcs));
+						mbstowcs (wcs,s,strlen(s));
+						msgary[i]->setText(wcs);
+						}
+					}
 			}
 		#endif
 
