@@ -75,7 +75,7 @@ void TrackOperator::MoveTrain(int trainI, float timeElapsed)
 			}
 
 	//calc average momentum and new train speed:
-		vavg=(1.0f/mtot/(float)amtcars)*ptot;
+		vavg=(1.0f/mtot)*ptot;
 		train->speed=vavg.getLength();
 
 	//set individual car speeds to train speed:
