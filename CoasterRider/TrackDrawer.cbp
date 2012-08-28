@@ -29,6 +29,10 @@
 			<Add library="Xxf86vm" />
 			<Add directory="/media/UDISK/linux programming/irrlicht/irrlicht-1.7.2/lib/" />
 		</Linker>
+		<Unit filename="Block.cpp" />
+		<Unit filename="Block.h" />
+		<Unit filename="Car.cpp" />
+		<Unit filename="Car.h" />
 		<Unit filename="FullSpline.cpp" />
 		<Unit filename="FullSpline.h" />
 		<Unit filename="HeadingMatrix.cpp" />
@@ -36,6 +40,8 @@
 		<Unit filename="LadderTrackMeshPatternFactory.cpp" />
 		<Unit filename="LadderTrackMeshPatternFactory.h" />
 		<Unit filename="MyEventReceiver.h" />
+		<Unit filename="Orientation.cpp" />
+		<Unit filename="Orientation.h" />
 		<Unit filename="PathSpline.cpp" />
 		<Unit filename="PathSpline.h" />
 		<Unit filename="SkinnyTubeSupportMeshFactory.cpp" />
@@ -46,6 +52,7 @@
 		<Unit filename="SupportMeshFactory.h" />
 		<Unit filename="Track.cpp" />
 		<Unit filename="Track.h" />
+		<Unit filename="TrackDrawer.depend" />
 		<Unit filename="TrackFactory.cpp" />
 		<Unit filename="TrackFactory.h" />
 		<Unit filename="TrackMesh.cpp" />
@@ -56,6 +63,12 @@
 		<Unit filename="TrackMeshPatternFactory.h" />
 		<Unit filename="TrackNode.cpp" />
 		<Unit filename="TrackNode.h" />
+		<Unit filename="TrackOperator.cpp" />
+		<Unit filename="TrackOperator.h" />
+		<Unit filename="Train.cpp" />
+		<Unit filename="Train.h" />
+		<Unit filename="TrainFactory.cpp" />
+		<Unit filename="TrainFactory.h" />
 		<Unit filename="irrlicht.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="meshmain.cpp" />

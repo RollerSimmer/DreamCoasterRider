@@ -81,8 +81,8 @@ core::vector3df&FullSpline::interpolate( core::vector3df pts[4]
 /**###########################################################
 	CalcLen() - calculate the length of the spline segment
 		Arguments:
-			\param progress_step the amount to step progress for each point
-			       interpolation.
+			\param progress_step - the amount to step progress for each point
+			                       interpolation.
 		\return the estimated distance along the spline's course
 		        (ie the spline's length).
 ############################################################*/
@@ -110,4 +110,47 @@ float FullSpline::CalcLen(float progress_step)
 		}
 	return len;
 	}
+
+/**############################################################
+	DIstance2Scale() - convert actual track distance to
+						    interpolation scale (roughly)
+		Arguments:
+			\param dist - the distance along the spline.
+			\param splinelen - the length of the spline.
+		\return - the interpolation scale corresponding to the
+				    distance.
+#############################################################*/
+
+float FullSpline::Distance2Scale(float dist,float splinelen)
+	{
+	float curvelens[3];
+	float spanlens[3];
+	float spanscales[3];
+	float totlen=0,lensum,scalesum;
+	for(int i=0;i<3;i++)
+		{
+		spanlens[i]=cpary[i+1].getDistanceFrom(cpary[i]);
+		totlen+=spanlens[i];
+		}
+	for(int i=0;i<3;i++)
+		{
+		spanscales[i]=1.0/3.0;
+		curvelens[i]=splinelen*spanlens[i]/totlen;;
+		}
+	lensum=scalesum=0;
+	for(int i=0;i<3;i++)
+		{
+		if(dist<lensum+curvelens[i])	//it found the right span:
+			{
+			//now find the right scale along the span:
+				scalesum+=((dist-lensum)/curvelens[i])*spanscales[i];
+				break;
+			}
+		else
+			scalesum+=spanscales[i];
+		lensum+=curvelens[i];
+		}
+	return scalesum;
+	}
+
 

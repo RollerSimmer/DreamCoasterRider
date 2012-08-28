@@ -135,7 +135,7 @@ int main(int argc, char* argv[])
 
 		//Create the track and track mesh:
 		Track*track;
-		track=TrackFactory::getinstance()->createTestTrack(vector3df(0.0,5.0,0.0));
+		track=TrackFactory::getinstance()->createTestTrack(vector3df(0.0,1.0,-100.0));
 		TrackMesh mesh(track,smgr->getSceneCollisionManager(),driver);
 
 		mesh.init(track,1.0,driver);
@@ -154,7 +154,7 @@ int main(int argc, char* argv[])
 		deque<TrackMesh*> meshB;
 		deque<IMeshSceneNode*> meshnodeB;
 
-		int n=1;
+		int n=0;
 		for(int i=0;i<n;i++)
 			{
 			float x=200.0*(float)(i+1);
@@ -280,7 +280,7 @@ int main(int argc, char* argv[])
 
 		if(camera)
 			{
-			Track::Orientation ori;
+			Orientation ori;
 			track->GetHeadingAndPtAt( trackpos,ori.hdg,ori.pos
 											,false,false,true);
 			ori.pos=ori.pos+headht*ori.hdg.getup();

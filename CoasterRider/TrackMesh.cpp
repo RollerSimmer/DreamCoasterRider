@@ -127,7 +127,7 @@ void TrackMesh::ConformMeshToTrackSpline()
 				#if 1
 					track->GetHeadingAndPtAt(progress,hdg,cp,false,false,true);
 					#if 0
-						Track::Orientation ori;
+						Orientation ori;
 						ori.pos=cp;
 						ori.hdg=hdg;
 						stringstream ss;

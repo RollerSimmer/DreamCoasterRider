@@ -5,24 +5,6 @@
 
 using namespace std;
 
-///Track::Orientation functions
-
-/**########################################################
-	debugprint() - print the contents of the Orientation
-#########################################################*/
-
-void Track::Orientation::debugprint(char*name,int i)
-	{
-	stringstream fullname;
-	fullname.str("");
-	fullname<<name<<"["<<i<<"]";
-	cout<<"Orientation object named "<<fullname.str().c_str();
-	cout<<" contains:"<<endl;
-	hdg.debugprint("hdg");
-	cout<<"the core::vector3d object named pos contains <";
-	cout<<pos.X<<","<<pos.Y<<","<<pos.Z<<">"<<endl<<endl;
-	}
-
 ///Track functions
 
 /**########################################################
@@ -198,7 +180,7 @@ void Track::GetHeadingAndPtAt( float distance
 		while(!done)
 			{
 			distancesum_next=distancesum+elmtlens[i];
-			done=distancesum_next>distance;
+			done=distancesum_next>=distance;
 			if(!done)
 				{
 				distancesum=distancesum_next;
@@ -207,8 +189,6 @@ void Track::GetHeadingAndPtAt( float distance
 			}
 		if(i<path.size())	//then distance falls in range
 			{
-			float progress_scale= (distance-distancesum)
-										/(distancesum_next-distancesum);
 			FullSpline fspline;
 			if(useFullPathTable)
 				fspline=fullpath[i];
@@ -220,6 +200,8 @@ void Track::GetHeadingAndPtAt( float distance
 					GetElmtStartHeadingAndPt(i,elmtori.hdg,elmtori.pos);
 				fspline=path[i].MakeFullSpline(elmtori.hdg,elmtori.pos);
 				}
+			////float progress_scale=fspline.Distance2Scale(distance-distancesum,elmtlens[i]);
+			float progress_scale=(distance-distancesum)/elmtlens[i];
 
 			core::vector3df rgt,up,fwd;
 			pt=fspline.ptInterpolate(progress_scale);
@@ -248,9 +230,10 @@ void Track::GetHeadingAndPtAt( float distance
 			}
 		else	//return dummy heading:
 			{
-			hdg.setup(core::vector3df(1.0,0.0,0.0));
-			hdg.setrgt(core::vector3df(0.0,1.0,0.0));
+			hdg.setrgt(core::vector3df(1.0,0.0,0.0));
+			hdg.setup(core::vector3df(0.0,1.0,0.0));
 			hdg.setfwd(core::vector3df(0.0,0.0,1.0));
+			pt=startpos;
 			}
 		}
 	return;
@@ -268,7 +251,7 @@ void Track::GetHeadingAndPtAt( float distance
 			\return &ori - the new orientation
 #########################################################*/
 
-void Track::StepOrientation(int i,Track::Orientation&ori)
+void Track::StepOrientation(int i,Orientation&ori)
 	{
 	Orientation newori;
 	if(i==0)
@@ -310,7 +293,7 @@ void Track::MakeElmtHeadingTable()
 	                               orientation.
 ##########################################################*/
 
-Track::Orientation&Track::LookupElmtStartOrientation(int i)
+Orientation&Track::LookupElmtStartOrientation(int i)
 	{
 	static Orientation ori;
 	ori=elmtstarts.at(i);
@@ -357,7 +340,7 @@ void Track::MakeAppxOrientationTable(float interval)
 	appxOris.clear();
 	int i,amt_appxs;
 	i=0;
-	amt_appxs=(int)ceil(tracklen/approximation_interval);
+	amt_appxs=(int)floor(tracklen/approximation_interval);
 	while(i<amt_appxs)
 		{
 		GetHeadingAndPtAt(distance,ori.hdg,ori.pos,true,true,false);
@@ -378,7 +361,7 @@ void Track::MakeAppxOrientationTable(float interval)
 					 distance progression.
 ########################################################*/
 
-Track::Orientation&Track::LookupOrientationAt(float distance)
+Orientation&Track::LookupOrientationAt(float distance)
 	{
 	static Orientation ori;
 	//default orientation:
@@ -405,7 +388,14 @@ Track::Orientation&Track::LookupOrientationAt(float distance)
 		int i_next,i_prev;
 		i_next=(int)fi_next;
 		i_prev=(int)fi_prev;
-		if(i_next>=appxOris.size()||i_prev<=0)	return ori;
+		if(i_next>=appxOris.size())
+			{
+			if(fullcircuit)
+				i_next=0;
+			else
+				i_next=appxOris.size();
+			}
+		////if(i_next<1) i_next=i_prev=0;
 		Orientation prev,next;
 		prev=appxOris[i_prev];
 		next=appxOris[i_next];
@@ -429,4 +419,34 @@ void Track::initTablesFromPathSpline()
 	MakeFullPath();
 	tracklen=CalcTrackLen(0.001);
 	MakeAppxOrientationTable();
+	}
+
+
+/**#######################################################
+	htAt() - gets the height (Y) at a spot along the track.
+		In: distance - distance along the track.
+		Out: (return value) - The height at the given distance.
+########################################################*/
+
+float Track::htAt(float distance)
+	{
+	Orientation ori;
+	GetHeadingAndPtAt(distance,ori.hdg,ori.pos,false,false,true);
+	return ori.pos.Y;
+	}
+
+/**########################################################
+	getori() - an abbrevated version of GetHeadingAndPtAt()
+		In: distance - the distance along the track
+		Out: (return value) - the orientation at that progression
+		                      along the track.
+		Note: assumes that orientation approximation table is
+		      initialized.
+#########################################################*/
+
+Orientation&Track::getori(float distance)
+	{
+	static Orientation ori;
+	GetHeadingAndPtAt(distance,ori.hdg,ori.pos,false,false,true);
+	return ori;
 	}

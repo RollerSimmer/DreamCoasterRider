@@ -1,6 +1,7 @@
 #pragma once
 
 #include "PathSpline.h"
+#include "Orientation.h"
 #include <deque>
 using namespace std;
 #include <irrlicht.h>
@@ -17,13 +18,6 @@ class Track
 	////friend main;
 	friend class TrackFactory;
 	public: //types
-		class Orientation
-			{
-			public:	//state
-				HeadingMatrix hdg; core::vector3df pos;
-			public:	//function
-				void debugprint(char*name,int i);
-			};
 	protected: //state
 		deque<PathSpline> path;
 		deque<Orientation> elmtstarts;	//element start orientation table.
@@ -59,14 +53,16 @@ class Track
 				                 ,bool useFullPathTable=true
 				                 ,bool useOriAppxTable=false
 				                 );
+		Orientation&getori(float distance);
 		Orientation&LookupElmtStartOrientation(int i);
 		void MakeElmtHeadingTable();
 		void MakeFullPath(bool useElmtStartTable=true);
-		void MakeAppxOrientationTable(float interval=0.1);
+		void MakeAppxOrientationTable(float interval=1.0);
 		Orientation&LookupOrientationAt(float distance);
 		void initTablesFromPathSpline();
+		float htAt(float distance);
 	private:	//common internal tasks
 		float CalcTrackLen(float interval=0.01,bool usetable=true);
-		void StepOrientation(int i,Track::Orientation&ori);
+		void StepOrientation(int i,Orientation&ori);
 	public: //testing functions
 	};

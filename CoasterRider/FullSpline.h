@@ -16,9 +16,11 @@ class FullSpline
 		core::vector3df&setcp(int i,core::vector3df cp)	{	cpary[i%4]=cp;	}
 		core::vector3df&setup(int i,core::vector3df up)	{	upary[i%4]=up;	}
 	public:	//function
+		float Distance2Scale(float dist);
 		core::vector3df&ptInterpolate(float progress);
 		core::vector3df&upInterpolate(float progress);
 		static core::vector3df&interpolate( core::vector3df pts[4]
 					,float progress);
 		float CalcLen(float progress_step);
+		float Distance2Scale(float dist,float splinelen);
 };

@@ -45,6 +45,13 @@
 	+	Still need to do a Distance2Scale in FullSpline.  spline scale is not consistent with linear distance.
 		I think using the ratios of three control point spans (|AB|,|BC|,|CD|) to the total span would 
 		be close enough of an approximation without being too slow.
+2012:Aug:28:AM:05:15
+	+	TrackOperator class added, along with Train, Block, and Car classes.  
+	+	TrackOperator::MoveTrain() handles the physics for now...
+	+	Haven't yet updated the camera to move with the new Functions.  Still some things to test and take 
+	   care of.
+	+	TODO: need to process time in milliseconds and pass the time elapsed to TrackOperator::MoveTrain().
+		Maybe Irrlicht has something for this.
 		
 
 	

@@ -150,7 +150,7 @@ Track*TrackFactory::createTestTrack(vector3df startpos)
 			crest30deg.setStartLen(2.5);
 
 	AddElements:
-		#if 1 //full
+		#if 0 //full
 			int ei=0;	//element index
 			t->path.push_back(str8);
 			t->path.back().ScaleSpline(3.0);	//a straight track 5x longer than normal
@@ -250,6 +250,63 @@ Track*TrackFactory::createTestTrack(vector3df startpos)
 			////t->path.back().ScaleSpline(1.0);
 		#endif
 
+		#if 1	//corkscrew test
+			t->path.push_back(valley30deg);
+			t->path.push_back(str8);
+			t->path.back().ScaleSpline(4.5);
+			t->path.push_back(crest30deg);
+			t->path.push_back(crest30deg);
+			t->path.push_back(valley30deg);
+			t->path.push_back(rturn);
+			t->path.back().ScaleSpline(1.5);
+			t->path.push_back(rturn);
+			t->path.back().ScaleSpline(1.5);
+			t->path.push_back(hilldn);
+			t->path.back().ScaleSpline(4.5);
+			t->path.push_back(str8);
+			t->path.back().ScaleSpline(1.0);
+			t->path.push_back(valley30deg);
+			t->path.back().ScaleSpline(1.5);
+			t->path.push_back(str8);
+			t->path.back().ScaleSpline(1.5);
+			t->path.push_back(crest30deg);
+			t->path.back().ScaleSpline(1.5);
+			t->path.push_back(rturn);
+			t->path.back().ScaleSpline(1.5);
+			t->path.push_back(rqturn);
+			t->path.back().ScaleSpline(1.6);
+			t->path.push_back(hilldn);
+			t->path.back().ScaleSpline(2.0);
+			for(int i=0;i<4;i++)
+				{
+				t->path.back().ScaleSpline(1.25);
+				t->path.push_back(rcorky);
+				}
+			t->path.push_back(rqturn);
+			t->path.back().ScaleSpline(1.5);
+			t->path.push_back(rturn);
+			t->path.back().ScaleSpline(2.0);
+			t->path.push_back(rturn);
+			t->path.back().ScaleSpline(2.0);
+			t->path.push_back(str8);
+			t->path.back().ScaleSpline(4.0);
+			t->path.push_back(crest30deg);
+			t->path.back().ScaleSpline(1.0);
+			t->path.push_back(valley30deg);
+			t->path.back().ScaleSpline(1.0);
+			t->path.push_back(str8);
+			t->path.back().ScaleSpline(2.0);
+
+			for(int i=0;i<2;i++)
+				{
+				t->path.back().ScaleSpline(1.25);
+				t->path.push_back(rturn);
+				}
+			t->path.push_back(str8);
+			t->path.back().ScaleSpline(5.0);
+			t->fullcircuit=true;
+			////t->path.back().ScaleSpline(1.0);
+		#endif
 
 		#if 0 //circuit test
 			t->path.push_back(str8);

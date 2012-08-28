@@ -11,18 +11,22 @@ using namespace std;
 int main_Track();
 #define main_track_defined
 int main_TrackLen();
+int main_dist2scale();
 
 void printvector(core::vector3df v,char*name);
 
 int main()
 	{
-	#define dotesttrack 1
+	#define dotesttrack 0
 	#define dotestlen 0
+	#define dotestdist2scale 1
 
 	if(dotesttrack)
-		main_Track();
-	else if(dotestlen)
-		main_TrackLen();
+		return main_Track();
+	if(dotestlen)
+		return main_TrackLen();
+	if(dotestdist2scale)
+		return main_dist2scale();
 	}
 
 void printvector(core::vector3df v,char*name)
@@ -99,4 +103,29 @@ int main_TrackLen()
 	track->CreateATestTrack();
 	#endif
 	}
+
+int main_dist2scale()
+	{
+	FullSpline fs;
+	fs.setcp(0,vector3df(0.0,0.0,0.0));
+	fs.setcp(1,vector3df(0.0,0.0,1.0));
+	fs.setcp(2,vector3df(0.0,1.0,1.0));
+	fs.setcp(3,vector3df(1.0,1.0,1.0));
+	int i;
+	float splinelen=fs.CalcLen(0.001);
+	float dist=0.0;
+	cout<<"Spline length: "<<splinelen<<endl;
+	for(int i=0;i<11;i++)
+		{
+		if(dist>splinelen*0.9)
+			////cout<<"last dist"<<endl
+			;
+		float scale=fs.Distance2Scale(dist,splinelen);
+		cout<<"Spline distance: "<<dist<<"	Spline interpolation scale: "<<scale<<endl;
+		dist+=splinelen/10.0;
+		}
+	}
+
 #endif
+
+
