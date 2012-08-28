@@ -41,12 +41,12 @@ void TrackOperator::MoveTrain(int trainI, float timeElapsed)
 	const float c=0.995f;	//frictional constant (1=no fric, 0=instant stop)
 	v0=train->speed;
 	dt=timeElapsed;
-	deque<vector3df> carmos;	//car momentums
+	deque<float> carmos;	//car momentums
 	carmos.clear();
-	vector3df p,ptot,vavg;
+	float p,ptot,vavg;
 
 	//init mass and momentum:
-		ptot.set(0.0f,0.0f,0.0f);
+		ptot=0.0f;
 		mtot=0.0f;
 
 	//get car component momentums:
@@ -66,7 +66,7 @@ void TrackOperator::MoveTrain(int trainI, float timeElapsed)
 				v=pow(ccar,dt)*v;
 			m=car.mass;
 			mtot+=m;
-			p=(m*v)*ori.hdg.getfwd();
+			p=m*v;
 			carmos.push_back(p);
 			ptot+=p;
 			//update car orientation while we are at it:
@@ -74,9 +74,13 @@ void TrackOperator::MoveTrain(int trainI, float timeElapsed)
 				car.linpos=s;
 			}
 
-	//calc average momentum and new train speed:
+	//calc new train speed from total momentum and total mass
 		vavg=(1.0f/mtot)*ptot;
-		train->speed=vavg.getLength();
+		train->speed=vavg;
+
+	//cap speed at minimum speed:
+		if(autolift)
+			train->speed=max(train->speed,minspeed);
 
 	//set individual car speeds to train speed:
 		for(int i=0;i<amtcars;i++)
