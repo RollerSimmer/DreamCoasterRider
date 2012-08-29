@@ -51,8 +51,11 @@
 	+	Haven't yet updated the camera to move with the new Functions.  Still some things to test and take 
 	   care of.
 	+	TODO: need to process time in milliseconds and pass the time elapsed to TrackOperator::MoveTrain().
-		Maybe Irrlicht has something for this.
-		
-
-	
+		Maybe Irrlicht has something for this
+2012:Aug:29:AM:06:56
+	+	Changed the physics to accelerate based on track slope.
+	+	Pressing 0..3 on the keyboard changes the timer speed. 
+			0 pauses, 3 goes 16x, 1 goes normal speed.
+	+	added blocks functions to TrackOperator to test for a train	in block.
+	+	lift blocks and the new physics now allow rollback.
 	

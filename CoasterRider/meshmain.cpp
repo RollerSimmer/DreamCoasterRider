@@ -175,6 +175,8 @@ int main(int argc, char* argv[])
 		trackop->blocks.clear();
 		trackop->trains.push_back(TrainFactory::getinstance()
 		                          ->createATestTrain());
+		trackop->autolift=false;
+		trackop->AddBlock(0.0f,145.0f,true);
 
 	CreateTrackB:
 		//Create the track and track mesh:
@@ -291,6 +293,22 @@ int main(int argc, char* argv[])
 		static f32 headht=0.75;		//0.75 meters off the track
 		////static float headht=0.2;
 
+		if(receiver.IsKeyDown(irr::KEY_KEY_0))
+			{
+			timer->setSpeed(0.0f);
+			}
+		if(receiver.IsKeyDown(irr::KEY_KEY_1))
+			{
+			timer->setSpeed(1.0f);
+			}
+		if(receiver.IsKeyDown(irr::KEY_KEY_2))
+			{
+			timer->setSpeed(4.0f);
+			}
+		if(receiver.IsKeyDown(irr::KEY_KEY_3))
+			{
+			timer->setSpeed(16.0f);
+			}
 		if(receiver.IsKeyDown(irr::KEY_UP))
 			{
 			//inverted coaster
