@@ -8,9 +8,16 @@ using namespace std;
 	Orientation() - constructor
 #########################################################*/
 
-Orientation::Orientation()
+Orientation::Orientation( vector3df r
+                         ,vector3df i
+                         ,vector3df j
+                         ,vector3df k )
 	{
 	//ctor
+	pos=r;
+	hdg.setrgt(i);
+	hdg.setup(j);
+	hdg.setfwd(k);
 	}
 
 /**########################################################

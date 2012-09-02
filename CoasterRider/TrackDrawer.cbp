@@ -12,6 +12,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="&gt; parser_output.txt" />
 				<Compiler>
 					<Add option="-w" />
 					<Add option="-g" />
@@ -55,6 +56,8 @@
 		<Unit filename="TrackDrawer.depend" />
 		<Unit filename="TrackFactory.cpp" />
 		<Unit filename="TrackFactory.h" />
+		<Unit filename="TrackFileParser.cpp" />
+		<Unit filename="TrackFileParser.h" />
 		<Unit filename="TrackMesh.cpp" />
 		<Unit filename="TrackMesh.h" />
 		<Unit filename="TrackMeshPattern.cpp" />
@@ -73,6 +76,8 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="meshmain.cpp" />
 		<Unit filename="testmain.cpp" />
+		<Unit filename="testxml.cpp" />
+		<Unit filename="track.xml" />
 		<Extensions>
 			<code_completion />
 			<debugger />

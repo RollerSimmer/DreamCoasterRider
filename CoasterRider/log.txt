@@ -58,4 +58,27 @@
 			0 pauses, 3 goes 16x, 1 goes normal speed.
 	+	added blocks functions to TrackOperator to test for a train	in block.
 	+	lift blocks and the new physics now allow rollback.
+2012:Aug:30:AM:07:24
+	+	Adjusted the track pattern using a "head height".  This was done to make barrel rolls more easily.  It 
+	   messes up corkscrews though, and doesn't make barrel rolls perfect.
+	+	Rearranged TrackFactory class.  Put element definitions in a new function.  Made a corkscrew creator.
+	+	TODO: fix barrel rolls and corkscrews so they don't "bump" upon entry and exit.  Perhaps increase 
+		control point span?
+2012:Aug:31:PM:12:09
+	+	removed the head height track displacement for now.  
+	+	added gradual acceleration for lifts and launches.
+	+	added some new element definitions and a top hat launched track factory creation method.
+2012:Sep:01:AM:06:48
+	+	added a track file parser.  Now XML files can define tracks ( but not track operators...yet)
+2012:Sep:02:AM:04:02
+	+	files now load correctly.  added flip y and spline reverse functions for more flexibility.  
+	+	made two new tracks.  one is like kindga ka, and the other is called "tornado", modeled loosely 
+		after the coney island cyclone and other six flags clones.  it would be nice to have woodie track 
+		to go with it...
+	+	TODO: i think banking will come next...
+	
+
+
+	
+
 	

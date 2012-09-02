@@ -1,5 +1,8 @@
 #include "PathSpline.h"
 
+#include <iostream>
+using namespace std;
+
 /**############################################
 	PathSpline()
 		Action: constructs a PathSpline object
@@ -139,5 +142,86 @@ void PathSpline::MirrorX()
 	for(int i=0;i<3;i++)	upary[i].X=-upary[i].X;
 	}
 
+/**####################################################
+	FlipY() - flip the spline's Y values.(upside down)
+#####################################################*/
 
+void PathSpline::FlipY()
+	{
+	for(int i=0;i<2;i++)	cpary[i].Y=-cpary[i].Y;
+	for(int i=0;i<3;i++)	upary[i].Z=-upary[i].Z;
+	}
+
+/**####################################################
+	Reverse() - reverse the spline
+#####################################################*/
+
+void PathSpline::reverse()
+	{
+	PathSpline rps=*this;
+	FullSpline rfs=MakeFullSpline();
+	rfs.reverse();
+	HeadingMatrix hdg;
+	#if 1
+	TranslateFullSpline:
+		vector3df o=rfs.cpary[0];
+		for(int i=0;i<4;i++)
+			rfs.cpary[i]-=o;
+	#endif
+	TransformFullSpline:
+		hdg.setfromupfwd(rfs.upary[0],rfs.cpary[1]-rfs.cpary[0]);
+		hdg=hdg.inverse();
+		for(int i=0;i<4;i++)
+			{
+			rfs.cpary[i]=hdg*rfs.cpary[i];
+			rfs.upary[i]=hdg*rfs.upary[i];
+			}
+	MakeBack2PathSpline:
+		for(int i=0;i<2;i++)
+			rps.cpary[i]=rfs.cpary[i+2];
+		for(int i=0;i<3;i++)
+			rps.upary[i]=rfs.upary[i+1];
+		rps.exitbank=exitbank;
+		rps.startlen=cpary[0].getDistanceFrom(cpary[1]);
+	*this=rps;
+	}
+
+/**####################################################
+	operator *() - scaling operator
+		In: scale - the scale by which to transform this spline.
+		Out: (return value) - the scaling result
+#####################################################*/
+
+PathSpline&PathSpline::operator*(float scale)
+	{
+	static PathSpline scaleres;
+	scaleres=*this;
+	scaleres.ScaleSpline(scale);
+	return scaleres;
+	}
+
+
+/**####################################################
+	debugprint() - print the contents of the spline
+#####################################################*/
+
+void PathSpline::debugprint()
+	{
+	for(int i=0;i<2;i++)
+		{
+		cout<<"cp["<<i<<"]=( ";
+		cout<<cpary[i].X<<", ";
+		cout<<cpary[i].Y<<", ";
+		cout<<cpary[i].Z<<" )"<<endl;
+		}
+	for(int i=0;i<3;i++)
+		{
+		cout<<"up["<<i<<"]=( ";
+		cout<<upary[i].X<<", ";
+		cout<<upary[i].Y<<", ";
+		cout<<upary[i].Z<<" )"<<endl;
+		}
+	cout<<"startlen="<<startlen<<endl;
+	cout<<"exitbank="<<exitbank<<endl;
+	}
 

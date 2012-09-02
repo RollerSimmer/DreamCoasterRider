@@ -39,7 +39,7 @@ SupportMesh*SkinnyTubeSupportMeshFactory::create(
 									////,ISceneNode*ternode
 									)
 	{
-	const float suprad=0.25;
+	const float suprad=0.15;
 	////const float suprad=0.3;
 
 	assert(colmgr!=0);
@@ -77,8 +77,17 @@ SupportMesh*SkinnyTubeSupportMeshFactory::create(
 	//declare cooords and center coords;
 		f32 x,y,z,cx,cy,cz;
 	//facing down:
+		vector3df up=objhdg.getup();
+		float hleg,vleg,slope;
+		hleg=sqrt(up.Z*up.Z+up.X*up.X);
+		vleg=up.Y;
+		if(hleg>0.0)
+			slope=vleg/hleg;
+		else
+			slope=vleg*60.0;
 		bool facingdn;
-		facingdn=objhdg.getup().Y<0.0;
+		facingdn=slope<0.1;
+
 	if(facingdn)
 		{
 		#if 0	//if this out until complete

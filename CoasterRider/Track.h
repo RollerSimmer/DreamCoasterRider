@@ -8,6 +8,7 @@ using namespace std;
 using namespace irr;
 
 class TrackFactory;
+class TrackFileParser;
 ////int main_track();
 
 class Track
@@ -17,6 +18,7 @@ class Track
 	#endif
 	////friend main;
 	friend class TrackFactory;
+	friend class TrackFileParser;
 	public: //types
 	protected: //state
 		deque<PathSpline> path;
@@ -42,6 +44,7 @@ class Track
 		void UnsetFullCircuit()	{	fullcircuit=false;	}
 		void ToggleFullCircuit()	{	fullcircuit=!fullcircuit;	}
 		bool isFullCircuit()	{	return fullcircuit;	}
+		void setStartBank(float _startbank)	{	startbank=_startbank;	}
 	public:	//function
 		void InsertSpline(PathSpline spline,int pos);
 		void load(char*file);

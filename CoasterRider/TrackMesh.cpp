@@ -50,7 +50,9 @@ void TrackMesh::init(Track*t,f32 _scale,IVideoDriver*driver)
 		TrackMeshPattern*pat=
 			LadderTrackMeshPatternFactory::getinstance()->create(
 									 seglen,runglen,scale*0.1,scale*0.075
-									,SColor(255,255,0,0),SColor(255,0,0,255)
+
+									////,SColor(255,255,0,0),SColor(255,0,0,255)	//red and blue
+									,SColor(255,128,128,255),SColor(255,64,64,128)	//
 									,driver);
 
 		static bool segsinited=false;
@@ -203,7 +205,8 @@ void TrackMesh::FixNormals()
 
 void TrackMesh::AddSupports()
 	{
-	SColor supcolor(255,255,255,0);	//yellow
+	////SColor supcolor(255,255,255,0);	//yellow
+	SColor supcolor(255,140,140,150);	//silver
 	if(mesh==0)	return;
 	firstsupidx=mesh->getMeshBufferCount();
 	amtsupports++;

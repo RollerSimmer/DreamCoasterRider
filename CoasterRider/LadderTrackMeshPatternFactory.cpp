@@ -34,6 +34,9 @@ TrackMeshPattern*LadderTrackMeshPatternFactory::create(
 	{
 	TrackMeshPattern*pat=0;
 
+	////const f32 ladder_track_head_height=1.5;	//avg rider's head is this far off the track.
+	const f32 ladder_track_head_height=0.0;	//avg rider's head is this far off the track.
+
 	const f32 dpiover6=2*3.1415927/6;
 	static f32 ndpiover6[6];
 
@@ -73,7 +76,7 @@ TrackMeshPattern*LadderTrackMeshPatternFactory::create(
 			for(int i=0;i<6;i++)
 				{
 				x=cx+railrad*cosf(ndpiover6[i]);
-				y=cy+railrad*sinf(ndpiover6[i]);
+				y=cy+railrad*sinf(ndpiover6[i])-ladder_track_head_height;
 				z=cz;
 					{
 					S3DVertex&v=pat->Vertices[j];
@@ -104,7 +107,7 @@ TrackMeshPattern*LadderTrackMeshPatternFactory::create(
 		f32 cy=0;
 		for(int i=0;i<6;i++)
 			{
-			y=cy+rungRad*sinf(ndpiover6[5-i]);
+			y=cy+rungRad*sinf(ndpiover6[5-i])-ladder_track_head_height;
 			z=cz+rungRad*cosf(ndpiover6[5-i]);
 			x=cx;
 				{
@@ -157,8 +160,8 @@ TrackMeshPattern*LadderTrackMeshPatternFactory::create(
 						,&vside=pat->Vertices[sideidx]
 						,&vfwd=pat->Vertices[fwdidx]
 						,&vup=pat->Vertices[upidx];
-		vsnap.Pos=core::vector3df(0.0,-rungRad,raillen/2.0);
-		vside.Pos=core::vector3df(rungwidth*2.0,-rungRad,raillen/2.0);
+		vsnap.Pos=core::vector3df(0.0,-rungRad-ladder_track_head_height,raillen/2.0);
+		vside.Pos=core::vector3df(rungwidth*2.0,-rungRad-ladder_track_head_height,raillen/2.0);
 		vup.Pos=vsnap.Pos;
 		vup.Pos.Y+=1.0;
 		vfwd.Pos=vsnap.Pos;

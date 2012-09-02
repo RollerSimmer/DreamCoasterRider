@@ -3,8 +3,12 @@
 #include <irrlicht.h>
 using namespace irr;
 
+class PathSpline;
+
 class FullSpline
 {
+	friend class PathSpline;
+	////friend class FullSpline;
 	protected:	//state
 		core::vector3df cpary[4];	//control points
 		core::vector3df upary[4];
@@ -23,4 +27,5 @@ class FullSpline
 					,float progress);
 		float CalcLen(float progress_step);
 		float Distance2Scale(float dist,float splinelen);
+		void reverse();
 };

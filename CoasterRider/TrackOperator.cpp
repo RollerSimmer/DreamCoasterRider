@@ -9,8 +9,10 @@ TrackOperator::TrackOperator(Track*_track,bool _autolift)
 		:	track(_track)
 		,	autolift(_autolift)
 		,	minspeed(liftspeed)
+		,	controlspeed(liftspeed)
 	{
 	//ctor
+
 
 
 	}
@@ -71,8 +73,13 @@ void TrackOperator::MoveTrain(int trainI, float timeElapsed)
 				Car&car=train->cars.at(i);
 
 				s0=car.linpos;
-				while(s0<0.0f)
-					{	s0+=tracklen;	}
+				if(tracklen<=0.0)
+					s0=0.0f;
+				else
+					{
+					while(s0<0.0f)
+						{	s0+=tracklen;	}
+					}
 
 				#define use_accel_not_potential 1
 				#if use_accel_not_potential
@@ -133,7 +140,10 @@ void TrackOperator::MoveTrain(int trainI, float timeElapsed)
 
 		//lift - cap car speed at minimum speed:
 			if(ShouldLiftTrain(trainI))
-				train->speed=max(train->speed,minspeed);
+				{
+				if(train->speed<liftspeed)
+					train->speed+=controlaccel*dt;
+				}
 
 		//set individual car speeds to train speed:
 			for(int i=0;i<amtcars;i++)
@@ -309,4 +319,35 @@ bool TrackOperator::ShouldLiftTrain(int trainI)
 		return false;
 	}
 
+/**#########################################################
+	SetTrainPos() - Set the train's position along the track
+		In:
+			trainI - the index of the train to add.
+			linpos - the new linear track position (meters).
+##########################################################*/
+
+void TrackOperator::setTrainPos(int trainI,float linpos,bool fromback)
+	{
+	if(trainI>=trains.size())	return;
+	float curpos=linpos;
+	Train*train=trains.at(trainI);
+	if(fromback)
+		{
+		for(int i=train->cars.size()-1;i>=0;i--)
+			{
+			Car&car=train->cars.at(i);
+			car.linpos=curpos;
+			curpos+=2.0;
+			}
+		}
+	else
+		{
+		for(int i=0;i<train->cars.size();i++)
+			{
+			Car&car=train->cars.at(i);
+			car.linpos=curpos;
+			curpos-=2.0;
+			}
+		}
+	}
 

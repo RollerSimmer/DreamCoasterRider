@@ -1,0 +1,629 @@
+Irrlicht Engine version 1.7.2
+Linux 2.6.32-21-generic-pae #32-Ubuntu SMP Fri Apr 16 09:39:35 UTC 2010 i686
+Creating X window...
+Visual chosen: : 39
+Using renderer: OpenGL 3.2.0
+GeForce G100/PCI/SSE2: NVIDIA Corporation
+OpenGL driver version is 1.2 or better.
+GLSL version: 1.5
+Loaded texture: /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/textures/skydome.jpg
+Generated terrain data (512x512) in 0.6310 seconds
+Inverse exists
+--------- Element Table Entry #0 --------
+name="str8"
+spline=:
+cp[0]=( 0, 0, 6.67 )
+cp[1]=( 0, 0, 10 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=3.33
+exitbank=0
+--------- Element Table Entry #1 --------
+name="rturn"
+spline=:
+cp[0]=( 4.5, 0, 10 )
+cp[1]=( 10, 0, 10 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=5.5
+exitbank=0
+--------- Element Table Entry #2 --------
+name="lturn"
+spline=:
+cp[0]=( -4.5, 0, 10 )
+cp[1]=( -10, 0, 10 )
+up[0]=( -0, 1, 0 )
+up[1]=( -0, 1, 0 )
+up[2]=( -0, 1, 0 )
+startlen=5.5
+exitbank=0
+--------- Element Table Entry #3 --------
+name="lcorky"
+spline=:
+cp[0]=( 0, 10, 10 )
+cp[1]=( -10, 10, 10 )
+up[0]=( -0.57735, 0.57735, -0.57735 )
+up[1]=( -0.57735, -0.57735, -0.57735 )
+up[2]=( 0, -1, 0 )
+startlen=3.33
+exitbank=0
+--------- Element Table Entry #4 --------
+name="rcorky"
+spline=:
+cp[0]=( -0, 10, 10 )
+cp[1]=( 10, 10, 10 )
+up[0]=( 0.57735, 0.57735, -0.57735 )
+up[1]=( 0.57735, -0.57735, -0.57735 )
+up[2]=( -0, -1, 0 )
+startlen=3.33
+exitbank=0
+--------- Element Table Entry #5 --------
+name="hillup"
+spline=:
+cp[0]=( 0, 5, 6 )
+cp[1]=( 0, 5, 10 )
+up[0]=( 0, 0.707107, -0.707107 )
+up[1]=( 0, 0.707107, -0.707107 )
+up[2]=( 0, 1, 0 )
+startlen=4
+exitbank=0
+--------- Element Table Entry #6 --------
+name="hilldn"
+spline=:
+cp[0]=( 0, -5, 6 )
+cp[1]=( 0, -5, 10 )
+up[0]=( 0, 0.707107, 0.707107 )
+up[1]=( 0, 0.707107, 0.707107 )
+up[2]=( 0, 1, -0 )
+startlen=4
+exitbank=0
+--------- Element Table Entry #7 --------
+name="bunnyup"
+spline=:
+cp[0]=( 0, 5, 12 )
+cp[1]=( 0, 5, 20 )
+up[0]=( 0, 0.707107, -0.707107 )
+up[1]=( 0, 0.707107, -0.707107 )
+up[2]=( 0, 1, 0 )
+startlen=8
+exitbank=0
+--------- Element Table Entry #8 --------
+name="bunnydn"
+spline=:
+cp[0]=( 0, -5, 12 )
+cp[1]=( 0, -5, 20 )
+up[0]=( 0, 0.707107, 0.707107 )
+up[1]=( 0, 0.707107, 0.707107 )
+up[2]=( 0, 1, -0 )
+startlen=8
+exitbank=0
+--------- Element Table Entry #9 --------
+name="rqturn"
+spline=:
+cp[0]=( 1.23188, 0, 5.37401 )
+cp[1]=( 2.92893, 0, 7.07107 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=2.4
+exitbank=0
+--------- Element Table Entry #10 --------
+name="lqturn"
+spline=:
+cp[0]=( -1.23188, 0, 5.37401 )
+cp[1]=( -2.92893, 0, 7.07107 )
+up[0]=( -0, 1, 0 )
+up[1]=( -0, 1, 0 )
+up[2]=( -0, 1, 0 )
+startlen=2.4
+exitbank=0
+--------- Element Table Entry #11 --------
+name="ruhalfloop"
+spline=:
+cp[0]=( 2.5, 30, 30 )
+cp[1]=( 2.5, 30, 15 )
+up[0]=( 0, 0, -1 )
+up[1]=( 0, 0, -1 )
+up[2]=( 0, -1, 0 )
+startlen=30
+exitbank=0
+--------- Element Table Entry #12 --------
+name="luhalfloop"
+spline=:
+cp[0]=( -2.5, 30, 30 )
+cp[1]=( -2.5, 30, 15 )
+up[0]=( -0, 0, -1 )
+up[1]=( -0, 0, -1 )
+up[2]=( -0, -1, 0 )
+startlen=30
+exitbank=0
+--------- Element Table Entry #13 --------
+name="rdhalfloop"
+spline=:
+cp[0]=( 2.5, 30, -15 )
+cp[1]=( 2.5, 30, 15 )
+up[0]=( 0, 0, -1 )
+up[1]=( 0, 0, -1 )
+up[2]=( 0, -1, 0 )
+startlen=15
+exitbank=0
+--------- Element Table Entry #14 --------
+name="ldhalfloop"
+spline=:
+cp[0]=( -2.5, 30, -15 )
+cp[1]=( -2.5, 30, 15 )
+up[0]=( -0, 0, -1 )
+up[1]=( -0, 0, -1 )
+up[2]=( -0, -1, 0 )
+startlen=15
+exitbank=0
+--------- Element Table Entry #15 --------
+name="valley30deg"
+spline=:
+cp[0]=( 0, 1.25, 7.16506 )
+cp[1]=( 0, 2.5, 9.33013 )
+up[0]=( 0, 0.970142, -0.242536 )
+up[1]=( 0, 0.948683, -0.316228 )
+up[2]=( 0, 0.894427, -0.447214 )
+startlen=2.5
+exitbank=0
+--------- Element Table Entry #16 --------
+name="crest30deg"
+spline=:
+cp[0]=( 0, -1.25, 7.16506 )
+cp[1]=( 0, -2.5, 9.33013 )
+up[0]=( 0, 0.970142, 0.242536 )
+up[1]=( 0, 0.948683, 0.316228 )
+up[2]=( 0, 0.894427, 0.447214 )
+startlen=2.5
+exitbank=0
+--------- Element Table Entry #17 --------
+name="valley90deg"
+spline=:
+cp[0]=( 0, 4.5, 10 )
+cp[1]=( 0, 10, 10 )
+up[0]=( 0, 0.707107, -0.707107 )
+up[1]=( 0, 0.707107, -0.707107 )
+up[2]=( 0, 0, -1 )
+startlen=5.5
+exitbank=0
+--------- Element Table Entry #18 --------
+name="crest90deg"
+spline=:
+cp[0]=( 0, -4.5, 10 )
+cp[1]=( 0, -10, 10 )
+up[0]=( 0, 0.707107, 0.707107 )
+up[1]=( 0, 0.707107, 0.707107 )
+up[2]=( 0, 0, 1 )
+startlen=5.5
+exitbank=0
+--------- Element Table Entry #19 --------
+name="valley45deg"
+spline=:
+cp[0]=( 0, 3.53553, 13.5355 )
+cp[1]=( 0, 7.07107, 17.0711 )
+up[0]=( 0, 0.894427, -0.447214 )
+up[1]=( 0, 0.894427, -0.447214 )
+up[2]=( 0, 0.707107, -0.707107 )
+startlen=5
+exitbank=0
+--------- Element Table Entry #20 --------
+name="crest45deg"
+spline=:
+cp[0]=( 0, -3.53553, 13.5355 )
+cp[1]=( 0, -7.07107, 17.0711 )
+up[0]=( 0, 0.894427, 0.447214 )
+up[1]=( 0, 0.894427, 0.447214 )
+up[2]=( 0, 0.707107, 0.707107 )
+startlen=5
+exitbank=0
+--------- Element Table Entry #21 --------
+name="rqroll"
+spline=:
+cp[0]=( 0, 0, 6.66667 )
+cp[1]=( 0, 0, 10 )
+up[0]=( 0.316228, 0.948683, 0 )
+up[1]=( 0.948683, 0.316228, 0 )
+up[2]=( 1, 0, 0 )
+startlen=3.33333
+exitbank=0
+--------- Element Table Entry #22 --------
+name="lqroll"
+spline=:
+cp[0]=( -0, 0, 6.66667 )
+cp[1]=( -0, 0, 10 )
+up[0]=( -0.316228, 0.948683, 0 )
+up[1]=( -0.948683, 0.316228, 0 )
+up[2]=( -1, 0, 0 )
+startlen=3.33333
+exitbank=0
+--------- Element Table Entry #23 --------
+name="r8roll"
+spline=:
+cp[0]=( 0, 0, 6.66667 )
+cp[1]=( 0, 0, 10 )
+up[0]=( 0.447214, 0.894427, 0 )
+up[1]=( 0.894427, 0.447214, 0 )
+up[2]=( 0.707107, 0.707107, 0 )
+startlen=3.33333
+exitbank=0
+--------- Element Table Entry #24 --------
+name="l8roll"
+spline=:
+cp[0]=( -0, 0, 6.66667 )
+cp[1]=( -0, 0, 10 )
+up[0]=( -0.447214, 0.894427, 0 )
+up[1]=( -0.894427, 0.447214, 0 )
+up[2]=( -0.707107, 0.707107, 0 )
+startlen=3.33333
+exitbank=0
+--------- Element Table Entry #25 --------
+name="rtornadodrop"
+spline=:
+cp[0]=( 0, -10, 0 )
+cp[1]=( 5, -10, 20 )
+up[0]=( 0, 0.707107, 0.707107 )
+up[1]=( 0, 0.707107, 0.707107 )
+up[2]=( 0, 1, 0 )
+startlen=10
+exitbank=0
+--------- Element Table Entry #26 --------
+name="ltornadodrop"
+spline=:
+cp[0]=( -0, -10, 0 )
+cp[1]=( -5, -10, 20 )
+up[0]=( -0, 0.707107, 0.707107 )
+up[1]=( -0, 0.707107, 0.707107 )
+up[2]=( -0, 1, 0 )
+startlen=10
+exitbank=0
+--------- Element Table Entry #27 --------
+name="rutornadoturn"
+spline=:
+cp[0]=( 0, 10, 20 )
+cp[1]=( 10, 10, 17.5 )
+up[0]=( 0, 0.707107, -0.707107 )
+up[1]=( -0.57735, 0.57735, -0.57735 )
+up[2]=( 0, 1, 0 )
+startlen=5
+exitbank=0
+--------- Element Table Entry #28 --------
+name="lutornadoturn"
+spline=:
+cp[0]=( -0, 10, 20 )
+cp[1]=( -10, 10, 17.5 )
+up[0]=( -0, 0.707107, -0.707107 )
+up[1]=( 0.57735, 0.57735, -0.57735 )
+up[2]=( -0, 1, 0 )
+startlen=5
+exitbank=0
+--------- Element Table Entry #29 --------
+name="rdtornadoturn"
+spline=:
+cp[0]=( 14.5521, -10, 6.66973 )
+cp[1]=( 19.4029, -10, 5.45705 )
+up[0]=( 0.70014, 0.57735, 0.420084 )
+up[1]=( 0.685994, 0.707107, -0.171499 )
+up[2]=( 0, 1, 0 )
+startlen=10.3078
+exitbank=0
+--------- Element Table Entry #30 --------
+name="ldtornadoturn"
+spline=:
+cp[0]=( -14.5521, -10, 6.66973 )
+cp[1]=( -19.4029, -10, 5.45705 )
+up[0]=( -0.70014, 0.57735, 0.420084 )
+up[1]=( -0.685994, 0.707107, -0.171499 )
+up[2]=( -0, 1, 0 )
+startlen=10.3078
+exitbank=0
+--------- Track Path Sequence, Entry #0 --------
+spline=:
+cp[0]=( 0, 0, 20.01 )
+cp[1]=( 0, 0, 30 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=9.99
+exitbank=0
+--------- Track Path Sequence, Entry #1 --------
+spline=:
+cp[0]=( 0, -1.25, 7.16506 )
+cp[1]=( 0, -2.5, 9.33013 )
+up[0]=( 0, 0.970142, 0.242536 )
+up[1]=( 0, 0.948683, 0.316228 )
+up[2]=( 0, 0.894427, 0.447214 )
+startlen=2.5
+exitbank=0
+--------- Track Path Sequence, Entry #2 --------
+spline=:
+cp[0]=( 0, 1.25, 7.16506 )
+cp[1]=( 0, 2.5, 9.33013 )
+up[0]=( 0, 0.970142, -0.242536 )
+up[1]=( 0, 0.948683, -0.316228 )
+up[2]=( 0, 0.894427, -0.447214 )
+startlen=2.5
+exitbank=0
+--------- Track Path Sequence, Entry #3 --------
+spline=:
+cp[0]=( -6.75, 0, 15 )
+cp[1]=( -15, 0, 15 )
+up[0]=( -0, 1, 0 )
+up[1]=( -0, 1, 0 )
+up[2]=( -0, 1, 0 )
+startlen=8.25
+exitbank=0
+--------- Track Path Sequence, Entry #4 --------
+spline=:
+cp[0]=( -6.75, 0, 15 )
+cp[1]=( -15, 0, 15 )
+up[0]=( -0, 1, 0 )
+up[1]=( -0, 1, 0 )
+up[2]=( -0, 1, 0 )
+startlen=8.25
+exitbank=0
+--------- Track Path Sequence, Entry #5 --------
+spline=:
+cp[0]=( 0, 1.25, 7.16506 )
+cp[1]=( 0, 2.5, 9.33013 )
+up[0]=( 0, 0.970142, -0.242536 )
+up[1]=( 0, 0.948683, -0.316228 )
+up[2]=( 0, 0.894427, -0.447214 )
+startlen=2.5
+exitbank=0
+--------- Track Path Sequence, Entry #6 --------
+spline=:
+cp[0]=( 0, 0, 46.69 )
+cp[1]=( 0, 0, 70 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=23.31
+exitbank=0
+--------- Track Path Sequence, Entry #7 --------
+spline=:
+cp[0]=( 0, -1.25, 7.16506 )
+cp[1]=( 0, -2.5, 9.33013 )
+up[0]=( 0, 0.970142, 0.242536 )
+up[1]=( 0, 0.948683, 0.316228 )
+up[2]=( 0, 0.894427, 0.447214 )
+startlen=2.5
+exitbank=0
+--------- Track Path Sequence, Entry #8 --------
+spline=:
+cp[0]=( -0, -40, 0 )
+cp[1]=( -20, -40, 80 )
+up[0]=( -0, 0.707107, 0.707107 )
+up[1]=( -0, 0.707107, 0.707107 )
+up[2]=( -0, 1, 0 )
+startlen=40
+exitbank=0
+--------- Track Path Sequence, Entry #9 --------
+spline=:
+cp[0]=( 0, 30, 60 )
+cp[1]=( 30, 30, 52.5 )
+up[0]=( 0, 0.707107, -0.707107 )
+up[1]=( -0.57735, 0.57735, -0.57735 )
+up[2]=( 0, 1, 0 )
+startlen=15
+exitbank=0
+--------- Track Path Sequence, Entry #10 --------
+spline=:
+cp[0]=( 43.6564, -30, 20.0092 )
+cp[1]=( 58.2086, -30, 16.3712 )
+up[0]=( 0.70014, 0.57735, 0.420084 )
+up[1]=( 0.685994, 0.707107, -0.171499 )
+up[2]=( 0, 1, 0 )
+startlen=30.9233
+exitbank=0
+--------- Track Path Sequence, Entry #11 --------
+spline=:
+cp[0]=( 0, 0, 20.01 )
+cp[1]=( 0, 0, 30 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=9.99
+exitbank=0
+--------- Track Path Sequence, Entry #12 --------
+spline=:
+cp[0]=( 0, 22.5, 27 )
+cp[1]=( 0, 22.5, 45 )
+up[0]=( 0, 0.707107, -0.707107 )
+up[1]=( 0, 0.707107, -0.707107 )
+up[2]=( 0, 1, 0 )
+startlen=18
+exitbank=0
+--------- Track Path Sequence, Entry #13 --------
+spline=:
+cp[0]=( 0, -22.5, 27 )
+cp[1]=( 0, -22.5, 45 )
+up[0]=( 0, 0.707107, 0.707107 )
+up[1]=( 0, 0.707107, 0.707107 )
+up[2]=( 0, 1, -0 )
+startlen=18
+exitbank=0
+--------- Track Path Sequence, Entry #14 --------
+spline=:
+cp[0]=( -0, 20, 40 )
+cp[1]=( -20, 20, 35 )
+up[0]=( -0, 0.707107, -0.707107 )
+up[1]=( 0.57735, 0.57735, -0.57735 )
+up[2]=( -0, 1, 0 )
+startlen=10
+exitbank=0
+--------- Track Path Sequence, Entry #15 --------
+spline=:
+cp[0]=( -29.1043, -20, 13.3395 )
+cp[1]=( -38.8057, -20, 10.9141 )
+up[0]=( -0.70014, 0.57735, 0.420084 )
+up[1]=( -0.685994, 0.707107, -0.171499 )
+up[2]=( -0, 1, 0 )
+startlen=20.6155
+exitbank=0
+--------- Track Path Sequence, Entry #16 --------
+spline=:
+cp[0]=( 0, 17.5, 21 )
+cp[1]=( 0, 17.5, 35 )
+up[0]=( 0, 0.707107, -0.707107 )
+up[1]=( 0, 0.707107, -0.707107 )
+up[2]=( 0, 1, 0 )
+startlen=14
+exitbank=0
+--------- Track Path Sequence, Entry #17 --------
+spline=:
+cp[0]=( 0, -17.5, 21 )
+cp[1]=( 0, -17.5, 35 )
+up[0]=( 0, 0.707107, 0.707107 )
+up[1]=( 0, 0.707107, 0.707107 )
+up[2]=( 0, 1, -0 )
+startlen=14
+exitbank=0
+--------- Track Path Sequence, Entry #18 --------
+spline=:
+cp[0]=( 0, 7.5, 18 )
+cp[1]=( 0, 7.5, 30 )
+up[0]=( 0, 0.707107, -0.707107 )
+up[1]=( 0, 0.707107, -0.707107 )
+up[2]=( 0, 1, 0 )
+startlen=12
+exitbank=0
+--------- Track Path Sequence, Entry #19 --------
+spline=:
+cp[0]=( 0, -8.75, 21 )
+cp[1]=( 0, -8.75, 35 )
+up[0]=( 0, 0.707107, 0.707107 )
+up[1]=( 0, 0.707107, 0.707107 )
+up[2]=( 0, 1, -0 )
+startlen=14
+exitbank=0
+--------- Track Path Sequence, Entry #20 --------
+spline=:
+cp[0]=( 0, 15, 30 )
+cp[1]=( 15, 15, 26.25 )
+up[0]=( 0, 0.707107, -0.707107 )
+up[1]=( -0.57735, 0.57735, -0.57735 )
+up[2]=( 0, 1, 0 )
+startlen=7.5
+exitbank=0
+--------- Track Path Sequence, Entry #21 --------
+spline=:
+cp[0]=( 0, 0, 10.005 )
+cp[1]=( 0, 0, 15 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=4.995
+exitbank=0
+--------- Track Path Sequence, Entry #22 --------
+spline=:
+cp[0]=( 21.8282, -15, 10.0046 )
+cp[1]=( 29.1043, -15, 8.18558 )
+up[0]=( 0.70014, 0.57735, 0.420084 )
+up[1]=( 0.685994, 0.707107, -0.171499 )
+up[2]=( 0, 1, 0 )
+startlen=15.4616
+exitbank=0
+--------- Track Path Sequence, Entry #23 --------
+spline=:
+cp[0]=( 0, 5.5, 13.2 )
+cp[1]=( 0, 5.5, 22 )
+up[0]=( 0, 0.707107, -0.707107 )
+up[1]=( 0, 0.707107, -0.707107 )
+up[2]=( 0, 1, 0 )
+startlen=8.8
+exitbank=0
+--------- Track Path Sequence, Entry #24 --------
+spline=:
+cp[0]=( 0, -5.5, 13.2 )
+cp[1]=( 0, -5.5, 22 )
+up[0]=( 0, 0.707107, 0.707107 )
+up[1]=( 0, 0.707107, 0.707107 )
+up[2]=( 0, 1, -0 )
+startlen=8.8
+exitbank=0
+--------- Track Path Sequence, Entry #25 --------
+spline=:
+cp[0]=( 0, 5, 12 )
+cp[1]=( 0, 5, 20 )
+up[0]=( 0, 0.707107, -0.707107 )
+up[1]=( 0, 0.707107, -0.707107 )
+up[2]=( 0, 1, 0 )
+startlen=8
+exitbank=0
+--------- Track Path Sequence, Entry #26 --------
+spline=:
+cp[0]=( 0, -5, 12 )
+cp[1]=( 0, -5, 20 )
+up[0]=( 0, 0.707107, 0.707107 )
+up[1]=( 0, 0.707107, 0.707107 )
+up[2]=( 0, 1, -0 )
+startlen=8
+exitbank=0
+--------- Track Path Sequence, Entry #27 --------
+spline=:
+cp[0]=( -0, 10, 20 )
+cp[1]=( -10, 10, 17.5 )
+up[0]=( -0, 0.707107, -0.707107 )
+up[1]=( 0.57735, 0.57735, -0.57735 )
+up[2]=( -0, 1, 0 )
+startlen=5
+exitbank=0
+--------- Track Path Sequence, Entry #28 --------
+spline=:
+cp[0]=( -7.875, 0, 17.5 )
+cp[1]=( -17.5, 0, 17.5 )
+up[0]=( -0, 1, 0 )
+up[1]=( -0, 1, 0 )
+up[2]=( -0, 1, 0 )
+startlen=9.625
+exitbank=0
+--------- Track Path Sequence, Entry #29 --------
+spline=:
+cp[0]=( 0, -10, 12 )
+cp[1]=( 0, -10, 20 )
+up[0]=( 0, 0.707107, 0.707107 )
+up[1]=( 0, 0.707107, 0.707107 )
+up[2]=( 0, 1, -0 )
+startlen=8
+exitbank=0
+--------- Track Path Sequence, Entry #30 --------
+spline=:
+cp[0]=( 0, 11.25, 13.5 )
+cp[1]=( 0, 11.25, 22.5 )
+up[0]=( 0, 0.707107, -0.707107 )
+up[1]=( 0, 0.707107, -0.707107 )
+up[2]=( 0, 1, 0 )
+startlen=9
+exitbank=0
+--------- Track Path Sequence, Entry #31 --------
+spline=:
+cp[0]=( -6.75, 0, 15 )
+cp[1]=( -15, 0, 15 )
+up[0]=( -0, 1, 0 )
+up[1]=( -0, 1, 0 )
+up[2]=( -0, 1, 0 )
+startlen=8.25
+exitbank=0
+--------- Track Path Sequence, Entry #32 --------
+spline=:
+cp[0]=( -6.75, 0, 15 )
+cp[1]=( -15, 0, 15 )
+up[0]=( -0, 1, 0 )
+up[1]=( -0, 1, 0 )
+up[2]=( -0, 1, 0 )
+startlen=8.25
+exitbank=0
+--------- Track Path Sequence, Entry #33 --------
+spline=:
+cp[0]=( 0, 0, 33.35 )
+cp[1]=( 0, 0, 50 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=16.65
+exitbank=0
+ConformMeshToTrackSpline() processed 49560 vertices.
+Quit message received.

@@ -6,7 +6,6 @@
 #include "Track.h"
 #include "TrackFactory.h"
 
-
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -18,6 +17,7 @@ int main_Track();
 int main_TrackLen();
 int main_dist2scale();
 int main_testtimer();
+int main_testHeadingInverse();
 
 void printvector(core::vector3df v,char*name);
 
@@ -26,7 +26,8 @@ int main()
 	#define dotesttrack 0
 	#define dotestlen 0
 	#define dotestdist2scale 0
-	#define dotesttimer 1
+	#define dotesttimer 0
+	#define dotesthdginv 1
 
 	if(dotesttrack)
 		return main_Track();
@@ -36,6 +37,8 @@ int main()
 		return main_dist2scale();
 	if(dotesttimer)
 		return main_testtimer();
+	if(dotesthdginv)
+		return main_testHeadingInverse();
 	}
 
 void printvector(core::vector3df v,char*name)
@@ -201,6 +204,22 @@ int main_testtimer()
 
 	}
 
+int main_testHeadingInverse()
+	{
+	HeadingMatrix hdg,hinv,hres1,hres2;
+	hdg.setrgt(vector3df( 0.0, 1.0, 0.0));
+	hdg.setup (vector3df( 0.0, 0.0, 1.0));
+	hdg.setfwd(vector3df( 1.0, 0.0, 0.0));
+	hinv=hdg.inverse();
+	hres1=hinv*hdg;
+	hres2=hinv*hdg;
+	cout<<"The inverse of the matrix:"<<endl;
+	hdg.debugprint("hdg");
+	cout<<"is the matrix:"<<endl;
+	hinv.debugprint("hinv");
+	hres1.debugprint("hres1");
+	hres2.debugprint("hres2");
+	}
 
 #endif
 

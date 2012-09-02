@@ -44,7 +44,7 @@ Train*TrainFactory::createATestTrain()
 	train=new Train();
 	Car simpcar;
 		simpcar.mass=300.0f;		//300 kg
-		simpcar.drag=0.985f;	   //very little drag
+		simpcar.drag=0.983f;	   //very little drag
 		simpcar.speed=0.0f;		//idle
 		simpcar.power=0.0f;		//not self-powered
 		simpcar.linpos=0.0f;

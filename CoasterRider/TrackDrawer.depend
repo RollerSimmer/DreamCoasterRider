@@ -1039,27 +1039,29 @@
 	<iostream>
 	<sstream>
 
-1345809094 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/FullSpline.cpp
+1346570712 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/FullSpline.cpp
 	"FullSpline.h"
 	<cmath>
 
-1345804066 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/FullSpline.h
+1346566203 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/FullSpline.h
 	<irrlicht.h>
 
-1345506226 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/HeadingMatrix.cpp
+1346568648 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/HeadingMatrix.cpp
 	"HeadingMatrix.h"
+	"irrlicht.h"
 	<iostream>
 
-1345162805 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/HeadingMatrix.h
+1346568309 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/HeadingMatrix.h
 	"irrlicht.h"
 
 1344983798 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/irrlicht.h
 	<irrlicht.h>
 
-1345507548 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/PathSpline.cpp
+1346571258 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/PathSpline.cpp
 	"PathSpline.h"
+	<iostream>
 
-1345508529 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/PathSpline.h
+1346566212 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/PathSpline.h
 	"FullSpline.h"
 	"HeadingMatrix.h"
 	<irrlicht.h>
@@ -1069,13 +1071,13 @@
 	<iostream>
 	<sstream>
 
-1346147317 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Track.h
+1346491852 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Track.h
 	"PathSpline.h"
 	"Orientation.h"
 	<deque>
 	<irrlicht.h>
 
-1346142251 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackMesh.cpp
+1346472331 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackMesh.cpp
 	"TrackMesh.h"
 	"Track.h"
 	"LadderTrackMeshPatternFactory.h"
@@ -1105,9 +1107,10 @@
 	<cmath>
 	<vector>
 
-1346239176 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/meshmain.cpp
+1346574061 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/meshmain.cpp
 	"irrlicht.h"
 	"Track.h"
+	"Orientation.h"
 	"TrackFactory.h"
 	"TrackMesh.h"
 	"TrackOperator.h"
@@ -1121,7 +1124,7 @@
 1344983251 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/MyEventReceiver.h
 	<irrlicht.h>
 
-1346158373 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/testmain.cpp
+1346569797 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/testmain.cpp
 	"irrlicht.h"
 	"MyEventReceiver.h"
 	"Track.h"
@@ -1150,7 +1153,7 @@
 1345438299 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackMeshPattern.h
 	"irrlicht.h"
 
-1345441440 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/LadderTrackMeshPatternFactory.cpp
+1346423701 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/LadderTrackMeshPatternFactory.cpp
 	"LadderTrackMeshPatternFactory.h"
 	<cassert>
 
@@ -1163,7 +1166,7 @@
 1345419737 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackMeshPatternFactory.cpp
 	"TrackMeshPatternFactory.h"
 
-1345449317 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/SkinnyTubeSupportMeshFactory.cpp
+1346425604 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/SkinnyTubeSupportMeshFactory.cpp
 	"SkinnyTubeSupportMeshFactory.h"
 	"irrlicht.h"
 	<cassert>
@@ -1171,11 +1174,13 @@
 1345429021 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/SkinnyTubeSupportMeshFactory.h
 	"SupportMeshFactory.h"
 
-1346163435 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackFactory.cpp
+1346550857 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackFactory.cpp
 	"TrackFactory.h"
+	"TrackFileParser.h"
 
-1345621262 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackFactory.h
+1346493530 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackFactory.h
 	"Track.h"
+	"Orientation.h"
 	"irrlicht.h"
 
 1346138087 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Block.cpp
@@ -1183,7 +1188,7 @@
 
 1346237714 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Block.h
 
-1346142089 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Orientation.h
+1346314200 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Orientation.h
 	"HeadingMatrix.h"
 	"irrlicht.h"
 
@@ -1193,7 +1198,7 @@
 1346167613 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Car.h
 	"Orientation.h"
 
-1346142203 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Orientation.cpp
+1346314244 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Orientation.cpp
 	"Orientation.h"
 	<sstream>
 	<iostream>
@@ -1205,21 +1210,39 @@
 	"Car.h"
 	<deque>
 
-1346240896 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackOperator.cpp
+1346468336 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackOperator.cpp
 	"TrackOperator.h"
 	<cmath>
 
-1346240292 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackOperator.h
+1346468024 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackOperator.h
 	"Train.h"
 	"Track.h"
 	"Block.h"
 	<deque>
 
-1346164212 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrainFactory.cpp
+1346574691 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrainFactory.cpp
 	"TrainFactory.h"
 
 1346148730 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrainFactory.h
 	"Train.h"
 
-1346158855 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/unitconv.h
+1346319800 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/unitconv.h
+
+1346493405 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/testxml.cpp
+	"irrlicht.h"
+	<iostream>
+	<cstring>
+
+1346495809 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackFileParser.h
+	"Track.h"
+	"PathSpline.h"
+	"irrlicht.h"
+	<stack>
+	<deque>
+
+1346566296 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackFileParser.cpp
+	"TrackFileParser.h"
+	<cstring>
+	<iostream>
+	<cctype>
 

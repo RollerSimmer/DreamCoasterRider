@@ -3,6 +3,7 @@
 #include "irrlicht.h"
 
 #include "Track.h"
+#include "Orientation.h"
 #include "TrackFactory.h"
 #include "TrackMesh.h"
 #include "TrackOperator.h"
@@ -46,7 +47,7 @@ int main(int argc, char* argv[])
 
    IGUIFont*font=guienv->getBuiltInFont();
    vector<IGUIStaticText*> msgary;
-   const int amtmsgs=8;
+   const int amtmsgs=10;
    msgary.clear();
    {
    int y=0;
@@ -154,7 +155,14 @@ int main(int argc, char* argv[])
 
 		//Create the track and track mesh:
 		Track*track;
-		track=TrackFactory::getinstance()->createTestTrack(vector3df(0.0,1.0,-100.0));
+		Orientation startori;
+		startori.pos.set(0.0,5.0,-100.0);
+		////track=TrackFactory::getinstance()->createTestTrack(startori);
+		////track=TrackFactory::getinstance()->createCorkscrewTrack(startori);
+		////track=TrackFactory::getinstance()->createMegaCoasterTrack(startori);
+		////track=TrackFactory::getinstance()->createTopHatCoasterTrack(startori);
+		track=TrackFactory::getinstance()->createTrackFromFile("tracks/tornado.xml");
+
 		TrackMesh mesh(track,smgr->getSceneCollisionManager(),driver);
 
 		mesh.init(track,1.0,driver);
@@ -170,13 +178,15 @@ int main(int argc, char* argv[])
 	CreateTrackOperatorA:
 		TrackOperator*trackop;
 		trackop=new TrackOperator(track);
-		trackop->minspeed=miles_per_hour_to_meter_per_second*7.0f;
+		trackop->minspeed=miles_per_hour_to_meter_per_second*10.0f;
+		trackop->controlaccel=miles_per_hour_to_meter_per_second*25.0f;
 		trackop->trains.clear();
 		trackop->blocks.clear();
 		trackop->trains.push_back(TrainFactory::getinstance()
 		                          ->createATestTrain());
+		trackop->setTrainPos(0,0.0,true);
 		trackop->autolift=false;
-		trackop->AddBlock(0.0f,145.0f,true);
+		trackop->AddBlock(0.0f,200.0f,true);
 
 	CreateTrackB:
 		//Create the track and track mesh:
@@ -290,7 +300,8 @@ int main(int argc, char* argv[])
 
 		float raisemul=speedmul;
 
-		static f32 headht=0.75;		//0.75 meters off the track
+		static f32 headht=0.0f;		//0.75 meters off the track
+		const f32 headht_from_track=0.75f;		//0.75 meters off the track
 		////static float headht=0.2;
 
 		if(receiver.IsKeyDown(irr::KEY_KEY_0))
@@ -323,11 +334,11 @@ int main(int argc, char* argv[])
 		if(receiver.IsKeyDown(irr::KEY_KEY_I))
 			{
 			//inverted coaster
-			headht=-std::abs((float)headht);
+			headht=-headht_from_track;
 			}
 		else
 			{
-			headht=std::abs((float)headht);
+			headht=headht_from_track;
 			}
 
 		if(camera)
@@ -364,23 +375,24 @@ int main(int argc, char* argv[])
 					for(int i=0;i<msgary.size();i++)
 						{
 						ss.str("");
-						switch(i)
+						int casev=0;	//casev is for a dynamic "switch/case" equivalent block
+						if(i==casev++)	ss<<"tracklen = "<<tracklen;
+						else if(i==casev++)	ss<<"trackpos = "<<trackpos;
+						else if(i==casev++)	ss<<"pos_inc = "<<trackpos_inc;
+						else if(i==casev++)	ss<<"appx cur ht (m) = "<<ori.pos.Y;
+						else if(i==casev++)	ss<<"appx cur ht (ft) = "<<(ori.pos.Y*feet_per_meter);
+						else if(i==casev++)	ss<<"train speed (m/s) = "<<trainspeed;
+						else if(i==casev++)	ss<<"train speed (mph) = "<<(trainspeed/miles_per_hour_to_meter_per_second);
+						else if((i==casev)||(i==casev+1)||(i==casev+2))
 							{
-							case 0:	ss<<"tracklen="<<tracklen; break;
-							case 1:	ss<<"trackpos="<<trackpos;	break;
-							case 2:	ss<<"pos_inc="<<trackpos_inc;	break;
-							case 3:	ss<<"train speed (m/s)="<<trainspeed;	break;
-							case 4:	ss<<"train speed (mph)="<<(trainspeed/miles_per_hour_to_meter_per_second);	break;
-							case 5: case 6: case 7:
-								{
-								vector3df&gf=trackop->trains.at(0)->cars.at(0).gforces;
-								if(i==5)			ss<<"lat g's:"<<gf.X;
-								else if(i==6)	ss<<"vrt g's:"<<gf.Y;
-								else if(i==7)	ss<<"acc g's:"<<gf.Z;
-								break;
-								}
-							default: ss<<"___________";	break;
+							vector3df&gf=trackop->trains.at(0)->cars.at(0).gforces;
+							if(i==casev+0)			ss<<"lat g's: "<<gf.X;
+							else if(i==casev+1)	ss<<"vrt g's: "<<gf.Y;
+							else if(i==casev+2)	ss<<"acc g's: "<<gf.Z;
+							casev+=3;
 							}
+						else
+							ss<<"___________";
 						strcpy(s,ss.str().c_str());
 						memset(wcs,0,sizeof(wcs));
 						mbstowcs (wcs,s,strlen(s));

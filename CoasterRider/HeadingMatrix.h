@@ -22,9 +22,12 @@ class HeadingMatrix
 								,bool donormalize=true);
 	public:  //operators
 		core::vector3df&operator*(	core::vector3df v);
+		HeadingMatrix&operator*(HeadingMatrix hdg);
 		HeadingMatrix&operator+(HeadingMatrix hdg);
 	public: 	//functions
 		HeadingMatrix&normalize();
+		HeadingMatrix&inverse();
+		static HeadingMatrix&ijk();
 	public: //debug functions
 		void debugprint(char*name);
 	};

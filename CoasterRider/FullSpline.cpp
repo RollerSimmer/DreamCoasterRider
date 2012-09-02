@@ -153,4 +153,19 @@ float FullSpline::Distance2Scale(float dist,float splinelen)
 	return scalesum;
 	}
 
+/**####################################################
+	reverse() - reverse the spline
+#####################################################*/
+
+void FullSpline::reverse()
+	{
+	FullSpline rs=*this;
+	for(int i=0,j=3;i<4;i++,j--)
+		{
+		rs.cpary[i]=this->cpary[j];
+		rs.upary[i]=this->upary[j];
+		}
+	*this=rs;
+	}
+
 
