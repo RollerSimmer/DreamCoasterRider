@@ -74,9 +74,10 @@ void Track::InsertSpline(PathSpline spline,int pos)
 
 float Track::CalcTrackLen(float interval,bool usetable)
 	{
-	float len=0.0;
+	float lentally=0.0;
 	HeadingMatrix hdg,starthdg;
 	elmtlens.clear();
+	elmtposlist.clear();
 	bool tablebigenough=fullpath.size()>=path.size();
 	for(int i=0;i<path.size();i++)
 		{
@@ -86,9 +87,12 @@ float Track::CalcTrackLen(float interval,bool usetable)
 			elmtlens.push_back(fullpath.at(i).CalcLen(interval));
 		else
 			elmtlens.push_back(path.at(i).CalcLen(interval));
-		len+=elmtlens.back();
+
+		elmtposlist.push_back(lentally);
+		lentally+=elmtlens.back();
 		}
-	return len;
+	elmtposlist.push_back(lentally);	//trail position.
+	return lentally;
 	}
 
 /**########################################################
@@ -450,3 +454,75 @@ Orientation&Track::getori(float distance)
 	GetHeadingAndPtAt(distance,ori.hdg,ori.pos,false,false,true);
 	return ori;
 	}
+
+/**########################################################
+	getbankedori() - get orientation with banking added
+		In: distance - the distance along the track
+		Out: (return value) - the orientation at that progression
+		                      along the track.
+		Note: assumes that orientation approximation table is
+		      initialized.
+#########################################################*/
+
+Orientation&Track::getbankedori(float distance)
+	{
+	Orientation ori;
+	static Orientation bankori;
+	//first get the original orientation:
+		ori=getori(distance);
+	//figure the banking to the heading:
+		float istart,iend;
+		istart=getDistElmtIdx(distance);
+		iend=istart+1;
+		float bankstart,bankend,bank;
+		bankstart=banks.at(istart);
+		bankend=banks.at(iend);
+		float diststart,elmtlen;
+		diststart=elmtposlist.at(istart);
+		elmtlen=elmtlens.at(istart);
+		float bankscale;
+		if(elmtlen<=0.0||distance<=diststart)
+			bankscale=0.0;
+		else if(distance-diststart>elmtlen)
+			bankscale=1.0;
+		else
+			bankscale=(distance-diststart)/elmtlen;
+		bank=(1.0-bankscale)*bankstart+bankscale*bankend;
+	//now add the banking to the heading:
+		const float pi=3.1415927f;
+		float bankrad=bank*pi/180.0f;
+		HeadingMatrix rotrix;	//rotational matrix
+		rotrix.setrgt(vector3df(cos(bankrad),-sin(bankrad),0.0));
+		rotrix.setup(vector3df(sin(bankrad),cos(bankrad),0.0));
+		rotrix.setfwd(vector3df(0.0,0.0,1.0));
+		if(bank!=0.0)
+			{
+			bankori=ori;
+			bankori.hdg=ori.hdg*rotrix;
+			}
+		else
+			bankori=ori;
+	return bankori;
+	}
+
+/**########################################################
+	getDistElmtIdx() - get the index of the element for which
+	                   the distance falls in range.
+		In: distance - the distance along the track.
+		Out: (return value) - the index of the element
+		                      corresponding to distance.
+#########################################################*/
+
+int Track::getDistElmtIdx(float distance)
+	{
+	float disttally=0.0;
+	for(int i=0;i<elmtlens.size();i++)
+		{
+		disttally+=elmtlens.at(i);
+		if(distance<disttally)
+			return i;
+		}
+	return 0;
+	}
+
+

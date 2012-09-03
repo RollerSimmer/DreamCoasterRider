@@ -181,7 +181,6 @@ void PathSpline::reverse()
 			rps.cpary[i]=rfs.cpary[i+2];
 		for(int i=0;i<3;i++)
 			rps.upary[i]=rfs.upary[i+1];
-		rps.exitbank=exitbank;
 		rps.startlen=cpary[0].getDistanceFrom(cpary[1]);
 	*this=rps;
 	}
@@ -222,6 +221,5 @@ void PathSpline::debugprint()
 		cout<<upary[i].Z<<" )"<<endl;
 		}
 	cout<<"startlen="<<startlen<<endl;
-	cout<<"exitbank="<<exitbank<<endl;
 	}
 

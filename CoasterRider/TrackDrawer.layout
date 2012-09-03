@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="Car.h" open="1" top="0" tabpos="8">
+	<File name="Car.h" open="0" top="0" tabpos="8">
 		<Cursor position="300" topLine="0" />
 	</File>
-	<File name="FullSpline.cpp" open="1" top="0" tabpos="4">
+	<File name="FullSpline.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="4531" topLine="127" />
 	</File>
 	<File name="FullSpline.h" open="0" top="0" tabpos="9">
 		<Cursor position="127" topLine="0" />
 	</File>
-	<File name="HeadingMatrix.cpp" open="1" top="0" tabpos="5">
+	<File name="HeadingMatrix.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="2937" topLine="161" />
 	</File>
 	<File name="HeadingMatrix.h" open="0" top="0" tabpos="8">
 		<Cursor position="57" topLine="14" />
 	</File>
-	<File name="LadderTrackMeshPatternFactory.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="262" topLine="0" />
+	<File name="LadderTrackMeshPatternFactory.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="1776" topLine="45" />
 	</File>
 	<File name="LadderTrackMeshPatternFactory.h" open="0" top="0" tabpos="0">
 		<Cursor position="401" topLine="0" />
@@ -25,11 +25,11 @@
 	<File name="MyEventReceiver.h" open="0" top="0" tabpos="0">
 		<Cursor position="537" topLine="9" />
 	</File>
-	<File name="PathSpline.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="4401" topLine="159" />
+	<File name="PathSpline.cpp" open="0" top="0" tabpos="6">
+		<Cursor position="5587" topLine="183" />
 	</File>
 	<File name="PathSpline.h" open="0" top="0" tabpos="4">
-		<Cursor position="110" topLine="0" />
+		<Cursor position="459" topLine="0" />
 	</File>
 	<File name="SkinnyTubeSupportMeshFactory.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="2301" topLine="73" />
@@ -49,26 +49,26 @@
 	<File name="SupportMeshFactory.h" open="0" top="0" tabpos="0">
 		<Cursor position="376" topLine="0" />
 	</File>
-	<File name="Track.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="8517" topLine="314" />
+	<File name="Track.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="11479" topLine="430" />
 	</File>
 	<File name="Track.h" open="0" top="0" tabpos="4">
-		<Cursor position="1154" topLine="39" />
+		<Cursor position="2455" topLine="50" />
 	</File>
-	<File name="TrackFactory.cpp" open="1" top="0" tabpos="1">
+	<File name="TrackFactory.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="6364" topLine="165" />
 	</File>
 	<File name="TrackFactory.h" open="0" top="0" tabpos="4">
 		<Cursor position="1203" topLine="15" />
 	</File>
-	<File name="TrackFileParser.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="4976" topLine="307" />
+	<File name="TrackFileParser.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="5633" topLine="226" />
 	</File>
 	<File name="TrackFileParser.h" open="0" top="0" tabpos="0">
 		<Cursor position="342" topLine="7" />
 	</File>
-	<File name="TrackMesh.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="1564" topLine="42" />
+	<File name="TrackMesh.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="1635" topLine="43" />
 	</File>
 	<File name="TrackMesh.h" open="0" top="0" tabpos="9">
 		<Cursor position="725" topLine="13" />
@@ -82,14 +82,14 @@
 	<File name="TrackMeshPatternFactory.h" open="0" top="0" tabpos="0">
 		<Cursor position="114" topLine="0" />
 	</File>
-	<File name="TrackNode.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="2356" topLine="74" />
+	<File name="TrackNode.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="2304" topLine="76" />
 	</File>
 	<File name="TrackNode.h" open="0" top="0" tabpos="0">
 		<Cursor position="671" topLine="5" />
 	</File>
-	<File name="TrackOperator.cpp" open="1" top="0" tabpos="9">
-		<Cursor position="2671" topLine="107" />
+	<File name="TrackOperator.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="154" topLine="0" />
 	</File>
 	<File name="TrackOperator.h" open="0" top="0" tabpos="0">
 		<Cursor position="775" topLine="2" />
@@ -97,8 +97,8 @@
 	<File name="Train.h" open="0" top="0" tabpos="0">
 		<Cursor position="154" topLine="0" />
 	</File>
-	<File name="TrainFactory.cpp" open="1" top="0" tabpos="10">
-		<Cursor position="1283" topLine="3" />
+	<File name="TrainFactory.cpp" open="0" top="0" tabpos="10">
+		<Cursor position="1283" topLine="0" />
 	</File>
 	<File name="irrlicht.h" open="0" top="0" tabpos="7">
 		<Cursor position="23" topLine="0" />
@@ -106,10 +106,10 @@
 	<File name="main.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="7613" topLine="224" />
 	</File>
-	<File name="meshmain.cpp" open="1" top="1" tabpos="3">
-		<Cursor position="6918" topLine="214" />
+	<File name="meshmain.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="3846" topLine="134" />
 	</File>
-	<File name="testmain.cpp" open="1" top="0" tabpos="7">
+	<File name="testmain.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="5" topLine="0" />
 	</File>
 	<File name="testxml.cpp" open="0" top="0" tabpos="1">

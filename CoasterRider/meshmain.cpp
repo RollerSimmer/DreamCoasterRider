@@ -13,6 +13,9 @@
 #include <sstream>
 #include <cstdlib>
 #include <cmath>
+#include <iostream>
+
+using namespace std;
 
 
 /*
@@ -70,7 +73,7 @@ int main(int argc, char* argv[])
 	ITimer*timer;
 	timer=device->getTimer( );
 
-	timer->setSpeed(1);
+	timer->setSpeed(1.0f);
 	timer->setTime(0);
 	timer->start();
 
@@ -139,7 +142,8 @@ int main(int argc, char* argv[])
 				,vector3df(0.0,0.0,0.0)
 				,vector3df(0.0,0.0,0.0)
 				,vector3df(10.0,10.0,10.0)
-				,video::SColor(255,67,100,11)	//green
+				,video::SColor(255,165,136,108)	//brown
+				////,video::SColor(255,67,100,11)	//green
 				////,video::SColor(255,67,11,100)	//purple
 				);
 
@@ -152,7 +156,6 @@ int main(int argc, char* argv[])
 	#endif
 
 	CreateTrackA:
-
 		//Create the track and track mesh:
 		Track*track;
 		Orientation startori;
@@ -161,7 +164,14 @@ int main(int argc, char* argv[])
 		////track=TrackFactory::getinstance()->createCorkscrewTrack(startori);
 		////track=TrackFactory::getinstance()->createMegaCoasterTrack(startori);
 		////track=TrackFactory::getinstance()->createTopHatCoasterTrack(startori);
-		track=TrackFactory::getinstance()->createTrackFromFile("tracks/tornado.xml");
+		char trackfile[128]="tracks/tornado.xml";
+		char sinput[128];
+		cout<<"Enter track file to load (XML) (blank for default): "<<endl<<"\t";
+		cin>>sinput;
+		cout<<endl;
+		if(strlen(sinput)>0)
+			strcpy(trackfile,sinput);
+		track=TrackFactory::getinstance()->createTrackFromFile(trackfile);
 
 		TrackMesh mesh(track,smgr->getSceneCollisionManager(),driver);
 
@@ -178,15 +188,57 @@ int main(int argc, char* argv[])
 	CreateTrackOperatorA:
 		TrackOperator*trackop;
 		trackop=new TrackOperator(track);
-		trackop->minspeed=miles_per_hour_to_meter_per_second*10.0f;
-		trackop->controlaccel=miles_per_hour_to_meter_per_second*25.0f;
+		float speedmph,accelmphs,finput;
+
+		speedmph=10.0;
+		cout<<"Enter launch/lift top speed (mph): ";	cin>>finput;	cout<<endl;
+		cout<<"> You entered: "<<finput<<endl;
+		if(finput>0.0)	speedmph=finput;
+
+		accelmphs=25.0;
+		cout<<"Enter launch/lift acceleration (mph/s): ";	cin>>finput;	cout<<endl;
+		cout<<"> You entered: "<<finput<<endl;
+		if(finput>0.0)	accelmphs=finput;
+
+		trackop->minspeed=miles_per_hour_to_meter_per_second*speedmph;
+		trackop->controlaccel=miles_per_hour_to_meter_per_second*accelmphs;
 		trackop->trains.clear();
 		trackop->blocks.clear();
 		trackop->trains.push_back(TrainFactory::getinstance()
 		                          ->createATestTrain());
-		trackop->setTrainPos(0,0.0,true);
-		trackop->autolift=false;
-		trackop->AddBlock(0.0f,200.0f,true);
+		float trainpos;
+		cout<<"Enter starting track position of trailing car in train: "; cin>>trainpos; cout<<endl;
+		cout<<"> You entered: "<<trainpos<<endl;
+		trackop->setTrainPos(0,trainpos,true);
+		cout<<"Automatically lift the car below min speed even off lift blocks? (1=yes, 0=no) ";
+		cin>>trackop->autolift;	cout<<endl;
+		cout<<"> You entered: "<<trackop->autolift<<endl;
+
+		float blockstart,blocklen;
+		bool doaddblock=false;
+		bool doliftflag;
+		int blockcount=0;
+		do
+			{
+			if(blockcount==0) cout<<"Add a block? (1=yes, 0=no): ";
+			else              cout<<"Add another block? (1=yes, 0=no): ";
+			cin>>doaddblock;	cout<<endl;
+			cout<<"> You entered: "<<doaddblock<<endl;
+
+			if(doaddblock&&!cin.eof())
+				{
+				cout<<"-- Block #"<<blockcount<<" --"<<endl;
+				cout<<"Block start: "; cin>>blockstart;	cout<<endl;
+				cout<<"> You entered: "<<blockstart<<endl;
+				cout<<"Block length: "; cin>>blocklen;	cout<<endl;
+				cout<<"> You entered: "<<blocklen<<endl;
+				cout<<"Do lift? (0=yes, 1=no): ";	cin>>doliftflag; cout<<endl;
+				cout<<"> You entered: "<<doliftflag<<endl;
+				trackop->AddBlock(blockstart,blocklen,doliftflag);
+				++blockcount;
+				}
+			}	while(doaddblock);
+
 
 	CreateTrackB:
 		//Create the track and track mesh:
@@ -346,7 +398,7 @@ int main(int argc, char* argv[])
 			SetOrientation:
 				Orientation ori;
 				#if 0	//manual speed control:
-					ori=track->getori( trackpos);
+					ori=track->getbankedori( trackpos);
 					trackpos+=trackpos_inc;
 					trackpos=fmod(trackpos,tracklen);
 					if(trackpos<0.0)	trackpos+=tracklen;
@@ -376,9 +428,9 @@ int main(int argc, char* argv[])
 						{
 						ss.str("");
 						int casev=0;	//casev is for a dynamic "switch/case" equivalent block
-						if(i==casev++)	ss<<"tracklen = "<<tracklen;
-						else if(i==casev++)	ss<<"trackpos = "<<trackpos;
-						else if(i==casev++)	ss<<"pos_inc = "<<trackpos_inc;
+						if(i==casev++)	ss<<"track len (m) = "<<tracklen;
+						else if(i==casev++)	ss<<"track pos (m) = "<<trackpos;
+						else if(i==casev++)	ss<<"pos_inc (m) = "<<trackpos_inc;
 						else if(i==casev++)	ss<<"appx cur ht (m) = "<<ori.pos.Y;
 						else if(i==casev++)	ss<<"appx cur ht (ft) = "<<(ori.pos.Y*feet_per_meter);
 						else if(i==casev++)	ss<<"train speed (m/s) = "<<trainspeed;

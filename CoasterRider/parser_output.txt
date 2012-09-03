@@ -7,7 +7,7 @@ GeForce G100/PCI/SSE2: NVIDIA Corporation
 OpenGL driver version is 1.2 or better.
 GLSL version: 1.5
 Loaded texture: /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/textures/skydome.jpg
-Generated terrain data (512x512) in 0.6310 seconds
+Generated terrain data (512x512) in 0.6460 seconds
 Inverse exists
 --------- Element Table Entry #0 --------
 name="str8"

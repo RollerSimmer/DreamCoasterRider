@@ -159,7 +159,7 @@ void TrackFileParser::ReadFullCircuit()
 void TrackFileParser::ReadTrackStart()
 	{
 	findopentag("TRACK_START");
-	track->setStartBank(readfloat("BANK"));
+	track->banks.push_front(readfloat("BANK"));
 	track->startpos=readvector3df("POS");
 	track->startup=readvector3df("UP");
 	track->startfwd=readvector3df("FWD");
@@ -190,7 +190,6 @@ bool TrackFileParser::ReadSingleElementDef()
 	element.setup(1,readvector3df("UP_1"));
 	element.setup(2,readvector3df("UP_2"));
 	element.setStartLen(readfloat("START_LEN"));
-	element.setexitbank(readfloat("EXIT_BANK"));
 	strcpy(copyname,readtext("COPY_NAME"));
 	mirrorx=readbool("MIRROR_X_FLAG");
 	flipy=readbool("FLIP_Y_FLAG");
@@ -221,13 +220,14 @@ bool TrackFileParser::ReadTrackElementRef()
 	{
 	PathSpline pspline;
 	FieldName elmtname;
-	float scale;
+	float scale,bank;
 	int repeat,elmti;
 
 	repeat=readint("REPEAT");
 	strcpy(elmtname,readtext("BASE"));
 	elmti=findElmtDefInTable(elmtname);
 	scale=readfloat("SCALE");
+	bank=readfloat("BANK");
 
 	if(repeat>0&&elmti!=-1&&scale>0.0)
 		{
@@ -236,6 +236,7 @@ bool TrackFileParser::ReadTrackElementRef()
 			track->path.push_back(elements.at(elmti));
 			track->path.back().ScaleSpline(scale);
 			track->path.back().normalize();
+			track->banks.push_back(bank);
 			}
 		}
 

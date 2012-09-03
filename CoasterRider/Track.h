@@ -23,14 +23,16 @@ class Track
 	protected: //state
 		deque<PathSpline> path;
 		deque<Orientation> elmtstarts;	//element start orientation table.
+		deque<float> elmtposlist;	//element linear position table
 		deque<Orientation> appxOris;
-		deque<float> elmtlens;
+		deque<float> elmtlens;				//lengths of each individual element.
 		float approximation_interval;
 		float tracklen;	//may not always be initialized to CalcTrackLen(), be careful.
-		core::vector3df startpos;
-		core::vector3df startup;
-		core::vector3df startfwd;
-		float startbank;	//degrees - additional banking that does not affect orientation of spline permanentally.
+		core::vector3df startpos;	//the starting position of the track
+		core::vector3df startup;	//the starting up vector
+		core::vector3df startfwd;	//the starting forward vector
+		deque<float> banks;	//degrees - additional banking that does not affect orientation of spline permanentally.
+									//there should be (fullpath.size()+1) bank entries.
 		bool fullcircuit;
 	public: //accessible state
 		deque<FullSpline> fullpath;
@@ -44,7 +46,6 @@ class Track
 		void UnsetFullCircuit()	{	fullcircuit=false;	}
 		void ToggleFullCircuit()	{	fullcircuit=!fullcircuit;	}
 		bool isFullCircuit()	{	return fullcircuit;	}
-		void setStartBank(float _startbank)	{	startbank=_startbank;	}
 	public:	//function
 		void InsertSpline(PathSpline spline,int pos);
 		void load(char*file);
@@ -57,6 +58,7 @@ class Track
 				                 ,bool useOriAppxTable=false
 				                 );
 		Orientation&getori(float distance);
+		Orientation&getbankedori(float distance);
 		Orientation&LookupElmtStartOrientation(int i);
 		void MakeElmtHeadingTable();
 		void MakeFullPath(bool useElmtStartTable=true);
@@ -64,6 +66,7 @@ class Track
 		Orientation&LookupOrientationAt(float distance);
 		void initTablesFromPathSpline();
 		float htAt(float distance);
+		int getDistElmtIdx(float distance);
 	private:	//common internal tasks
 		float CalcTrackLen(float interval=0.01,bool usetable=true);
 		void StepOrientation(int i,Orientation&ori);

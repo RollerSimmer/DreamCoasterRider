@@ -2,7 +2,7 @@
 #include <cmath>
 
 /**#########################################################
-	TrackOperator() - TrackOperator constructor.
+//	TrackOperator() - TrackOperator constructor.
 ##########################################################*/
 
 TrackOperator::TrackOperator(Track*_track,bool _autolift)
@@ -86,13 +86,13 @@ void TrackOperator::MoveTrain(int trainI, float timeElapsed)
 
 					Orientation ori,ori0;
 					float a;
-					ori0=track->getori(s0);
+					ori0=track->getbankedori(s0);
 					a=ori0.hdg.getfwd().dotProduct(gv);
 					s= s0 + v0*dt;
 					s=fmod(s,tracklen);	// in case it loops around
 					while(s<0.0f)
 						{	s+=tracklen;	}
-					ori=track->getori(s);
+					ori=track->getbankedori(s);
 					v=v0+a*dt;
 
 				#else
@@ -104,9 +104,9 @@ void TrackOperator::MoveTrain(int trainI, float timeElapsed)
 						{	s+=tracklen;	}
 					Orientation ori;
 					if(isnan(s))
-						ori=track->getori(s);
+						ori=track->getbankedori(s);
 					else
-						ori=track->getori(s);
+						ori=track->getbankedori(s);
 					y=ori.pos.Y;
 					vsq=(v0*v0+2*g*(y0-y));
 					if(vsq<=0.0f)

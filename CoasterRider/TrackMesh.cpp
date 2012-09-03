@@ -52,7 +52,8 @@ void TrackMesh::init(Track*t,f32 _scale,IVideoDriver*driver)
 									 seglen,runglen,scale*0.1,scale*0.075
 
 									////,SColor(255,255,0,0),SColor(255,0,0,255)	//red and blue
-									,SColor(255,128,128,255),SColor(255,64,64,128)	//
+									////,SColor(255,128,128,255),SColor(255,64,64,128)	//blue
+									,SColor(255,82,67,53),SColor(255,82,67,53)	//brown
 									,driver);
 
 		static bool segsinited=false;
@@ -127,16 +128,11 @@ void TrackMesh::ConformMeshToTrackSpline()
 				core::vector3df cp,op;	//center and offset points
 				HeadingMatrix hdg;
 				#if 1
-					track->GetHeadingAndPtAt(progress,hdg,cp,false,false,true);
-					#if 0
-						Orientation ori;
-						ori.pos=cp;
-						ori.hdg=hdg;
-						stringstream ss;
-						ss.str("");
-						ss<<"vertexOri(progress="<<progress<<")";
-						ori.debugprint((char*)ss.str().c_str(),j);
-					#endif
+					Orientation ori;
+					////ori=track->getbankedori(progress);
+					ori=track->getbankedori(progress);
+					hdg=ori.hdg;
+					cp=ori.pos;
 				#else
 					track->GetHeadingAndPtAt(progress,hdg,cp);
 				#endif
@@ -207,6 +203,7 @@ void TrackMesh::AddSupports()
 	{
 	////SColor supcolor(255,255,255,0);	//yellow
 	SColor supcolor(255,140,140,150);	//silver
+	////SColor supcolor(128,165,136,108);	//brown
 	if(mesh==0)	return;
 	firstsupidx=mesh->getMeshBufferCount();
 	amtsupports++;
