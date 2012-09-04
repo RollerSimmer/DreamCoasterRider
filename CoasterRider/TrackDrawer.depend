@@ -1043,7 +1043,7 @@
 	"FullSpline.h"
 	<cmath>
 
-1346566203 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/FullSpline.h
+1346747274 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/FullSpline.h
 	<irrlicht.h>
 
 1346568648 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/HeadingMatrix.cpp
@@ -1077,7 +1077,7 @@
 	<deque>
 	<irrlicht.h>
 
-1346654830 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackMesh.cpp
+1346658187 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackMesh.cpp
 	"TrackMesh.h"
 	"Track.h"
 	"LadderTrackMeshPatternFactory.h"
@@ -1107,7 +1107,7 @@
 	<cmath>
 	<vector>
 
-1346657796 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/meshmain.cpp
+1346745044 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/meshmain.cpp
 	"irrlicht.h"
 	"Track.h"
 	"Orientation.h"

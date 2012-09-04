@@ -232,7 +232,7 @@ int main(int argc, char* argv[])
 				cout<<"> You entered: "<<blockstart<<endl;
 				cout<<"Block length: "; cin>>blocklen;	cout<<endl;
 				cout<<"> You entered: "<<blocklen<<endl;
-				cout<<"Do lift? (0=yes, 1=no): ";	cin>>doliftflag; cout<<endl;
+				cout<<"Do lift? (1=yes, 0=no): ";	cin>>doliftflag; cout<<endl;
 				cout<<"> You entered: "<<doliftflag<<endl;
 				trackop->AddBlock(blockstart,blocklen,doliftflag);
 				++blockcount;
@@ -276,14 +276,24 @@ int main(int argc, char* argv[])
 	backlight->setRotation(vector3df(-60.0,0.0,0.0));
 	*/
 
-	#define do_FPS 0
-	#if do_FPS
-		ICameraSceneNode* camera = smgr->
+	#if 1
+		bool dofps=false;
+		cout<<"Do you want to do a free view of the";
+		cout<<" track without riding it?"<<endl;
+		cin>>dofps;
+		cout<<endl;
+		cout<<"You entered "<<dofps<<endl;
+	#else
+		#define dofps 0
+	#endif
+
+	ICameraSceneNode* camera;
+	if(dofps)
+		camera = smgr->
 			addCameraSceneNodeFPS
 				( 	0,100.0f,0.05f,-1,0,0,false,0.f,false,true);
-	#else
-		ICameraSceneNode* camera = smgr->addCameraSceneNode();
-	#endif
+	else
+		camera = smgr->addCameraSceneNode();
 
 
 	if(camera)
@@ -305,11 +315,13 @@ int main(int argc, char* argv[])
 
 	while(device->run())
 		{
+		#if 1
 		if(!device->isWindowActive())
 			{
 			device->sleep(100);
 			continue;
 			}
+		#endif
 
 		meshnode->setMaterialFlag(video::EMF_WIREFRAME, false);
 		for(int i=0;i<meshnodeB.size();i++)
@@ -348,111 +360,113 @@ int main(int argc, char* argv[])
 			////'device->sleep(10);
 			}
 
-		#if !do_FPS
+		if(!dofps)
+			{
+			float raisemul=speedmul;
 
-		float raisemul=speedmul;
+			static f32 headht=0.0f;		//0.75 meters off the track
+			const f32 headht_from_track=0.75f;		//0.75 meters off the track
+			////static float headht=0.2;
 
-		static f32 headht=0.0f;		//0.75 meters off the track
-		const f32 headht_from_track=0.75f;		//0.75 meters off the track
-		////static float headht=0.2;
+			if(receiver.IsKeyDown(irr::KEY_KEY_0))
+				{
+				timer->setSpeed(0.0f);
+				}
+			if(receiver.IsKeyDown(irr::KEY_KEY_1))
+				{
+				timer->setSpeed(1.0f);
+				}
+			if(receiver.IsKeyDown(irr::KEY_KEY_2))
+				{
+				timer->setSpeed(4.0f);
+				}
+			if(receiver.IsKeyDown(irr::KEY_KEY_3))
+				{
+				timer->setSpeed(16.0f);
+				}
+			if(receiver.IsKeyDown(irr::KEY_UP))
+				{
+				//inverted coaster
+				headht+=raisemul*0.0001f;
+				}
+			if(receiver.IsKeyDown(irr::KEY_DOWN))
+				{
+				//inverted coaster
+				headht-=raisemul*0.0001f;
+				}
 
-		if(receiver.IsKeyDown(irr::KEY_KEY_0))
-			{
-			timer->setSpeed(0.0f);
-			}
-		if(receiver.IsKeyDown(irr::KEY_KEY_1))
-			{
-			timer->setSpeed(1.0f);
-			}
-		if(receiver.IsKeyDown(irr::KEY_KEY_2))
-			{
-			timer->setSpeed(4.0f);
-			}
-		if(receiver.IsKeyDown(irr::KEY_KEY_3))
-			{
-			timer->setSpeed(16.0f);
-			}
-		if(receiver.IsKeyDown(irr::KEY_UP))
-			{
-			//inverted coaster
-			headht+=raisemul*0.0001f;
-			}
-		if(receiver.IsKeyDown(irr::KEY_DOWN))
-			{
-			//inverted coaster
-			headht-=raisemul*0.0001f;
-			}
+			if(receiver.IsKeyDown(irr::KEY_KEY_I))
+				{
+				//inverted coaster
+				headht=-headht_from_track;
+				}
+			else
+				{
+				headht=headht_from_track;
+				}
 
-		if(receiver.IsKeyDown(irr::KEY_KEY_I))
-			{
-			//inverted coaster
-			headht=-headht_from_track;
-			}
-		else
-			{
-			headht=headht_from_track;
-			}
-
-		if(camera)
-			{
-			SetOrientation:
-				Orientation ori;
-				#if 0	//manual speed control:
-					ori=track->getbankedori( trackpos);
-					trackpos+=trackpos_inc;
-					trackpos=fmod(trackpos,tracklen);
-					if(trackpos<0.0)	trackpos+=tracklen;
-				#else	//Track operator and physics:
-					trackop->MoveTrain(0,timeElapsed);
-					Car&car=trackop->trains.at(0)->cars.at(0);
-					ori=car.ori;
-					trainspeed=trackop->trains.at(0)->speed;
-					trackpos=trackop->trains.at(0)->cars.at(0).linpos;
-				#endif
-			SetCamera:
-				ori.pos=ori.pos+headht*ori.hdg.getup();
-				camera->setPosition(ori.pos);
-				camera->setTarget(ori.pos+ori.hdg.getfwd());
-				camera->setUpVector(ori.hdg.getup());
-				camera->setFarValue(20000.0f);
-				camera->setNearValue(0.05f);
-			DisplayInfo:
-				if(timer->getTime()%20==0)
-					{
-					int i=0;
-					stringstream ss;
-					char s[64];
-					wchar_t wcs[64];
-					////memset(s,0,sizeof(s));
-					for(int i=0;i<msgary.size();i++)
+			if(camera)
+				{
+				SetOrientation:
+					Orientation ori;
+					#if 0	//manual speed control:
+						ori=track->getbankedori( trackpos);
+						trackpos+=trackpos_inc;
+						trackpos=fmod((float)trackpos,(float)tracklen);
+						if(trackpos<0.0)	trackpos+=tracklen;
+					#else	//Track operator and physics:
+						trackop->MoveTrain(0,timeElapsed);
+						Car&car=trackop->trains.at(0)->cars.at(0);
+						ori=car.ori;
+						trainspeed=trackop->trains.at(0)->speed;
+						trackpos=trackop->trains.at(0)->cars.at(0).linpos;
+					#endif
+				SetCamera:
+					ori.pos=ori.pos+headht*ori.hdg.getup();
+					camera->setPosition(ori.pos);
+					camera->setTarget(ori.pos+ori.hdg.getfwd());
+					camera->setUpVector(ori.hdg.getup());
+					camera->setFarValue(20000.0f);
+					camera->setNearValue(0.05f);
+				DisplayInfo:
+					if(timer->getTime()%20==0)
 						{
-						ss.str("");
-						int casev=0;	//casev is for a dynamic "switch/case" equivalent block
-						if(i==casev++)	ss<<"track len (m) = "<<tracklen;
-						else if(i==casev++)	ss<<"track pos (m) = "<<trackpos;
-						else if(i==casev++)	ss<<"pos_inc (m) = "<<trackpos_inc;
-						else if(i==casev++)	ss<<"appx cur ht (m) = "<<ori.pos.Y;
-						else if(i==casev++)	ss<<"appx cur ht (ft) = "<<(ori.pos.Y*feet_per_meter);
-						else if(i==casev++)	ss<<"train speed (m/s) = "<<trainspeed;
-						else if(i==casev++)	ss<<"train speed (mph) = "<<(trainspeed/miles_per_hour_to_meter_per_second);
-						else if((i==casev)||(i==casev+1)||(i==casev+2))
+						int i=0;
+						stringstream ss;
+						char s[64];
+						wchar_t wcs[64];
+						////memset(s,0,sizeof(s));
+						for(int i=0;i<msgary.size();i++)
 							{
-							vector3df&gf=trackop->trains.at(0)->cars.at(0).gforces;
-							if(i==casev+0)			ss<<"lat g's: "<<gf.X;
-							else if(i==casev+1)	ss<<"vrt g's: "<<gf.Y;
-							else if(i==casev+2)	ss<<"acc g's: "<<gf.Z;
-							casev+=3;
+							ss.str("");
+							int casev=0;	//casev is for a dynamic "switch/case" equivalent block
+							if(i==casev++)	ss<<"track len (m) = "<<tracklen;
+							else if(i==casev++)	ss<<"track pos (m) = "<<trackpos;
+							else if(i==casev++)	ss<<"pos_inc (m) = "<<trackpos_inc;
+							else if(i==casev++)	ss<<"appx cur ht (m) = "<<ori.pos.Y;
+							else if(i==casev++)	ss<<"appx cur ht (ft) = "<<(ori.pos.Y*feet_per_meter);
+							else if(i==casev++)	ss<<"train speed (m/s) = "<<trainspeed;
+							else if(i==casev++)	ss<<"train speed (mph) = "<<(trainspeed/miles_per_hour_to_meter_per_second);
+							else if((i==casev)||(i==casev+1)||(i==casev+2))
+								{
+								vector3df&gf=trackop->trains.at(0)->cars.at(0).gforces;
+								if(i==casev+0)			ss<<"lat g's: "<<gf.X;
+								else if(i==casev+1)	ss<<"vrt g's: "<<gf.Y;
+								else if(i==casev+2)	ss<<"acc g's: "<<gf.Z;
+								casev+=3;
+								}
+							else
+								ss<<"___________";
+							strcpy(s,ss.str().c_str());
+							memset(wcs,0,sizeof(wcs));
+							mbstowcs (wcs,s,strlen(s));
+							msgary[i]->setText(wcs);
 							}
-						else
-							ss<<"___________";
-						strcpy(s,ss.str().c_str());
-						memset(wcs,0,sizeof(wcs));
-						mbstowcs (wcs,s,strlen(s));
-						msgary[i]->setText(wcs);
 						}
-					}
+				}
+
 			}
-		#endif
+
 
 		if(receiver.IsKeyDown(irr::KEY_KEY_T))
 			{

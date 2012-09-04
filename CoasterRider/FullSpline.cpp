@@ -52,7 +52,7 @@ core::vector3df&FullSpline::interpolate( core::vector3df pts[4]
 	{
 	float t=progress;
 	if(t!=0.0&&t!=1.0)
-		t=fmod(t,1.0);
+		t=fmod((float)t,(float)1.0);
 	if(t<0)	t+=1.0;
 	core::vector3df terms[4],sum(0.0f,0.0f,0.0f);
 	float coefs[4]={	1.0,3.0,3.0,1.0	};

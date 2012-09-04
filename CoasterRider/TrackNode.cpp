@@ -1,5 +1,7 @@
+
+#if 0
 #include "TrackNode.h"
-#include <vector>
+using namespace std;
 
 TrackNode::TrackNode(
 			 ISceneNode*parent,scene::ISceneManager*mgr,s32 id
@@ -16,8 +18,10 @@ TrackNode::TrackNode(
 	this->Material.Lighting = false;
 
 	std::vector<core::vector3d<float> >p;
-	core::vector3d<float> basetri[3]
-		=	{{-0.5,0,0},{0.5,0,0},{0.25,-0.25,0}};
+	vector<vector3df> basetri;
+	basetri.push_back(vector3df(-0.5,0,0));
+	basetri.push_back(vector3df(0.5,0,0));
+	basetri.push_back(vector3df(0.25,-0.25,0));
 	core::vector3d<float> rottri[2];
 
 	core::vector3d<float> A,B,C;
@@ -138,3 +142,5 @@ const core::aabbox3d<f32>& TrackNode::getBoundingBox() const
 	{
 		return Box;
 	}
+
+#endif

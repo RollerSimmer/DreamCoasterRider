@@ -17,8 +17,8 @@ class FullSpline
 	public: //access
 		core::vector3df&getcp(int i)	{	return cpary[i%4];	}
 		core::vector3df&getup(int i)	{	return upary[i%4];	}
-		core::vector3df&setcp(int i,core::vector3df cp)	{	cpary[i%4]=cp;	}
-		core::vector3df&setup(int i,core::vector3df up)	{	upary[i%4]=up;	}
+		void setcp(int i,core::vector3df cp)	{	cpary[i%4]=cp;	}
+		void setup(int i,core::vector3df up)	{	upary[i%4]=up;	}
 	public:	//function
 		float Distance2Scale(float dist);
 		core::vector3df&ptInterpolate(float progress);

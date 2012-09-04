@@ -89,7 +89,7 @@ void TrackOperator::MoveTrain(int trainI, float timeElapsed)
 					ori0=track->getbankedori(s0);
 					a=ori0.hdg.getfwd().dotProduct(gv);
 					s= s0 + v0*dt;
-					s=fmod(s,tracklen);	// in case it loops around
+					s=fmod((float)s,(float)tracklen);	// in case it loops around
 					while(s<0.0f)
 						{	s+=tracklen;	}
 					ori=track->getbankedori(s);
@@ -99,13 +99,15 @@ void TrackOperator::MoveTrain(int trainI, float timeElapsed)
 
 					y0=car.ori.pos.Y;
 					s=s0+v0*dt;
-					s=fmod(s,tracklen);	// in case it loops around
+					s=fmod((float)s,(float)tracklen);	// in case it loops around
 					while(s<0.0f)
 						{	s+=tracklen;	}
 					Orientation ori;
+					#if 0
 					if(isnan(s))
 						ori=track->getbankedori(s);
 					else
+					#endif
 						ori=track->getbankedori(s);
 					y=ori.pos.Y;
 					vsq=(v0*v0+2*g*(y0-y));

@@ -1,3 +1,4 @@
+#if 0
 #pragma once
 
 #include <irrlicht.h>
@@ -27,3 +28,5 @@ class TrackNode : public scene::ISceneNode
 		virtual const core::aabbox3d<f32>& getBoundingBox() const;
 		virtual u32 getMaterialCount() const	{	return 1;	}
 	};
+
+#endif
