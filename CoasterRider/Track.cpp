@@ -183,12 +183,23 @@ void Track::GetHeadingAndPtAt( float distance
 		{
 		while(!done)
 			{
-			distancesum_next=distancesum+elmtlens[i];
+			distancesum_next=distancesum+elmtlens[i%elmtlens.size()];
 			done=distancesum_next>=distance;
 			if(!done)
 				{
 				distancesum=distancesum_next;
-				done=++i>=path.size();
+				////done=done||distancesum>=tracklen;
+				////if(!done)
+					done=done||(++i>=elmtlens.size());
+				int breakdummy;
+				if(done)
+					{
+					if(fullcircuit)
+						i=i%elmtlens.size();
+					else
+						i=elmtlens.size()-1;
+					breakdummy=0;
+					}
 				}
 			}
 		if(i<path.size())	//then distance falls in range
@@ -344,12 +355,17 @@ void Track::MakeAppxOrientationTable(float interval)
 	appxOris.clear();
 	int i,amt_appxs;
 	i=0;
-	amt_appxs=(int)floor(tracklen/approximation_interval);
+	amt_appxs=(int)ceil(tracklen/approximation_interval);
+	if(fullcircuit) amt_appxs+=1;	//an extra approximation for wraparounds
 	while(i<amt_appxs)
 		{
+		int breakdummy;
+		if(i==amt_appxs-1)
+			breakdummy=0;
 		GetHeadingAndPtAt(distance,ori.hdg,ori.pos,true,true,false);
 		appxOris.push_back(ori);
 		distance+=approximation_interval;
+		////distance=min(distance,tracklen);
 		++i;
 		}
 	}

@@ -16,16 +16,19 @@ using namespace std;
 ########################################################*/
 void TrackMesh::CleanUpForInit()
 	{
-	while(mesh->getMeshBufferCount()>0)
+	if(meshnode)
 		{
-		mesh->getMeshBuffer(mesh->getMeshBufferCount()-1)->drop();
-		delete mesh->getMeshBuffer(mesh->getMeshBufferCount()-1);
-		}
-	while(segary.size()>0)
-		{
-		if(segary.back()!=0)
-			delete segary.back();
-		segary.pop_back();
+		while(imesh->getMeshBufferCount()>0)
+			{
+			imesh->getMeshBuffer(imesh->getMeshBufferCount()-1)->drop();
+			delete imesh->getMeshBuffer(imesh->getMeshBufferCount()-1);
+			}
+		while(segary.size()>0)
+			{
+			if(segary.back()!=0)
+				delete segary.back();
+			segary.pop_back();
+			}
 		}
 	}
 
@@ -36,7 +39,7 @@ void TrackMesh::CleanUpForInit()
 			\param driver - the video driver.
 #########################################################*/
 
-void TrackMesh::init(Track*t,f32 _scale,IVideoDriver*driver)
+void TrackMesh::init(Track*t,f32 _scale)
 	{
 	track=t;
 	if(t!=0)	//only do anything if the track is not null
@@ -52,27 +55,34 @@ void TrackMesh::init(Track*t,f32 _scale,IVideoDriver*driver)
 									 seglen,runglen,scale*0.1,scale*0.075
 
 									////,SColor(255,255,0,0),SColor(255,0,0,255)	//red and blue
+									,SColor(255,255,255,0),SColor(255,0,0,255)	//blue and yellow
+									////,SColor(255,0,0,0),SColor(255,0,0,255)	//black and blue
 									////,SColor(255,128,128,255),SColor(255,64,64,128)	//blue
-									,SColor(255,82,67,53),SColor(255,82,67,53)	//brown
+									////,SColor(255,82,67,53),SColor(255,82,67,53)	//brown
 									,driver);
 
 		static bool segsinited=false;
 		amtsegs=(int)((t->getTrackLen()+0.99f)/seglen);
 		CleanUpForInit();
-		for(int i=0;i<amtsegs;i++)
+		for(int i=0;i<amtsegs+1;i++)
 			{
 			////if(segary.size()==i)
 			////	std::cout<<"";
 			segary.push_back(MakeSegFromPattern(pat,i));
 			}
 		for(int i=0;i<amtsegs;i++)
-			if(mesh->getMeshBufferCount()<amtsegs)
+			if(smesh->getMeshBufferCount()<amtsegs)
 				{
-				mesh->addMeshBuffer(segary[i]);
+				smesh->addMeshBuffer(segary[i]);
 				}
 		ConformMeshToTrackSpline();
+		UpdateSupports();
+		FixNormals();
 		RecalculateAllBoundingBoxes();
-		mesh->recalculateBoundingBox();
+		smesh->recalculateBoundingBox();
+		AddToScene();
+
+		////imesh->recalculateBoundingBox();
 		}
 	}
 
@@ -110,10 +120,10 @@ void TrackMesh::ConformMeshToTrackSpline()
 	int nloops=0;
 	if(!track)	return;
 	float tracklen=track->getTrackLen();
-	for(int i=0;i<mesh->getMeshBufferCount();i++) //step through mesh buffers;
+	for(int i=0;i<smesh->getMeshBufferCount();i++) //step through mesh buffers;
 
 		{
-		IMeshBuffer*buf=mesh->getMeshBuffer(i);
+		IMeshBuffer*buf=smesh->getMeshBuffer(i);
 		if(buf->getVertexType()==EVT_STANDARD)
 			{
 			S3DVertex*v=(S3DVertex*)buf->getVertices();
@@ -153,9 +163,7 @@ void TrackMesh::ConformMeshToTrackSpline()
 			buf->recalculateBoundingBox();
 			}
 		}
-	mesh->recalculateBoundingBox();
-	UpdateSupports();
-	FixNormals();
+	////imesh->recalculateBoundingBox();
 	cout<<"ConformMeshToTrackSpline() processed "<<nloops<<" vertices."<<endl;
 	}
 
@@ -165,9 +173,10 @@ void TrackMesh::ConformMeshToTrackSpline()
 
 void TrackMesh::FixNormals()
 	{
-	for(int i=0;i<mesh->getMeshBufferCount();i++) //step through mesh buffers;
+	////imesh=meshnode->getMesh();
+	for(int i=0;i<smesh->getMeshBufferCount();i++) //step through mesh buffers;
 		{
-		IMeshBuffer*buf=mesh->getMeshBuffer(i);
+		IMeshBuffer*buf=smesh->getMeshBuffer(i);
 		S3DVertex*vertary=(S3DVertex*)buf->getVertices();
 		u16*idxary=buf->getIndices();
 		if(buf->getVertexType()==EVT_STANDARD)
@@ -193,6 +202,7 @@ void TrackMesh::FixNormals()
 		else
 			cout<<"What?"<<endl;
 		}
+	////meshnode->setMesh(imesh);
 	}
 
 /**###########################################################
@@ -202,10 +212,11 @@ void TrackMesh::FixNormals()
 void TrackMesh::AddSupports()
 	{
 	////SColor supcolor(255,255,255,0);	//yellow
-	SColor supcolor(255,140,140,150);	//silver
+	////SColor supcolor(255,140,140,150);	//silver
+	SColor supcolor(255,255,255,255);	//white
 	////SColor supcolor(128,165,136,108);	//brown
-	if(mesh==0)	return;
-	firstsupidx=mesh->getMeshBufferCount();
+	if(smesh==0)	return;
+	firstsupidx=smesh->getMeshBufferCount();
 	amtsupports++;
 	for(int i=0;i<amtsegs;i+=segsPerSupport)
 		{
@@ -222,7 +233,7 @@ void TrackMesh::AddSupports()
 			*/
 		#endif
 		#if 1
-			IMeshBuffer*buf=mesh->getMeshBuffer(i);
+			IMeshBuffer*buf=smesh->getMeshBuffer(i);
 			S3DVertex*vertary=(S3DVertex*)buf->getVertices();
 			int amtvert=buf->getVertexCount();
 			int jsnap,jside,jfwd,jup;
@@ -242,12 +253,12 @@ void TrackMesh::AddSupports()
 		SupportMesh*sup;
 		sup=SkinnyTubeSupportMeshFactory::getinstance()->create(
 								 snap,side,supcolor,objhdg
-								,colmgr,driver
+								,smgr->getSceneCollisionManager(),driver
 								);
 		supary.push_back(sup);
 		if(sup!=0)
 			{
-			mesh->addMeshBuffer(supary.back());
+			smesh->addMeshBuffer(supary.back());
 			}
 
 		////delete sup;
@@ -261,7 +272,7 @@ void TrackMesh::AddSupports()
 
 void TrackMesh::DelSupports()
 	{
-	if(mesh==0) return;
+	if(imesh==0) return;
 	if(amtsupports>0)
 		{
 		//stub
@@ -286,8 +297,34 @@ void TrackMesh::UpdateSupports()
 
 void TrackMesh::RecalculateAllBoundingBoxes()
 	{
-	int amt=mesh->getMeshBufferCount();
+	////smesh=meshnode->getMesh();
+	int amt=smesh->getMeshBufferCount();
 	for(int i=0;i<amt;i++)
-		mesh->getMeshBuffer(i)->recalculateBoundingBox();
+		smesh->getMeshBuffer(i)->recalculateBoundingBox();
+	////meshnode->setMesh(smesh);
 	}
 
+/**############################################################
+	AddToScene() - adds the initialized mesh to the scene.
+#############################################################*/
+
+void TrackMesh::AddToScene()
+	{
+		// Add the mesh to the scene graph:
+	meshnode = smgr -> addMeshSceneNode(smesh);
+	////SetNodeMeshToSimpleMesh();
+	////smesh->drop();
+	meshnode->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
+	meshnode->setMaterialFlag(video::EMF_POINTCLOUD, false);
+	meshnode->setMaterialFlag(video::EMF_GOURAUD_SHADING, true);
+	meshnode->setMaterialFlag(video::EMF_COLOR_MATERIAL,ECM_DIFFUSE_AND_AMBIENT);
+	meshnode->getMaterial(0).AmbientColor.set(255,255,0,0);
+
+	imesh=meshnode->getMesh();
+	}
+
+void TrackMesh::SetNodeMeshToSimpleMesh()
+	{
+	meshnode->setMesh(smesh);
+	imesh=meshnode->getMesh();
+	}

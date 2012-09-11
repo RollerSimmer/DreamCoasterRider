@@ -7,9 +7,7 @@
 
 TrackOperator::TrackOperator(Track*_track,bool _autolift)
 		:	track(_track)
-		,	autolift(_autolift)
-		,	minspeed(liftspeed)
-		,	controlspeed(liftspeed)
+		////,	autolift(_autolift)
 	{
 	//ctor
 
@@ -141,11 +139,9 @@ void TrackOperator::MoveTrain(int trainI, float timeElapsed)
 				train->speed=vavg;
 
 		//lift - cap car speed at minimum speed:
-			if(ShouldLiftTrain(trainI))
-				{
-				if(train->speed<liftspeed)
-					train->speed+=controlaccel*dt;
-				}
+			LiftTrain(trainI,timeElapsed);
+		//lift - cap car speed at minimum speed:
+			BrakeTrain(trainI,timeElapsed);
 
 		//set individual car speeds to train speed:
 			for(int i=0;i<amtcars;i++)
@@ -247,12 +243,15 @@ bool TrackOperator::AddTrain(int blockI,Train*train)
 		      to make sure they are unique.
 ##########################################################*/
 
-void TrackOperator::AddBlock(float startpos,float len,bool doliftflag)
+void TrackOperator::AddBlock(float startpos,float len,Block::Type type
+		                       ,float targetspeed,float controlaccel)
 	{
 	Block block;
 	block.startpos=startpos;
 	block.len=len;
-	block.doliftflag=doliftflag;
+	block.type=type;
+	block.targetspeed=targetspeed;
+	block.controlaccel=controlaccel;
 	blocks.push_back(block);
 	return ;
 	}
@@ -280,46 +279,130 @@ bool TrackOperator::IsPosInBlock(int trackpos,int blockI)
 	ShouldLiftTrainAt() - Should this train be lifted?
 		In: trackpos - the linear track position of the car or
 		               train.
-		Out: (return value) - true if the train should be lifted.
+		Out:
+			(return value) - true if the train should be lifted.
+			blockI - if returning true, the index of the
+			         block that triggered the true return.
+			         if triggered by autolift, blockI is set
+			         to-1
 ##########################################################*/
 
-bool TrackOperator::ShouldLiftTrainAt(float trackpos)
+bool TrackOperator::ShouldLiftTrainAt(float trackpos,int&blockI)
 	{
-	bool shouldlift=autolift;
+	////bool shouldlift=autolift;
+	bool shouldlift=false;
+	blockI=-1;
 	for(int i=0;i<blocks.size();i++)
 		{
 		if(!shouldlift)
 			shouldlift=shouldlift
 			           ||(  IsPosInBlock(trackpos,i)
-						     &&blocks.at(i).doliftflag     );
-		if(shouldlift)	break;
+						     &&(  blocks.at(i).type==Block::bt_lift
+								  ||blocks.at(i).type==Block::bt_target
+								 )
+							 );
+		if(shouldlift)
+			{
+			blockI=i;
+			break;
+			}
 		}
 	return shouldlift;
 	}
 
 /**#########################################################
-	ShouldLiftTrain() - Should this train be lifted?
+	ShouldBrakeTrainAt() - Should this train be braked?
+		In: trackpos - the linear track position of the car or
+		               train.
+		Out:
+			(return value) - true if the train should be braked.
+			blockI - if returning true, the index of the
+			         block that triggered the true return.
+			         otherwise it is set to -1.
+##########################################################*/
+
+bool TrackOperator::ShouldBrakeTrainAt(float trackpos,int&blockI)
+	{
+	blockI=-1;
+	bool shouldbrake=false;
+	for(int i=0;i<blocks.size();i++)
+		{
+		if(!shouldbrake)
+			shouldbrake=shouldbrake
+			           ||(  IsPosInBlock(trackpos,i)
+						     &&(  blocks.at(i).type==Block::bt_trim
+								  ||blocks.at(i).type==Block::bt_target
+								 )
+							 );
+		if(shouldbrake)
+			{
+			blockI=i;
+			break;
+			}
+		}
+	return shouldbrake;
+	}
+
+/**#########################################################
+	LiftTrain() - Should this train be lifted?
 		In: trainI - the index of the train.
 		Out: (return value) - true if the train should be lifted.
 ##########################################################*/
 
-bool TrackOperator::ShouldLiftTrain(int trainI)
+void TrackOperator::LiftTrain(int trainI,float timespan)
 	{
 	if(trainI<trains.size())
 		{
 		Train*train=trains.at(trainI);
 		bool shouldlift=false;
+		int blockI;
 		for(int j=0;j<train->cars.size();j++)
 			{
 			Car&car=train->cars.at(j);
-			shouldlift=shouldlift||ShouldLiftTrainAt(car.linpos);
-			if(shouldlift)	break;
+			shouldlift=shouldlift||ShouldLiftTrainAt(car.linpos,blockI);
+			if(shouldlift)
+				shouldlift=shouldlift&&train->speed<blocks.at(blockI).targetspeed;
+			if(shouldlift)
+				{
+				//lift the train...
+				Block&block=blocks.at(blockI);
+				train->speed+=abs(block.controlaccel)*timespan;
+				break;
+				}
 			}
-		return shouldlift;
 		}
-	else
-		return false;
 	}
+
+/**#########################################################
+	BrakeTrain() - Should this train be braked?
+		In: trainI - the index of the train.
+		Out: (return value) - true if the train should be braked.
+##########################################################*/
+
+void TrackOperator::BrakeTrain(int trainI,float timespan)
+	{
+	if(trainI<trains.size())
+		{
+		Train*train=trains.at(trainI);
+		bool shouldbrake=false;
+		for(int j=0;j<train->cars.size();j++)
+			{
+			Car&car=train->cars.at(j);
+			int blockI;
+			shouldbrake=shouldbrake||ShouldBrakeTrainAt(car.linpos,blockI);
+			if(shouldbrake)
+				shouldbrake=shouldbrake&&train->speed>blocks.at(blockI).targetspeed;
+			if(shouldbrake)
+				{
+				//brake the train...
+				Block&block=blocks.at(blockI);
+				train->speed-=abs(block.controlaccel)*timespan;
+				break;
+				}
+			}
+		}
+	}
+
 
 /**#########################################################
 	SetTrainPos() - Set the train's position along the track

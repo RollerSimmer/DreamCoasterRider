@@ -14,13 +14,8 @@ class TrackOperator
 		deque<Train*> trains;	/// trains on the track
 		Track* track;				/// the track to manage
 		deque<Block> blocks;	/// a list of blocks on the track
-		float liftspeed;			/// the minimum speed of a non-blocked train
-		float&minspeed;			/// the minimum speed of a non-blocked train
-		float&controlspeed;			/// the minimum speed of a non-blocked train
-		float controlaccel;		/// the amount that the current speed speeds up or 
-		                        /// ...slows down to get to target speed
-		
-		bool autolift;				/// does the track automatically move stalled trains up to minimum speed?
+
+		////bool autolift;				/// does the track automatically move stalled trains up to minimum speed?
 	public:
 		TrackOperator(Track*_track,bool _autolift=true);
 		virtual ~TrackOperator();
@@ -28,10 +23,13 @@ class TrackOperator
 		void MoveTrain(int trainI, float timeElapsed=0.1);
 		bool IsBlockOccupied(int blockI,int&trainI);
 		bool IsPosInBlock(int trackpos,int blockI);
-		bool ShouldLiftTrainAt(float trackpos);
-		bool ShouldLiftTrain(int trainI);
+		bool ShouldLiftTrainAt(float trackpos,int&blockI);
+		void LiftTrain(int trainI,float timespan);
+		bool ShouldBrakeTrainAt(float trackpos,int&blockI);
+		void BrakeTrain(int trainI,float timespan);
 		bool AddTrain(int blockI,Train*train);
-		void AddBlock(float startpos,float len,bool doliftflag);
+		void AddBlock(float startpos,float len,Block::Type type
+		              ,float targetspeed,float controlaccel);
 		void setTrainPos(int trainI=0,float linpos=0.0,bool fromback=false);
 
 	protected:

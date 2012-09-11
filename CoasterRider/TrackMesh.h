@@ -21,21 +21,23 @@ class TrackMesh
 		int amtsupports;			//amount of support mesh buffers
 		std::vector<SupportMesh*>supary;
 	public:
-		ISceneCollisionManager*colmgr;
+		ISceneManager*smgr;
 		IVideoDriver*driver;
-	public:	
-		SMesh*mesh;
+	public:
+		SMesh*smesh;
+		IMeshSceneNode* meshnode;
+		IMesh*imesh;
 	public:	//ctor & dtor
-		TrackMesh( Track*_track,ISceneCollisionManager*_colmgr,IVideoDriver*_driver ) 
-				: mesh(0),scale(0.f), track(_track)
-				, colmgr(_colmgr), driver(_driver)
-			{			mesh=new SMesh();	amtsegs=amtsupports=firstsupidx=0;			}
-		~TrackMesh()			{			mesh->drop();			}
+		TrackMesh( Track*_track,ISceneManager*_smgr,IVideoDriver*_driver )
+				: imesh(0), smesh(0),meshnode(0),scale(0.f), track(_track)
+				, smgr(_smgr), driver(_driver)
+			{			smesh=new SMesh();	amtsegs=amtsupports=firstsupidx=0;			}
+		~TrackMesh()			{			/*imesh->drop();*/	smesh->drop();			}
 	public:	//accessor
 		void settrack(Track*_track)	{	track=_track;	}
 	public:	//functions
 		void CleanUpForInit();
-		void init(Track*t,f32 _scale,IVideoDriver*driver);
+		void init(Track*t,f32 _scale);
 		TrackMeshPattern*MakeSegFromPattern(TrackMeshPattern*pat,int pos);
 		void ConformMeshToTrackSpline();
 		void FixNormals();
@@ -43,5 +45,7 @@ class TrackMesh
 		void DelSupports();
 		void UpdateSupports();
 		void RecalculateAllBoundingBoxes();
+		void AddToScene();
+		void SetNodeMeshToSimpleMesh();
 	};
 

@@ -10,6 +10,7 @@
 #include "TrainFactory.h"
 #include "unitconv.h"
 #include "MyEventReceiver.h"
+////#include <string>
 #include <sstream>
 #include <cstdlib>
 #include <cmath>
@@ -142,8 +143,8 @@ int main(int argc, char* argv[])
 				,vector3df(0.0,0.0,0.0)
 				,vector3df(0.0,0.0,0.0)
 				,vector3df(10.0,10.0,10.0)
-				,video::SColor(255,165,136,108)	//brown
-				////,video::SColor(255,67,100,11)	//green
+				////,video::SColor(255,165,136,108)	//brown
+				,video::SColor(255,67,100,11)	//green
 				////,video::SColor(255,67,11,100)	//purple
 				);
 
@@ -173,35 +174,11 @@ int main(int argc, char* argv[])
 			strcpy(trackfile,sinput);
 		track=TrackFactory::getinstance()->createTrackFromFile(trackfile);
 
-		TrackMesh mesh(track,smgr->getSceneCollisionManager(),driver);
-
-		mesh.init(track,1.0,driver);
-
-		// Add the mesh to the scene graph:
-		IMeshSceneNode* meshnode = smgr -> addMeshSceneNode(mesh.mesh);
-		meshnode->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
-		meshnode->setMaterialFlag(video::EMF_POINTCLOUD, false);
-		meshnode->setMaterialFlag(video::EMF_GOURAUD_SHADING, true);
-		meshnode->setMaterialFlag(video::EMF_COLOR_MATERIAL,ECM_DIFFUSE_AND_AMBIENT);
-		meshnode->getMaterial(0).AmbientColor.set(255,255,0,0);
-
 	CreateTrackOperatorA:
 		TrackOperator*trackop;
 		trackop=new TrackOperator(track);
 		float speedmph,accelmphs,finput;
 
-		speedmph=10.0;
-		cout<<"Enter launch/lift top speed (mph): ";	cin>>finput;	cout<<endl;
-		cout<<"> You entered: "<<finput<<endl;
-		if(finput>0.0)	speedmph=finput;
-
-		accelmphs=25.0;
-		cout<<"Enter launch/lift acceleration (mph/s): ";	cin>>finput;	cout<<endl;
-		cout<<"> You entered: "<<finput<<endl;
-		if(finput>0.0)	accelmphs=finput;
-
-		trackop->minspeed=miles_per_hour_to_meter_per_second*speedmph;
-		trackop->controlaccel=miles_per_hour_to_meter_per_second*accelmphs;
 		trackop->trains.clear();
 		trackop->blocks.clear();
 		trackop->trains.push_back(TrainFactory::getinstance()
@@ -210,13 +187,15 @@ int main(int argc, char* argv[])
 		cout<<"Enter starting track position of trailing car in train: "; cin>>trainpos; cout<<endl;
 		cout<<"> You entered: "<<trainpos<<endl;
 		trackop->setTrainPos(0,trainpos,true);
-		cout<<"Automatically lift the car below min speed even off lift blocks? (1=yes, 0=no) ";
-		cin>>trackop->autolift;	cout<<endl;
-		cout<<"> You entered: "<<trackop->autolift<<endl;
+		////cout<<"Automatically lift the car below min speed even off lift blocks? (1=yes, 0=no) ";
+		////cin>>trackop->autolift;	cout<<endl;
+		////cout<<"> You entered: "<<trackop->autolift<<endl;
 
 		float blockstart,blocklen;
 		bool doaddblock=false;
-		bool doliftflag;
+		bool flag;
+		char blocktype[64];
+		Block::Type blocktype_enum;
 		int blockcount=0;
 		do
 			{
@@ -232,38 +211,41 @@ int main(int argc, char* argv[])
 				cout<<"> You entered: "<<blockstart<<endl;
 				cout<<"Block length: "; cin>>blocklen;	cout<<endl;
 				cout<<"> You entered: "<<blocklen<<endl;
-				cout<<"Do lift? (1=yes, 0=no): ";	cin>>doliftflag; cout<<endl;
-				cout<<"> You entered: "<<doliftflag<<endl;
-				trackop->AddBlock(blockstart,blocklen,doliftflag);
+				cout<<"BlockType? (lowercase choices: trim,lift,target): ";	cin>>blocktype; cout<<endl;
+				cout<<"> You entered: "<<blocktype<<endl;
+				if(strcmp(blocktype,"lift")==0)
+					blocktype_enum=Block::bt_lift;
+				else if(strcmp(blocktype,"trim")==0)
+					blocktype_enum=Block::bt_trim;
+				else if(strcmp(blocktype,"target")==0)
+					blocktype_enum=Block::bt_target;
+				else	//default:
+					blocktype_enum=Block::bt_target;
+
+				speedmph=10.0;
+				cout<<"Enter block target speed (mph): ";	cin>>finput;	cout<<endl;
+				cout<<"> You entered: "<<finput<<endl;
+				if(finput>0.0)	speedmph=finput;
+
+				accelmphs=25.0;
+				cout<<"Enter block control acceleration (mph/s): ";	cin>>finput;	cout<<endl;
+				cout<<"> You entered: "<<finput<<endl;
+				if(finput>0.0)	accelmphs=finput;
+
+				float targetspeed=miles_per_hour_to_meter_per_second*speedmph;
+				float controlaccel=miles_per_hour_to_meter_per_second*accelmphs;
+
+				trackop->AddBlock(blockstart,blocklen,blocktype_enum
+				                  ,targetspeed,controlaccel);
 				++blockcount;
 				}
 			}	while(doaddblock);
 
-
-	CreateTrackB:
-		//Create the track and track mesh:
-		deque<Track*> trackB;
-		deque<TrackMesh*> meshB;
-		deque<IMeshSceneNode*> meshnodeB;
-
-		int n=0;
-		for(int i=0;i<n;i++)
-			{
-			float x=200.0*(float)(i+1);
-			trackB.push_back(TrackFactory::getinstance()->createTestTrack(vector3df(x,5.0,0.0)));
-			meshB.push_back(new TrackMesh(trackB.back(),smgr->getSceneCollisionManager(),driver));
-			meshB.back()->init(trackB.back(),1.0,driver);
-
-			// Add the mesh to the scene graph:
-			meshnodeB.push_back(smgr -> addMeshSceneNode(meshB.back()->mesh));
-			meshnodeB.back()->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
-			meshnodeB.back()->setMaterialFlag(video::EMF_POINTCLOUD, false);
-			meshnodeB.back()->setMaterialFlag(video::EMF_GOURAUD_SHADING, true);
-			meshnodeB.back()->setMaterialFlag(video::EMF_COLOR_MATERIAL,ECM_DIFFUSE_AND_AMBIENT);
-			meshnodeB.back()->getMaterial(0).AmbientColor.set(255,255,0,0);
-			}
-
 	// light is just for nice effects
+
+	TrackMesh mesh(track,smgr,driver);
+
+	mesh.init(track,1.0);
 
 	ILightSceneNode *node = smgr->addLightSceneNode(0, vector3df(0,0,1000000),
 									SColorf(1.0f,1.0f,1.0f,1.0f), 1.0f);
@@ -313,8 +295,17 @@ int main(int argc, char* argv[])
 	f32 tracklen=track->getTrackLen();
 	f32 trainspeed=0.0f;
 
-	while(device->run())
+	bool done=false;
+
+	while(!done)
 		{
+		done=!device->run();
+
+		if(receiver.IsKeyDown(irr::KEY_ESCAPE))
+			{
+			done=done||true;
+			}
+
 		#if 1
 		if(!device->isWindowActive())
 			{
@@ -323,15 +314,11 @@ int main(int argc, char* argv[])
 			}
 		#endif
 
-		meshnode->setMaterialFlag(video::EMF_WIREFRAME, false);
-		for(int i=0;i<meshnodeB.size();i++)
-			meshnodeB.at(i)->setMaterialFlag(video::EMF_WIREFRAME, false);
+		mesh.meshnode->setMaterialFlag(video::EMF_WIREFRAME, false);
 		if(receiver.IsKeyDown(irr::KEY_KEY_W))
 			{
 			////meshnode->setMaterialFlag(video::EMF_WIREFRAME, !meshnode->getMaterial(0).Wireframe);
-			meshnode->setMaterialFlag(video::EMF_WIREFRAME, true);
-			for(int i=0;i<meshnodeB.size();i++)
-				meshnodeB.at(i)->setMaterialFlag(video::EMF_WIREFRAME, true);
+			mesh.meshnode->setMaterialFlag(video::EMF_WIREFRAME, true);
 			}
 
 		UpdateTime:
@@ -421,15 +408,27 @@ int main(int argc, char* argv[])
 						trainspeed=trackop->trains.at(0)->speed;
 						trackpos=trackop->trains.at(0)->cars.at(0).linpos;
 					#endif
+				PrintOri:
+					if(  (  trackpos>=track->getTrackLen()*0.995
+						   /*||trackpos<=track->getTrackLen()*0.00*/)
+						  &&(timer->getTime()%1==0)             )
+						{
+						////ori=track->getbankedori(trackpos);
+						cout<<"Current Track Orientation @ trackpos=";
+						cout<<trackpos<<"("<<(trackpos/track->getTrackLen()*100.0)<<"%):"<<endl;
+						ori.debugprint("",0);
+						}
 				SetCamera:
 					ori.pos=ori.pos+headht*ori.hdg.getup();
+
+
 					camera->setPosition(ori.pos);
 					camera->setTarget(ori.pos+ori.hdg.getfwd());
 					camera->setUpVector(ori.hdg.getup());
 					camera->setFarValue(20000.0f);
 					camera->setNearValue(0.05f);
 				DisplayInfo:
-					if(timer->getTime()%20==0)
+					if(timer->getTime()%10==0)
 						{
 						int i=0;
 						stringstream ss;
@@ -484,6 +483,7 @@ int main(int argc, char* argv[])
 		smgr->drawAll();
 		guienv->drawAll();
 		driver->endScene();
+
 		}
 
 	device->drop();

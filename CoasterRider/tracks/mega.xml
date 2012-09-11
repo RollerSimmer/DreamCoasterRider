@@ -1,0 +1,767 @@
+<!-- XML format for track data -->
+<!-- must maintain order -->
+
+<ELEMENT_DEFS>
+	<!-- straight track -->
+	<ELEMENT_DEF>
+		<NAME> str8 </NAME>
+		<!-- CP_#=control point[#], UP_#=up vector[#] -->
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 6.67 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 10.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<!-- START_LEN = span between first and second CPs
+		         (  full_cp[0]=prev_cp
+					   full_cp[1]=prev_cp+prev_fwd*startlen
+					   full_cp[2]=prev_cp+prev_hdg*cp[0]
+					   full_cp[3]=prev_cp+prev_hdg*cp[1] )	-->
+		<START_LEN> 3.33 </START_LEN>
+		<!-- EXIT_BANK = the exiting banking angle -->
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<!-- COPY_NAME = the name of the element definition to copy
+		                 (must precede this one -->
+		<COPY_NAME> none </COPY_NAME>
+		<!-- MIRROR_X_FLAG = should the X values be mirrored (negative)? -->
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<!-- FLIP_Y_FLAG = should the Y values be flipped (negative)? -->
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<!-- REVERSE_FLAG = should control points and up vectors in 
+		                    reverse order? -->
+		<REVERSE_FLAG> false </REVERSE_FLAG>		
+	</ELEMENT_DEF>
+	<!-- right turn 90 degrees -->
+	<ELEMENT_DEF>
+		<NAME> rturn </NAME>
+		<CP_0> <X> 4.5 </X> <Y> 0.0 </Y> <Z> 10.0 </Z> </CP_0>
+		<CP_1> <X> 10.0 </X> <Y> 0.0 </Y> <Z> 10.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 5.5 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- left turn 90 degrees -->
+	<ELEMENT_DEF>
+		<NAME> lturn </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 5.5 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> rturn </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- right turn 180 degrees right down a 45 deg slope -->
+	<ELEMENT_DEF>
+		<NAME> rdturni45j180 </NAME>
+		<CP_0> <X> 20.0 </X> <Y> 0.0 </Y> <Z> 13.0 </Z> </CP_0>
+		<CP_1> <X> 20.0 </X> <Y> -13.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 1.0 </Y> <Z> -1.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 1.0 </Y> <Z> -1.0 </Z> </UP_2>
+		<START_LEN> 13.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!--  turn 180 degrees left down a 45 deg slope -->
+	<ELEMENT_DEF>
+		<NAME> ldturni45j180 </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 10.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> rdturni45j180 </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!--  turn 180 degrees left up a 45 deg slope -->
+	<ELEMENT_DEF>
+		<NAME> luturni45j180 </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 10.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> rdturni45j180 </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> true </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!--  turn 180 degrees right up a 45 deg slope -->
+	<ELEMENT_DEF>
+		<NAME> ruturni45j180 </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 10.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> luturni45j180 </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- left corkscrew -->
+	<ELEMENT_DEF>
+		<NAME> lcorky </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 10.0 </Y> <Z> 10.0 </Z> </CP_0>
+		<CP_1> <X> -10.0 </X> <Y> 10.0 </Y> <Z> 10.0 </Z> </CP_1>
+		<UP_0> <X> -1.0 </X> <Y> 1.0 </Y> <Z> -1.0 </Z> </UP_0>
+		<UP_1> <X> -1.0 </X> <Y> -1.0 </Y> <Z> -1.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> -1.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 10.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- right corkscrew -->
+	<ELEMENT_DEF>
+		<NAME> rcorky </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> lcorky </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- left non-inverted corkscrew up -->
+	<ELEMENT_DEF>
+		<NAME> lcorkyup </NAME>
+		<CP_0> <X> 0 </X> <Y> 10.0 </Y> <Z> 10.0 </Z> </CP_0>
+		<CP_1> <X> -10.0 </X> <Y> 10.0 </Y> <Z> 10.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 10.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- right non-inverted corkscrew up -->
+	<ELEMENT_DEF>
+		<NAME> rcorkyup </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> lcorkyup </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- right non-inverted corkscrew down -->
+	<ELEMENT_DEF>
+		<NAME> rcorkydn </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> rcorkyup </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> true </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- right non-inverted corkscrew down -->
+	<ELEMENT_DEF>
+		<NAME> lcorkydn </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> rcorkydn </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- hill up -->
+	<ELEMENT_DEF>
+		<NAME> hillup </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 5.0 </Y> <Z> 6.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 5.0 </Y> <Z> 10.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 1.0 </Y> <Z> -1.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 1.0 </Y> <Z> -1.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 4.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- hill down -->
+	<ELEMENT_DEF>
+		<NAME> hilldn </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> hillup </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> true </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- bunny hill up -->
+	<ELEMENT_DEF>
+		<NAME> bunnyup </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 5.0 </Y> <Z> 12.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 5.0 </Y> <Z> 20.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 1.0 </Y> <Z> -1.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 1.0 </Y> <Z> -1.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 8.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- bunny hill down -->
+	<ELEMENT_DEF>
+		<NAME> bunnydn </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> bunnyup </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> true </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- rise up -->
+	<ELEMENT_DEF>
+		<NAME> riseup </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 2.0 </Y> <Z> 12.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 2.0 </Y> <Z> 20.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 2.0 </Y> <Z> -1.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 2.0 </Y> <Z> -1.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 8.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- rise down -->
+	<ELEMENT_DEF>
+		<NAME> risedn </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> riseup </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> true </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- right quarter turn -->
+	<ELEMENT_DEF>
+		<NAME> rqturn </NAME>
+		<!--	rqturn=rturn;
+				f32 sqrt_onehalf=sqrt(0.5f);
+				f32 qturn_cpspan=2.4f;
+				f32 qturn_cpspan_45deg=qturn_cpspan*sqrt_onehalf;
+				rqturn.setcp(0,vector3df(10.0f-10.0f*sqrt_onehalf-qturn_cpspan_45deg,0.0f,10.0f*sqrt_onehalf-qturn_cpspan_45deg));
+				rqturn.setcp(1,vector3df(10.0f-10.0f*sqrt_onehalf,0.0f,10.0f*sqrt_onehalf));
+				rqturn.setStartLen(qturn_cpspan);	-->
+		<CP_0> <X> 1.2318759156 </X> <Y> 0.0 </Y> <Z> 5.3740115356 </Z> </CP_0>
+		<CP_1> <X> 2.92893219 </X> <Y> 0.0 </Y> <Z> 7.07106781 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 2.4 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- left quarter turn -->
+	<ELEMENT_DEF>
+		<NAME> lqturn </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> rqturn </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- right-up half loop -->
+	<ELEMENT_DEF>
+		<NAME> ruhalfloop </NAME>
+		<CP_0> <X> 2.5 </X> <Y> 30.0 </Y> <Z> 30.0 </Z> </CP_0>
+		<CP_1> <X> 2.5 </X> <Y> 30.0 </Y> <Z> 15.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> -1.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> -1.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> -1.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 30.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- left-up half loop -->
+	<ELEMENT_DEF>
+		<NAME> luhalfloop </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> ruhalfloop </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- right-down half loop -->
+	<ELEMENT_DEF>
+		<NAME> rdhalfloop </NAME>
+		<CP_0> <X> 2.5 </X> <Y> 30.0 </Y> <Z> -15.0 </Z> </CP_0>
+		<CP_1> <X> 2.5 </X> <Y> 30.0 </Y> <Z> 15.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> -1.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> -1.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> -1.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 15.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- left-down half loop -->
+	<ELEMENT_DEF>
+		<NAME> ldhalfloop </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> rdhalfloop </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- valley 30 degrees -->
+	<ELEMENT_DEF>
+		<NAME> valley30deg </NAME>
+		<!--
+			valley30deg.setcp(0,vector3df(0.0,1.25f,5.0*(1.0+sqrt(3.0)/4.0)));
+			valley30deg.setcp(1,vector3df(0.0,2.5f,5.0*(1.0+sqrt(3.0)/2.0)));
+			...
+			valley30deg.setStartLen(2.5);
+		-->
+		<CP_0> <X> 0.0 </X> <Y> 1.25 </Y> <Z> 7.1650635094611 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 2.5 </Y> <Z> 9.33012701892219 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 4.0 </Y> <Z> -1.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 3.0 </Y> <Z> -1.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 2.0 </Y> <Z> -1.0 </Z> </UP_2>
+		<START_LEN> 2.5 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- crest 30 degrees -->
+	<ELEMENT_DEF>
+		<NAME> crest30deg </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> valley30deg </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> true </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- valley 90 degrees -->
+	<ELEMENT_DEF>
+		<NAME> valley90deg </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 4.5 </Y> <Z> 10.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 10.0 </Y> <Z> 10.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 1.0 </Y> <Z> -1.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 1.0 </Y> <Z> -1.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> -1.0 </Z> </UP_2>
+		<START_LEN> 5.5 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- crest 90 degrees -->
+	<ELEMENT_DEF>
+		<NAME> crest90deg </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> valley90deg </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> true </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- valley 45 degrees -->
+	<ELEMENT_DEF>
+		<NAME> valley45deg </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 3.53553390593274 </Y> <Z> 13.5355339059327 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 7.07106781186548 </Y> <Z> 17.0710678118655 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 2.0 </Y> <Z> -1.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 2.0 </Y> <Z> -1.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 1.0 </Y> <Z> -1.0 </Z> </UP_2>
+		<START_LEN> 5.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- crest 45 degrees -->
+	<ELEMENT_DEF>
+		<NAME> crest45deg </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> valley45deg </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> true </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- right quarter roll -->
+	<ELEMENT_DEF>
+		<NAME> rqroll </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 6.666667 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 10.0 </Z> </CP_1>
+		<UP_0> <X> 1.0 </X> <Y> 3.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 3.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 1.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 3.3333333 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- left quarter roll -->
+	<ELEMENT_DEF>
+		<NAME> lqroll </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> rqroll </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- right eighth roll -->
+	<ELEMENT_DEF>
+		<NAME> r8roll </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 6.666667 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 10.0 </Z> </CP_1>
+		<UP_0> <X> 1.0 </X> <Y> 2.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 2.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 1.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 3.3333333 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<ELEMENT_DEF>
+		<NAME> l8roll </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> r8roll </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- right tornado drop -->
+	<ELEMENT_DEF>
+		<NAME> rtornadodrop </NAME>
+		<CP_0> <X> 0.0 </X> <Y> -10.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 5.0 </X> <Y> -10.0 </Y> <Z> 20.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 1.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 1.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 10.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- left tornado drop -->
+	<ELEMENT_DEF>
+		<NAME> ltornadodrop </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> rtornadodrop </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- right tornado turn up -->
+	<ELEMENT_DEF>
+		<NAME> rutornadoturn </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 10.0 </Y> <Z> 20.0 </Z> </CP_0>
+		<CP_1> <X> 10.0 </X> <Y> 10.0 </Y> <Z> 17.5 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 1.0 </Y> <Z> -1.0 </Z> </UP_0>
+		<UP_1> <X> -1.0 </X> <Y> 1.0 </Y> <Z> -1.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 5.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- left tornado turn up -->
+	<ELEMENT_DEF>
+		<NAME> lutornadoturn </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> rutornadoturn </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>		
+	</ELEMENT_DEF>
+	<!-- right tornado turn dn -->
+	<ELEMENT_DEF>
+		<NAME> rdtornadoturn </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> lutornadoturn </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> true </REVERSE_FLAG>		
+	</ELEMENT_DEF>
+	<!-- left tornado turn down -->
+	<ELEMENT_DEF>
+		<NAME> ldtornadoturn </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> rdtornadoturn </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>		
+	</ELEMENT_DEF>
+	<!-- left helix up -->
+	<ELEMENT_DEF>
+		<NAME> ruhelix </NAME>
+		<CP_0> <X> 20.0 </X> <Y> 1.0 </Y> <Z> 13.0 </Z> </CP_0>
+		<CP_1> <X> 20.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 13.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- left helix up -->
+	<ELEMENT_DEF>
+		<NAME> luhelix </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> ruhelix </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- left helix down -->
+	<ELEMENT_DEF>
+		<NAME> ldhelix </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> ruhelix </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> true </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- right helix down -->
+	<ELEMENT_DEF>
+		<NAME> rdhelix </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> ldhelix </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> true </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+</ELEMENT_DEFS>
+
+<TRACK_PATH>
+	<!-- BASE = base element name
+	     REPEAT = # of times to repeat element in succession,
+	     SCALE = scaling factor to make the base larger or smaller -->
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 2.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> valley45deg </BASE> <SCALE> 1.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 10.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> crest45deg </BASE> <SCALE> 1.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> crest90deg </BASE> <SCALE> 1.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 3.25 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> valley90deg </BASE> <SCALE> 4.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> valley45deg </BASE> <SCALE> 4.0 </SCALE> <BANK> 22.5 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 2 </REPEAT> <BASE> rturn </BASE> <SCALE> 3.0 </SCALE> <BANK> 45.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> valley45deg </BASE> <SCALE> 4.0 </SCALE> <BANK> -45.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> lturn </BASE> <SCALE> 7.0 </SCALE> <BANK> -45.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 2.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> hillup </BASE> <SCALE> 5.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> hilldn </BASE> <SCALE> 5.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> hillup </BASE> <SCALE> 5.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> ldturni45j180 </BASE> <SCALE> 1.0 </SCALE> <BANK> -60.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> lturn </BASE> <SCALE> 2.2 </SCALE> <BANK> -90.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> lturn </BASE> <SCALE> 2.2 </SCALE> <BANK> -60.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> luturni45j180 </BASE> <SCALE> 1.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> hilldn </BASE> <SCALE> 5.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> hillup </BASE> <SCALE> 3.5 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> hilldn </BASE> <SCALE> 3.5 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> hillup </BASE> <SCALE> 3.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> hilldn </BASE> <SCALE> 3.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> riseup </BASE> <SCALE> 3.0 </SCALE> <BANK> -22.5 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 2 </REPEAT> <BASE> ldhelix </BASE> <SCALE> 2.0 </SCALE> <BANK> -45.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> lturn </BASE> <SCALE> 2.2 </SCALE> <BANK> -45.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> bunnyup </BASE> <SCALE> 1.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> bunnydn </BASE> <SCALE> 1.25 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> bunnyup </BASE> <SCALE> 1.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> bunnydn </BASE> <SCALE> 1.25 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> bunnyup </BASE> <SCALE> 1.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> bunnydn </BASE> <SCALE> 1.25 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> bunnyup </BASE> <SCALE> 0.75 </SCALE> <BANK> 22.5 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 2 </REPEAT> <BASE> rturn </BASE> <SCALE> 1.9 </SCALE> <BANK> 45.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 1.5 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 3.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 3.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+</TRACK_PATH>
+
+<TRACK_START>
+	<BANK> 0.0 </BANK>
+	<POS>
+		<X> 0.0 </X> <Y> 5.0 </Y>  <Z> 0.0 </Z>
+	</POS>
+	<UP>
+		<X> 0.0 </X> <Y> 1.0 </Y>  <Z> 0.0 </Z>
+	</UP>
+	<FWD>
+		<X> 0.0 </X> <Y> 0.0 </Y>  <Z> 1.0 </Z>
+	</FWD>
+</TRACK_START>
+
+<FULL_CIRCUIT>
+	true
+</FULL_CIRCUIT>
+

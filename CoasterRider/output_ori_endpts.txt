@@ -1,0 +1,829 @@
+Irrlicht Engine version 1.7.2
+Linux 2.6.32-21-generic-pae #32-Ubuntu SMP Fri Apr 16 09:39:35 UTC 2010 i686
+Creating X window...
+Visual chosen: : 39
+Using renderer: OpenGL 3.2.0
+GeForce G100/PCI/SSE2: NVIDIA Corporation
+OpenGL driver version is 1.2 or better.
+GLSL version: 1.5
+Loaded texture: /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/textures/skydome.jpg
+Generated terrain data (512x512) in 0.6900 seconds
+Enter track file to load (XML) (blank for default): 
+	
+Inverse exists
+--------- Element Table Entry #0 --------
+name="str8"
+spline=:
+cp[0]=( 0, 0, 6.67 )
+cp[1]=( 0, 0, 10 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=3.33
+--------- Element Table Entry #1 --------
+name="rturn"
+spline=:
+cp[0]=( 4.5, 0, 10 )
+cp[1]=( 10, 0, 10 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=5.5
+--------- Element Table Entry #2 --------
+name="lturn"
+spline=:
+cp[0]=( -4.5, 0, 10 )
+cp[1]=( -10, 0, 10 )
+up[0]=( -0, 1, 0 )
+up[1]=( -0, 1, 0 )
+up[2]=( -0, 1, 0 )
+startlen=5.5
+--------- Element Table Entry #3 --------
+name="lcorky"
+spline=:
+cp[0]=( 0, 10, 10 )
+cp[1]=( -10, 10, 10 )
+up[0]=( -0.57735, 0.57735, -0.57735 )
+up[1]=( -0.57735, -0.57735, -0.57735 )
+up[2]=( 0, -1, 0 )
+startlen=10
+--------- Element Table Entry #4 --------
+name="rcorky"
+spline=:
+cp[0]=( -0, 10, 10 )
+cp[1]=( 10, 10, 10 )
+up[0]=( 0.57735, 0.57735, -0.57735 )
+up[1]=( 0.57735, -0.57735, -0.57735 )
+up[2]=( -0, -1, 0 )
+startlen=10
+--------- Element Table Entry #5 --------
+name="lcorkyup"
+spline=:
+cp[0]=( 0, 10, 10 )
+cp[1]=( -10, 10, 10 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=10
+--------- Element Table Entry #6 --------
+name="rcorkyup"
+spline=:
+cp[0]=( -0, 10, 10 )
+cp[1]=( 10, 10, 10 )
+up[0]=( -0, 1, 0 )
+up[1]=( -0, 1, 0 )
+up[2]=( -0, 1, 0 )
+startlen=10
+--------- Element Table Entry #7 --------
+name="rcorkydn"
+spline=:
+cp[0]=( -0, -10, 10 )
+cp[1]=( 10, -10, 10 )
+up[0]=( -0, 1, -0 )
+up[1]=( -0, 1, -0 )
+up[2]=( -0, 1, -0 )
+startlen=10
+--------- Element Table Entry #8 --------
+name="lcorkydn"
+spline=:
+cp[0]=( 0, -10, 10 )
+cp[1]=( -10, -10, 10 )
+up[0]=( 0, 1, -0 )
+up[1]=( 0, 1, -0 )
+up[2]=( 0, 1, -0 )
+startlen=10
+--------- Element Table Entry #9 --------
+name="hillup"
+spline=:
+cp[0]=( 0, 5, 6 )
+cp[1]=( 0, 5, 10 )
+up[0]=( 0, 0.707107, -0.707107 )
+up[1]=( 0, 0.707107, -0.707107 )
+up[2]=( 0, 1, 0 )
+startlen=4
+--------- Element Table Entry #10 --------
+name="hilldn"
+spline=:
+cp[0]=( 0, -5, 6 )
+cp[1]=( 0, -5, 10 )
+up[0]=( 0, 0.707107, 0.707107 )
+up[1]=( 0, 0.707107, 0.707107 )
+up[2]=( 0, 1, -0 )
+startlen=4
+--------- Element Table Entry #11 --------
+name="bunnyup"
+spline=:
+cp[0]=( 0, 5, 12 )
+cp[1]=( 0, 5, 20 )
+up[0]=( 0, 0.707107, -0.707107 )
+up[1]=( 0, 0.707107, -0.707107 )
+up[2]=( 0, 1, 0 )
+startlen=8
+--------- Element Table Entry #12 --------
+name="bunnydn"
+spline=:
+cp[0]=( 0, -5, 12 )
+cp[1]=( 0, -5, 20 )
+up[0]=( 0, 0.707107, 0.707107 )
+up[1]=( 0, 0.707107, 0.707107 )
+up[2]=( 0, 1, -0 )
+startlen=8
+--------- Element Table Entry #13 --------
+name="rqturn"
+spline=:
+cp[0]=( 1.23188, 0, 5.37401 )
+cp[1]=( 2.92893, 0, 7.07107 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=2.4
+--------- Element Table Entry #14 --------
+name="lqturn"
+spline=:
+cp[0]=( -1.23188, 0, 5.37401 )
+cp[1]=( -2.92893, 0, 7.07107 )
+up[0]=( -0, 1, 0 )
+up[1]=( -0, 1, 0 )
+up[2]=( -0, 1, 0 )
+startlen=2.4
+--------- Element Table Entry #15 --------
+name="ruhalfloop"
+spline=:
+cp[0]=( 2.5, 30, 30 )
+cp[1]=( 2.5, 30, 15 )
+up[0]=( 0, 0, -1 )
+up[1]=( 0, 0, -1 )
+up[2]=( 0, -1, 0 )
+startlen=30
+--------- Element Table Entry #16 --------
+name="luhalfloop"
+spline=:
+cp[0]=( -2.5, 30, 30 )
+cp[1]=( -2.5, 30, 15 )
+up[0]=( -0, 0, -1 )
+up[1]=( -0, 0, -1 )
+up[2]=( -0, -1, 0 )
+startlen=30
+--------- Element Table Entry #17 --------
+name="rdhalfloop"
+spline=:
+cp[0]=( 2.5, 30, -15 )
+cp[1]=( 2.5, 30, 15 )
+up[0]=( 0, 0, -1 )
+up[1]=( 0, 0, -1 )
+up[2]=( 0, -1, 0 )
+startlen=15
+--------- Element Table Entry #18 --------
+name="ldhalfloop"
+spline=:
+cp[0]=( -2.5, 30, -15 )
+cp[1]=( -2.5, 30, 15 )
+up[0]=( -0, 0, -1 )
+up[1]=( -0, 0, -1 )
+up[2]=( -0, -1, 0 )
+startlen=15
+--------- Element Table Entry #19 --------
+name="valley30deg"
+spline=:
+cp[0]=( 0, 1.25, 7.16506 )
+cp[1]=( 0, 2.5, 9.33013 )
+up[0]=( 0, 0.970142, -0.242536 )
+up[1]=( 0, 0.948683, -0.316228 )
+up[2]=( 0, 0.894427, -0.447214 )
+startlen=2.5
+--------- Element Table Entry #20 --------
+name="crest30deg"
+spline=:
+cp[0]=( 0, -1.25, 7.16506 )
+cp[1]=( 0, -2.5, 9.33013 )
+up[0]=( 0, 0.970142, 0.242536 )
+up[1]=( 0, 0.948683, 0.316228 )
+up[2]=( 0, 0.894427, 0.447214 )
+startlen=2.5
+--------- Element Table Entry #21 --------
+name="valley90deg"
+spline=:
+cp[0]=( 0, 4.5, 10 )
+cp[1]=( 0, 10, 10 )
+up[0]=( 0, 0.707107, -0.707107 )
+up[1]=( 0, 0.707107, -0.707107 )
+up[2]=( 0, 0, -1 )
+startlen=5.5
+--------- Element Table Entry #22 --------
+name="crest90deg"
+spline=:
+cp[0]=( 0, -4.5, 10 )
+cp[1]=( 0, -10, 10 )
+up[0]=( 0, 0.707107, 0.707107 )
+up[1]=( 0, 0.707107, 0.707107 )
+up[2]=( 0, 0, 1 )
+startlen=5.5
+--------- Element Table Entry #23 --------
+name="valley45deg"
+spline=:
+cp[0]=( 0, 3.53553, 13.5355 )
+cp[1]=( 0, 7.07107, 17.0711 )
+up[0]=( 0, 0.894427, -0.447214 )
+up[1]=( 0, 0.894427, -0.447214 )
+up[2]=( 0, 0.707107, -0.707107 )
+startlen=5
+--------- Element Table Entry #24 --------
+name="crest45deg"
+spline=:
+cp[0]=( 0, -3.53553, 13.5355 )
+cp[1]=( 0, -7.07107, 17.0711 )
+up[0]=( 0, 0.894427, 0.447214 )
+up[1]=( 0, 0.894427, 0.447214 )
+up[2]=( 0, 0.707107, 0.707107 )
+startlen=5
+--------- Element Table Entry #25 --------
+name="rqroll"
+spline=:
+cp[0]=( 0, 0, 6.66667 )
+cp[1]=( 0, 0, 10 )
+up[0]=( 0.316228, 0.948683, 0 )
+up[1]=( 0.948683, 0.316228, 0 )
+up[2]=( 1, 0, 0 )
+startlen=3.33333
+--------- Element Table Entry #26 --------
+name="lqroll"
+spline=:
+cp[0]=( -0, 0, 6.66667 )
+cp[1]=( -0, 0, 10 )
+up[0]=( -0.316228, 0.948683, 0 )
+up[1]=( -0.948683, 0.316228, 0 )
+up[2]=( -1, 0, 0 )
+startlen=3.33333
+--------- Element Table Entry #27 --------
+name="r8roll"
+spline=:
+cp[0]=( 0, 0, 6.66667 )
+cp[1]=( 0, 0, 10 )
+up[0]=( 0.447214, 0.894427, 0 )
+up[1]=( 0.894427, 0.447214, 0 )
+up[2]=( 0.707107, 0.707107, 0 )
+startlen=3.33333
+--------- Element Table Entry #28 --------
+name="l8roll"
+spline=:
+cp[0]=( -0, 0, 6.66667 )
+cp[1]=( -0, 0, 10 )
+up[0]=( -0.447214, 0.894427, 0 )
+up[1]=( -0.894427, 0.447214, 0 )
+up[2]=( -0.707107, 0.707107, 0 )
+startlen=3.33333
+--------- Element Table Entry #29 --------
+name="rtornadodrop"
+spline=:
+cp[0]=( 0, -10, 0 )
+cp[1]=( 5, -10, 20 )
+up[0]=( 0, 0.707107, 0.707107 )
+up[1]=( 0, 0.707107, 0.707107 )
+up[2]=( 0, 1, 0 )
+startlen=10
+--------- Element Table Entry #30 --------
+name="ltornadodrop"
+spline=:
+cp[0]=( -0, -10, 0 )
+cp[1]=( -5, -10, 20 )
+up[0]=( -0, 0.707107, 0.707107 )
+up[1]=( -0, 0.707107, 0.707107 )
+up[2]=( -0, 1, 0 )
+startlen=10
+--------- Element Table Entry #31 --------
+name="rutornadoturn"
+spline=:
+cp[0]=( 0, 10, 20 )
+cp[1]=( 10, 10, 17.5 )
+up[0]=( 0, 0.707107, -0.707107 )
+up[1]=( -0.57735, 0.57735, -0.57735 )
+up[2]=( 0, 1, 0 )
+startlen=5
+--------- Element Table Entry #32 --------
+name="lutornadoturn"
+spline=:
+cp[0]=( -0, 10, 20 )
+cp[1]=( -10, 10, 17.5 )
+up[0]=( -0, 0.707107, -0.707107 )
+up[1]=( 0.57735, 0.57735, -0.57735 )
+up[2]=( -0, 1, 0 )
+startlen=5
+--------- Element Table Entry #33 --------
+name="rdtornadoturn"
+spline=:
+cp[0]=( 14.5521, -10, 6.66973 )
+cp[1]=( 19.4029, -10, 5.45705 )
+up[0]=( 0.70014, 0.57735, 0.420084 )
+up[1]=( 0.685994, 0.707107, -0.171499 )
+up[2]=( 0, 1, 0 )
+startlen=10.3078
+--------- Element Table Entry #34 --------
+name="ldtornadoturn"
+spline=:
+cp[0]=( -14.5521, -10, 6.66973 )
+cp[1]=( -19.4029, -10, 5.45705 )
+up[0]=( -0.70014, 0.57735, 0.420084 )
+up[1]=( -0.685994, 0.707107, -0.171499 )
+up[2]=( -0, 1, 0 )
+startlen=10.3078
+--------- Track Path Sequence, Entry #0 --------
+spline=:
+cp[0]=( 0, 0, 13.34 )
+cp[1]=( 0, 0, 20 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=6.66
+--------- Track Path Sequence, Entry #1 --------
+spline=:
+cp[0]=( 9, 0, 20 )
+cp[1]=( 20, 0, 20 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=11
+--------- Track Path Sequence, Entry #2 --------
+spline=:
+cp[0]=( 9, 0, 20 )
+cp[1]=( 20, 0, 20 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=11
+--------- Track Path Sequence, Entry #3 --------
+spline=:
+cp[0]=( 0, 0, 26.68 )
+cp[1]=( 0, 0, 40 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=13.32
+--------- Track Path Sequence, Entry #4 --------
+spline=:
+cp[0]=( 9, 0, 20 )
+cp[1]=( 20, 0, 20 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=11
+--------- Track Path Sequence, Entry #5 --------
+spline=:
+cp[0]=( 9, 0, 20 )
+cp[1]=( 20, 0, 20 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=11
+--------- Track Path Sequence, Entry #6 --------
+spline=:
+cp[0]=( 0, 0, 13.34 )
+cp[1]=( 0, 0, 20 )
+up[0]=( 0, 1, 0 )
+up[1]=( 0, 1, 0 )
+up[2]=( 0, 1, 0 )
+startlen=6.66
+Enter starting track position of trailing car in train: 
+> You entered: 20
+Add a block? (1=yes, 0=no): 
+> You entered: 1
+-- Block #0 --
+Block start: 
+> You entered: 20
+Block length: 
+> You entered: 200
+BlockType? (lowercase choices: trim,lift,target): 
+> You entered: lift
+Enter block target speed (mph): 
+> You entered: 20
+Enter block control acceleration (mph/s): 
+> You entered: 25
+Add another block? (1=yes, 0=no): 
+> You entered: 0
+ConformMeshToTrackSpline() processed 8240 vertices.
+Do you want to do a free view of the track without riding it?
+
+You entered 0
+Current Track Orientation @ trackpos=204.372(99.5053%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238547 | 1 ]
+the core::vector3d object named pos contains <0,10,-1.01618>
+
+Current Track Orientation @ trackpos=204.408(99.5227%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238549 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.980401>
+
+Current Track Orientation @ trackpos=204.444(99.5402%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238552 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.944625>
+
+Current Track Orientation @ trackpos=204.489(99.562%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238555 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.899692>
+
+Current Track Orientation @ trackpos=204.525(99.5795%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238558 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.863748>
+
+Current Track Orientation @ trackpos=204.57(99.6014%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238561 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.818829>
+
+Current Track Orientation @ trackpos=204.605(99.6189%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238563 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.782901>
+
+Current Track Orientation @ trackpos=204.641(99.6364%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238566 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.746972>
+
+Current Track Orientation @ trackpos=204.677(99.6539%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238568 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.711044>
+
+Current Track Orientation @ trackpos=204.722(99.6757%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238571 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.666141>
+
+Current Track Orientation @ trackpos=204.758(99.6932%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238574 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.630212>
+
+Current Track Orientation @ trackpos=204.794(99.7107%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238576 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.594299>
+
+Current Track Orientation @ trackpos=204.839(99.7325%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238579 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.549411>
+
+Current Track Orientation @ trackpos=204.875(99.75%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238582 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.513497>
+
+Current Track Orientation @ trackpos=204.911(99.7675%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238584 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.477584>
+
+Current Track Orientation @ trackpos=204.947(99.785%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238587 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.441686>
+
+Current Track Orientation @ trackpos=204.991(99.8068%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.00023859 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.396813>
+
+Current Track Orientation @ trackpos=205.027(99.8243%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000232074 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.36092>
+
+Current Track Orientation @ trackpos=205.072(99.8461%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.00022137 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.316056>
+
+Current Track Orientation @ trackpos=205.108(99.8636%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000212811 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.280179>
+
+Current Track Orientation @ trackpos=205.144(99.8811%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000204252 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.244303>
+
+Current Track Orientation @ trackpos=205.18(99.8985%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000195693 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.208427>
+
+Current Track Orientation @ trackpos=205.225(99.9204%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000184994 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.163577>
+
+Current Track Orientation @ trackpos=205.261(99.9378%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000176435 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.127701>
+
+Current Track Orientation @ trackpos=205.296(99.9553%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000167879 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.0918401>
+
+Current Track Orientation @ trackpos=205.341(99.9771%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000157183 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.0470061>
+
+Current Track Orientation @ trackpos=205.377(99.9946%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000148628 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.011145>
+
+Current Track Orientation @ trackpos=204.385(99.5114%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238548 | 1 ]
+the core::vector3d object named pos contains <0,10,-1.00377>
+
+Current Track Orientation @ trackpos=204.43(99.5332%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238551 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.95885>
+
+Current Track Orientation @ trackpos=204.465(99.5507%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238553 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.922906>
+
+Current Track Orientation @ trackpos=204.501(99.5682%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238556 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.886978>
+
+Current Track Orientation @ trackpos=204.546(99.5901%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238559 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.842059>
+
+Current Track Orientation @ trackpos=204.582(99.6076%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238562 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.806131>
+
+Current Track Orientation @ trackpos=204.618(99.6251%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238564 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.770202>
+
+Current Track Orientation @ trackpos=204.654(99.6425%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238567 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.734289>
+
+Current Track Orientation @ trackpos=204.699(99.6644%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.00023857 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.689386>
+
+Current Track Orientation @ trackpos=204.735(99.6819%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238572 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.653472>
+
+Current Track Orientation @ trackpos=204.771(99.6994%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238575 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.617559>
+
+Current Track Orientation @ trackpos=204.816(99.7212%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238578 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.572671>
+
+Current Track Orientation @ trackpos=204.852(99.7387%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.00023858 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.536773>
+
+Current Track Orientation @ trackpos=204.896(99.7605%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238583 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.491901>
+
+Current Track Orientation @ trackpos=204.932(99.778%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238586 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.456003>
+
+Current Track Orientation @ trackpos=204.968(99.7955%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000238588 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.420104>
+
+Current Track Orientation @ trackpos=205.013(99.8173%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000235492 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.375249>
+
+Current Track Orientation @ trackpos=205.049(99.8348%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000226933 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.339373>
+
+Current Track Orientation @ trackpos=205.085(99.8522%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000218374 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.303497>
+
+Current Track Orientation @ trackpos=205.13(99.8741%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000207678 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.258663>
+
+Current Track Orientation @ trackpos=205.165(99.8915%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000199123 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.222802>
+
+Current Track Orientation @ trackpos=205.201(99.909%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000190567 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.186941>
+
+Current Track Orientation @ trackpos=205.246(99.9308%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000179871 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.142107>
+
+Current Track Orientation @ trackpos=205.282(99.9483%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000171316 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.106246>
+
+Current Track Orientation @ trackpos=205.318(99.9657%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.00016276 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.0703845>
+
+Current Track Orientation @ trackpos=205.354(99.9832%):
+Orientation object named [0] contains:
+The HeadingMatrix variable named hdg contains the following matrix:
+	 rgt  = [ 1 | 0 | 0 ]
+	 up  = [ 0 | 1 | 0 ]
+	 fwd  = [ 0 | 0.000154209 | 1 ]
+the core::vector3d object named pos contains <0,10,-0.0345386>
+

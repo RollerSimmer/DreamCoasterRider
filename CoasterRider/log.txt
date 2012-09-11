@@ -76,6 +76,22 @@
 		after the coney island cyclone and other six flags clones.  it would be nice to have woodie track 
 		to go with it...
 	+	TODO: i think banking will come next...
+2012:Sep:05:AM:03:28
+	+	TODO: fix supports so they don't hit underneath track
+	+	TODO: fix file parser so that it uses a stack and can put fields out of order.
+2012:Sep:06:AM:10:47
+	+	moved speed control values from track operator to individual blocks.
+	+	added trim and target blocks.  trim blocks brake always, and target blocks brake or 
+		boost, depending on current speed, to get to target speed
+	+	messed around with track mesh.  reorganized some code, but didn't add much functionality.
+		should be easier to change in the future.  
+2012:Sep:10:PM:07:51
+	+	Made "Mega" track.  Defined some new elements like lasso turn and helix
+	+	full circuit gap at the end of track is improved, but still looks a little off.  At least there is
+		no "bump" now.
+	+	Made "Corky" track.
+	+	TODO: now that most function is included, it's either time for more track styles, adding car meshes,
+	         or adding track details like chain lifts and catwalks.
 	
 
 

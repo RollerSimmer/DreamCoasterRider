@@ -1039,7 +1039,7 @@
 	<iostream>
 	<sstream>
 
-1346570712 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/FullSpline.cpp
+1346747698 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/FullSpline.cpp
 	"FullSpline.h"
 	<cmath>
 
@@ -1066,7 +1066,7 @@
 	"HeadingMatrix.h"
 	<irrlicht.h>
 
-1346655747 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Track.cpp
+1347323278 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Track.cpp
 	"Track.h"
 	<iostream>
 	<sstream>
@@ -1077,7 +1077,7 @@
 	<deque>
 	<irrlicht.h>
 
-1346658187 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackMesh.cpp
+1347307229 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackMesh.cpp
 	"TrackMesh.h"
 	"Track.h"
 	"LadderTrackMeshPatternFactory.h"
@@ -1088,7 +1088,7 @@
 	<iostream>
 	<sstream>
 
-1345446030 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackMesh.h
+1346944533 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackMesh.h
 	"irrlicht.h"
 	"TrackMeshPattern.h"
 	"SupportMesh.h"
@@ -1107,7 +1107,7 @@
 	<cmath>
 	<vector>
 
-1346745044 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/meshmain.cpp
+1347320087 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/meshmain.cpp
 	"irrlicht.h"
 	"Track.h"
 	"Orientation.h"
@@ -1184,10 +1184,10 @@
 	"Orientation.h"
 	"irrlicht.h"
 
-1346138087 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Block.cpp
+1346942416 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Block.cpp
 	"Block.h"
 
-1346237714 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Block.h
+1346942596 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Block.h
 
 1346314200 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/Orientation.h
 	"HeadingMatrix.h"
@@ -1211,11 +1211,11 @@
 	"Car.h"
 	<deque>
 
-1346657704 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackOperator.cpp
+1346945564 source:/home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackOperator.cpp
 	"TrackOperator.h"
 	<cmath>
 
-1346468024 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackOperator.h
+1346944075 /home/ja227/Desktop/c++ projects/CoasterTrack/CoasterRider/TrackOperator.h
 	"Train.h"
 	"Track.h"
 	"Block.h"

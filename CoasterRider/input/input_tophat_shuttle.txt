@@ -1,0 +1,10 @@
+tracks/tophat_shuttle.xml
+20.0
+1
+20.0
+200.0
+lift
+90.0
+20.0
+0
+0
