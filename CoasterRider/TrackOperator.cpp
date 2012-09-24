@@ -5,14 +5,14 @@
 //	TrackOperator() - TrackOperator constructor.
 ##########################################################*/
 
-TrackOperator::TrackOperator(Track*_track,bool _autolift)
+TrackOperator::TrackOperator(Track*_track,Mode _mode,bool _autolift)
 		:	track(_track)
+		, mode(_mode)
+		,stage(mode)
 		////,	autolift(_autolift)
 	{
+	stage.mode=mode;
 	//ctor
-
-
-
 	}
 
 /**#########################################################
@@ -35,6 +35,7 @@ TrackOperator::~TrackOperator()
 
 void TrackOperator::MoveTrain(int trainI, float timeElapsed)
 	{
+	float prevSpeed;
 	if(trainI>trains.size())	return;
 	if(track==0)	return;
 	Train*train=trains.at(trainI);
@@ -53,11 +54,14 @@ void TrackOperator::MoveTrain(int trainI, float timeElapsed)
 	const float max_timespan=0.1f;
 	bool done;
 
+	GetModeStageFlags();	//get the flags for the current stage of the operation mode
+
 	done=timeleft<=0;
 
 	while(!done)
 		{
 
+		prevSpeed=train->speed;
 		v0=train->speed;
 		dt=min(timeleft,max_timespan);
 
@@ -181,10 +185,121 @@ void TrackOperator::MoveTrain(int trainI, float timeElapsed)
 		UpdateTime:
 			timeleft-=dt;
 			done=timeleft<=0;
+
+		//change the mode stage if criteria is met:
+			if(ShouldChangeModeStage( train->cars.front().linpos
+			                         ,train->cars.back().linpos
+			                         ,prevSpeed,train->speed))
+				++stage;
 		}
 
 	//done:
 		return;
+	}
+
+/**##########################################################
+	GetModeStageFlags() - Gets the stage flags for the current stage
+	                      of the operation mode, and copies them
+	                      into stageflags.
+###########################################################*/
+void TrackOperator::GetModeStageFlags()
+	{
+	////StageFlags stageflags;
+	SetFlagDefaults:
+		stageflags.brakesactive=true;
+		stageflags.liftsactive=true;
+		stageflags.goThruStation=false;
+		stageflags.inreverse=false;
+		stageflags.chainsReversed=false;
+		stageflags.shouldLaunchesDecel=false;
+
+	switch(mode)
+		{
+		case tom_laps:
+			{
+			if(stage==0)
+				{
+				//keep defaults
+				}
+			break;
+			}
+		case tom_shuttle_thru_station:
+			{
+			if(stage==0)	//forward launch:
+				{
+				stageflags.brakesactive=false;
+				}
+			else if(stage==1)	//backwards through station with launches and brakes not active
+				{
+				stageflags.brakesactive=false;
+				stageflags.liftsactive=false;
+				stageflags.goThruStation=true;
+				stageflags.inreverse=true;
+				}
+			else if(stage==2)	//forward to station from behind
+				{
+				stageflags.brakesactive=true;
+				stageflags.liftsactive=false;
+				stageflags.goThruStation=false;
+				}
+			break;
+			}
+		case tom_reverse_chain_drop:
+			{
+			if(stage==0)	//reverse lift
+				{
+				stageflags.brakesactive=false;
+				stageflags.liftsactive=true;
+				stageflags.inreverse=true;
+				stageflags.chainsReversed=true;
+				}
+			else if(stage==1)	//forward through station
+				{
+				stageflags.brakesactive=false;
+				stageflags.goThruStation=true;
+				}
+			else if(stage==2)	//backwards through station with launches and brakes not active
+				{
+				stageflags.brakesactive=false;
+				stageflags.liftsactive=false;
+				stageflags.goThruStation=true;
+				stageflags.inreverse=true;
+				}
+			else if(stage==1)	//forward to station from behind
+				{
+				stageflags.brakesactive=true;
+				stageflags.liftsactive=false;
+				}
+			break;
+			}
+		case tom_accel_decel_shuttle:
+			{
+			if(stage==0)	//forward launch:
+				{
+				stageflags.brakesactive=false;
+				}
+			else if(stage==1)	//backward to station with booster deceleration
+				{
+				stageflags.brakesactive=true;
+				stageflags.inreverse=true;
+				stageflags.shouldLaunchesDecel=true;
+				}
+			break;
+			}
+		case tom_transport_shuttle:
+			{
+			if(stage==0)	//forwards through path
+				{
+				stageflags.inreverse=false;
+				}
+			else if(stage==1)	//backwards thru path
+				{
+				stageflags.chainsReversed=true;
+				stageflags.inreverse=true;
+				}
+			break;
+			}
+		}
 	}
 
 /**#########################################################
@@ -244,14 +359,18 @@ bool TrackOperator::AddTrain(int blockI,Train*train)
 ##########################################################*/
 
 void TrackOperator::AddBlock(float startpos,float len,Block::Type type
-		                       ,float targetspeed,float controlaccel)
+										,float forespeed,float backspeed
+										,float foreaccel,float backaccel
+		                       )
 	{
 	Block block;
 	block.startpos=startpos;
 	block.len=len;
 	block.type=type;
-	block.targetspeed=targetspeed;
-	block.controlaccel=controlaccel;
+	block.forespeed=forespeed;
+	block.backspeed=backspeed;
+	block.foreaccel=foreaccel;
+	block.backaccel=backaccel;
 	blocks.push_back(block);
 	return ;
 	}
@@ -285,22 +404,32 @@ bool TrackOperator::IsPosInBlock(int trackpos,int blockI)
 			         block that triggered the true return.
 			         if triggered by autolift, blockI is set
 			         to-1
+		Notes: Doesn't check speed. Just whether
+		       it's in a possible brake block for mode and stage
+		       of operation
 ##########################################################*/
 
 bool TrackOperator::ShouldLiftTrainAt(float trackpos,int&blockI)
 	{
 	////bool shouldlift=autolift;
 	bool shouldlift=false;
+	bool isliftblock=false;
 	blockI=-1;
+
+
+
 	for(int i=0;i<blocks.size();i++)
 		{
+		isliftblock=  IsPosInBlock(trackpos,i)
+						&&(  blocks.at(i).type==Block::bt_lift
+							  ||blocks.at(i).type==Block::bt_station
+							  ||blocks.at(i).type==Block::bt_trim
+							  ||blocks.at(i).type==Block::bt_boost
+							);
 		if(!shouldlift)
-			shouldlift=shouldlift
-			           ||(  IsPosInBlock(trackpos,i)
-						     &&(  blocks.at(i).type==Block::bt_lift
-								  ||blocks.at(i).type==Block::bt_target
-								 )
-							 );
+			shouldlift=shouldlift||isliftblock;
+		shouldlift=shouldlift&&stageflags.liftsactive;
+
 		if(shouldlift)
 			{
 			blockI=i;
@@ -319,6 +448,9 @@ bool TrackOperator::ShouldLiftTrainAt(float trackpos,int&blockI)
 			blockI - if returning true, the index of the
 			         block that triggered the true return.
 			         otherwise it is set to -1.
+		Notes: Doesn't check speed. Just whether
+		       it's in a possible brake block for mode and stage
+		       of operation
 ##########################################################*/
 
 bool TrackOperator::ShouldBrakeTrainAt(float trackpos,int&blockI)
@@ -327,13 +459,19 @@ bool TrackOperator::ShouldBrakeTrainAt(float trackpos,int&blockI)
 	bool shouldbrake=false;
 	for(int i=0;i<blocks.size();i++)
 		{
+		bool shouldboostdecel=
+					  blocks.at(i).type==Block::bt_boost
+					&&stageflags.inreverse
+					&&stageflags.shouldLaunchesDecel;
 		if(!shouldbrake)
 			shouldbrake=shouldbrake
 			           ||(  IsPosInBlock(trackpos,i)
 						     &&(  blocks.at(i).type==Block::bt_trim
-								  ||blocks.at(i).type==Block::bt_target
+								  ||blocks.at(i).type==Block::bt_station
+								  ||shouldboostdecel
 								 )
 							 );
+		shouldbrake=shouldbrake&&stageflags.brakesactive;
 		if(shouldbrake)
 			{
 			blockI=i;
@@ -361,12 +499,20 @@ void TrackOperator::LiftTrain(int trainI,float timespan)
 			Car&car=train->cars.at(j);
 			shouldlift=shouldlift||ShouldLiftTrainAt(car.linpos,blockI);
 			if(shouldlift)
-				shouldlift=shouldlift&&train->speed<blocks.at(blockI).targetspeed;
+				{
+				if(stageflags.inreverse)
+					shouldlift=train->speed>blocks.at(blockI).backspeed;
+				else
+					shouldlift=train->speed<blocks.at(blockI).forespeed;
+				}
 			if(shouldlift)
 				{
 				//lift the train...
 				Block&block=blocks.at(blockI);
-				train->speed+=abs(block.controlaccel)*timespan;
+				if(stageflags.inreverse)
+					train->speed+=block.backaccel*timespan;
+				else
+					train->speed+=block.foreaccel*timespan;
 				break;
 				}
 			}
@@ -391,12 +537,20 @@ void TrackOperator::BrakeTrain(int trainI,float timespan)
 			int blockI;
 			shouldbrake=shouldbrake||ShouldBrakeTrainAt(car.linpos,blockI);
 			if(shouldbrake)
-				shouldbrake=shouldbrake&&train->speed>blocks.at(blockI).targetspeed;
+				{
+				if(stageflags.inreverse)
+					shouldbrake=shouldbrake&&train->speed<blocks.at(blockI).backspeed;
+				else
+					shouldbrake=shouldbrake&&train->speed>blocks.at(blockI).forespeed;
+				}
 			if(shouldbrake)
 				{
 				//brake the train...
 				Block&block=blocks.at(blockI);
-				train->speed-=abs(block.controlaccel)*timespan;
+				if(stageflags.inreverse)
+					train->speed-=block.backaccel*timespan;
+				else
+					train->speed-=block.foreaccel*timespan;
 				break;
 				}
 			}
@@ -435,4 +589,140 @@ void TrackOperator::setTrainPos(int trainI,float linpos,bool fromback)
 			}
 		}
 	}
+
+/**##########################################################
+	ShouldChangeModeStage() - should the mode's stage be changed at this point?
+		In:
+			frontpos - the current track position of the back car.
+			backpos - the current track position of the front car.
+			prevspeed - the last speed before the most recent speed change
+			curspeed - the current speed
+		Out:
+			(return value) - whether or not to change the operation mode stage
+##########################################################**/
+
+bool TrackOperator::ShouldChangeModeStage( float frontpos,float backpos
+                                          ,float prevspeed,float curspeed)
+	{
+	bool shouldchange=false;
+	switch(mode)
+		{
+		case tom_laps:
+			{
+			////shouldchange=false;
+			}
+		case tom_shuttle_thru_station:
+			{
+			if(stage==0)	//forward launch:
+				{
+				shouldchange=prevspeed>=0&&curspeed<0;
+				}
+			else if(stage==1)	//backwards through station with launches and brakes not active
+				{
+				shouldchange=prevspeed<=0&&curspeed>0;
+				}
+			else if(stage==2)	//forward to station from behind
+				{
+				shouldchange=AtFirstStation(frontpos,backpos);
+				}
+			break;
+			}
+		case tom_reverse_chain_drop:
+			{
+			if(stage==0)	//reverse lift
+				{
+				shouldchange=prevspeed<=0&&curspeed>0;
+				}
+			else if(stage==1)	//forward through station
+				{
+				shouldchange=prevspeed>=0&&curspeed<0;
+				}
+			else if(stage==2)	//backwards through station with launches and brakes not active
+				{
+				shouldchange=prevspeed <= 0&&curspeed > 0;
+				}
+			else if(stage==3)	//forward to station from behind
+				{
+				shouldchange=AtFirstStation(frontpos,backpos);
+				}
+			break;
+			}
+		case tom_accel_decel_shuttle:
+			{
+			if(stage==0)	//forward launch:
+				{
+				shouldchange=prevspeed>=0&&curspeed<0;
+				}
+			else if(stage==1)	//backward to station with booster deceleration
+				{
+				shouldchange=AtFirstStation(frontpos,backpos);
+				}
+			break;
+			}
+		case tom_transport_shuttle:
+			{
+			if(stage==0)
+				{
+				////shouldchangemode=AtLastStation(frontpos,backpos);
+				}
+			else if(stage==1)
+				{
+				////shouldchangemode=AtFirstStation(frontpos,backpos);
+				}
+			}
+		}
+	}
+
+/**###########################################################
+	AtFirstStation() - is the train stopped at the first station?
+		In:
+			frontpos - the position of the front car
+			backpos - the position of the back car
+		Out:
+			(return value) - true if stopped at the first station.
+############################################################*/
+bool TrackOperator::AtFirstStation(	float frontpos,float backpos)
+	{
+	bool atfirst=false;
+	int ifirst=-1;
+	for(int i=0;i<blocks.size();i++)
+		{
+		if(blocks.at(i).type=Block::bt_station)
+			{
+			ifirst=i;
+			break;
+			}
+		}
+	if(ifirst==-1)	return false;
+	Block&startblock=blocks.at(ifirst);
+	atfirst=  frontpos>=startblock.startpos
+			  && frontpos<=startblock.startpos+startblock.len;
+	atfirst=  atfirst
+			  &&backpos>=startblock.startpos
+			  &&backpos<=startblock.startpos+startblock.len;
+	return atfirst;
+	}
+
+/**###########################################################
+	Stage::operator ++() - increment stage or go back to zero
+############################################################*/
+TrackOperator::Stage&TrackOperator::Stage::operator ++()
+	{
+	int amtstages=1;
+
+	if(mode==tom_laps)	amtstages=1;
+	else if(mode==tom_shuttle_thru_station)	amtstages=3;
+	else if(mode==tom_reverse_chain_drop)	amtstages=4;
+	else if(mode==tom_accel_decel_shuttle)	amtstages=2;
+	else if(mode==tom_transport_shuttle)	amtstages=2;
+
+	val++;
+	val=val%amtstages;
+	return*this;
+	}
+
+
+
+
+
 

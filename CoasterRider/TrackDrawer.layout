@@ -2,7 +2,7 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="Block.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="78" topLine="0" />
+		<Cursor position="35" topLine="0" />
 	</File>
 	<File name="Block.h" open="0" top="0" tabpos="0">
 		<Cursor position="90" topLine="0" />
@@ -22,12 +22,6 @@
 	<File name="HeadingMatrix.h" open="0" top="0" tabpos="8">
 		<Cursor position="57" topLine="14" />
 	</File>
-	<File name="LadderTrackMeshPatternFactory.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="1198" topLine="20" />
-	</File>
-	<File name="LadderTrackMeshPatternFactory.h" open="0" top="0" tabpos="0">
-		<Cursor position="401" topLine="0" />
-	</File>
 	<File name="MyEventReceiver.h" open="0" top="0" tabpos="0">
 		<Cursor position="537" topLine="9" />
 	</File>
@@ -37,8 +31,8 @@
 	<File name="PathSpline.h" open="0" top="0" tabpos="4">
 		<Cursor position="459" topLine="0" />
 	</File>
-	<File name="SkinnyTubeSupportMeshFactory.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="2301" topLine="73" />
+	<File name="SkinnyTubeSupportMeshFactory.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="4921" topLine="113" />
 	</File>
 	<File name="SkinnyTubeSupportMeshFactory.h" open="0" top="0" tabpos="0">
 		<Cursor position="359" topLine="0" />
@@ -55,7 +49,7 @@
 	<File name="SupportMeshFactory.h" open="0" top="0" tabpos="0">
 		<Cursor position="376" topLine="0" />
 	</File>
-	<File name="Track.cpp" open="1" top="0" tabpos="2">
+	<File name="Track.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="4877" topLine="196" />
 	</File>
 	<File name="Track.h" open="0" top="0" tabpos="4">
@@ -73,38 +67,41 @@
 	<File name="TrackFileParser.h" open="0" top="0" tabpos="0">
 		<Cursor position="342" topLine="7" />
 	</File>
-	<File name="TrackMesh.cpp" open="1" top="1" tabpos="3">
-		<Cursor position="1566" topLine="50" />
+	<File name="TrackMesh.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="9317" topLine="325" />
 	</File>
 	<File name="TrackMesh.h" open="0" top="0" tabpos="9">
-		<Cursor position="868" topLine="21" />
+		<Cursor position="299" topLine="6" />
 	</File>
-	<File name="TrackMeshPattern.h" open="0" top="0" tabpos="0">
-		<Cursor position="121" topLine="0" />
-	</File>
-	<File name="TrackMeshPatternFactory.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="306" topLine="0" />
-	</File>
-	<File name="TrackMeshPatternFactory.h" open="0" top="0" tabpos="0">
-		<Cursor position="114" topLine="0" />
-	</File>
-	<File name="TrackOperator.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="10619" topLine="395" />
+	<File name="TrackOperator.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="1066" topLine="39" />
 	</File>
 	<File name="TrackOperator.h" open="0" top="0" tabpos="0">
-		<Cursor position="822" topLine="15" />
+		<Cursor position="1642" topLine="27" />
+	</File>
+	<File name="TrackPatterns/LadderTrackMeshPatternFactory.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="1198" topLine="0" />
+	</File>
+	<File name="TrackPatterns/LadderTrackMeshPatternFactory.h" open="0" top="0" tabpos="0">
+		<Cursor position="120" topLine="0" />
+	</File>
+	<File name="TrackPatterns/TrackMeshPattern.h" open="0" top="0" tabpos="0">
+		<Cursor position="27" topLine="0" />
+	</File>
+	<File name="TrackPatterns/TrackMeshPatternFactory.h" open="0" top="0" tabpos="0">
+		<Cursor position="145" topLine="0" />
 	</File>
 	<File name="Train.h" open="0" top="0" tabpos="0">
 		<Cursor position="154" topLine="0" />
 	</File>
-	<File name="TrainFactory.cpp" open="0" top="0" tabpos="10">
-		<Cursor position="1283" topLine="0" />
+	<File name="TrainFactory.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="1188" topLine="39" />
 	</File>
 	<File name="irrlicht.h" open="0" top="0" tabpos="7">
 		<Cursor position="23" topLine="0" />
 	</File>
-	<File name="meshmain.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="5673" topLine="195" />
+	<File name="meshmain.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="12284" topLine="417" />
 	</File>
 	<File name="testmain.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="5" topLine="0" />

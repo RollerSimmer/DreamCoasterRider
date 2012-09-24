@@ -92,6 +92,16 @@
 	+	Made "Corky" track.
 	+	TODO: now that most function is included, it's either time for more track styles, adding car meshes,
 	         or adding track details like chain lifts and catwalks.
+2012:Sep:13:PM:10:14
+	+	Modified skinny tube supports so that they have a pointed meeting point with the track.
+	+	track crossbar segments stretch to the length of the track.
+2012:Sep:22:PM:03:56
+	+	Started added new Track Operation modes and stages to those modes.  Still working things out...
+	+	TODO: finish working out track modes and their stages.
+	+	implement full stops and waits in TrackOperator.
+2012:Sep:23:PM:06:08
+	+	small power outage; almost lost some work.
+	+	tested 4 operation modes and they seem to work fine.  now to add full stops and station loads...
 	
 
 

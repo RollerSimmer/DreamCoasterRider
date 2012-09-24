@@ -397,6 +397,36 @@
 		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
 		<REVERSE_FLAG> false </REVERSE_FLAG>
 	</ELEMENT_DEF>
+	<!-- up half loop -->
+	<ELEMENT_DEF>
+		<NAME> uhalfloop </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 20.0 </Y> <Z> 20.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 20.0 </Y> <Z> 10.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> -1.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> -1.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> -1.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 20.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- down half loop -->
+	<ELEMENT_DEF>
+		<NAME> dhalfloop </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> uhalfloop </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> true </REVERSE_FLAG>
+	</ELEMENT_DEF>
 	<!-- valley 30 degrees -->
 	<ELEMENT_DEF>
 		<NAME> valley30deg </NAME>
@@ -702,38 +732,97 @@
 		<FLIP_Y_FLAG> true </FLIP_Y_FLAG>
 		<REVERSE_FLAG> false </REVERSE_FLAG>
 	</ELEMENT_DEF>
+	<!-- right full loop part 1 -->
+	<ELEMENT_DEF>
+		<NAME> rlooppart1 </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 20.0 </Y> <Z> 20.0 </Z> </CP_0>
+		<CP_1> <X> 1.0 </X> <Y> 20.0 </Y> <Z> 8.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 1.0 </Y> <Z> -1.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> -1.0 </Y> <Z> -1.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> -1.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 20.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- right full loop part 2 -->
+	<ELEMENT_DEF>
+		<NAME> rlooppart2 </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> rlooppart1 </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> true </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- left full loop part 1 -->
+	<ELEMENT_DEF>
+		<NAME> llooppart1 </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> rlooppart1 </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- left full loop part 2 -->
+	<ELEMENT_DEF>
+		<NAME> llooppart2 </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> rlooppart2 </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
 </ELEMENT_DEFS>
 
 <TRACK_PATH>
 	<!-- BASE = base element name
 	     REPEAT = # of times to repeat element in succession,
 	     SCALE = scaling factor to make the base larger or smaller -->
-	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 20.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
-	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> valley90deg </BASE> <SCALE> 2.5 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
-	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 1.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
-	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> rqroll </BASE> <SCALE> 0.75 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
-	<ELEMENT> <REPEAT> 2 </REPEAT> <BASE> valley90deg </BASE> <SCALE> 1.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
-	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> lqroll </BASE> <SCALE> 0.75 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
-	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 1.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
-	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> valley90deg </BASE> <SCALE> 2.5 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
-	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> valley45deg </BASE> <SCALE> 2.5 </SCALE> <BANK> 45.0 </BANK> </ELEMENT>
-	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> rturn </BASE> <SCALE> 1.5 </SCALE> <BANK> 60.0 </BANK> </ELEMENT>
-	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> rturn </BASE> <SCALE> 1.5 </SCALE> <BANK> 45.0 </BANK> </ELEMENT>
-	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> valley45deg </BASE> <SCALE> 2.5 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
-	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> valley90deg </BASE> <SCALE> 2.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
-	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 8.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 6.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> valley45deg </BASE> <SCALE> 2.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 4.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> rlooppart1 </BASE> <SCALE> 1.2 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> lcorky </BASE> <SCALE> 1.1 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> rcorky </BASE> <SCALE> 1.1 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> llooppart2 </BASE> <SCALE> 1.2 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>	
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 1.2 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> rlooppart1 </BASE> <SCALE> 1.2 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>	
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> rlooppart2 </BASE> <SCALE> 1.2 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>	
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 1.2 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> valley45deg </BASE> <SCALE> 2.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 6.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
 </TRACK_PATH>
 
 <TRACK_START>
 	<BANK> 0.0 </BANK>
 	<POS>
-		<X> 0.0 </X> <Y> 5.0 </Y>  <Z> 0.0 </Z>
+		<X> 0.0 </X> <Y> 62.0 </Y>  <Z> 0.0 </Z>
 	</POS>
 	<UP>
-		<X> 0.0 </X> <Y> 1.0 </Y>  <Z> 0.0 </Z>
+		<X> 0.0 </X> <Y> 1.0 </Y>  <Z> 1.0 </Z>
 	</UP>
 	<FWD>
-		<X> 0.0 </X> <Y> 0.0 </Y>  <Z> 1.0 </Z>
+		<X> 0.0 </X> <Y> -1.0 </Y>  <Z> 1.0 </Z>
 	</FWD>
 </TRACK_START>
 

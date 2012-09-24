@@ -70,9 +70,8 @@ void TrackMesh::init(Track*t,f32 _scale)
 			factory->create(
 									 seglen,runglen,scale*0.1,scale*0.075
 
-									,railcolor,rungcolor
 									////,SColor(255,255,0,0),SColor(255,0,0,255)	//red and blue
-									////,SColor(255,255,255,0),SColor(255,0,0,255)	//blue and yellow
+									,SColor(255,255,255,0),SColor(255,0,0,255)	//blue and yellow
 									////,SColor(255,0,0,0),SColor(255,0,0,255)	//black and blue
 									////,SColor(255,128,128,255),SColor(255,64,64,128)	//blue
 									////,SColor(255,82,67,53),SColor(255,82,67,53)	//brown
@@ -238,7 +237,7 @@ void TrackMesh::AddSupports()
 	{
 	////SColor supcolor(255,255,255,0);	//yellow
 	////SColor supcolor(255,140,140,150);	//silver
-	////SColor supcolor(255,255,255,255);	//white
+	SColor supcolor(255,255,255,255);	//white
 	////SColor supcolor(128,165,136,108);	//brown
 	if(smesh==0)	return;
 	firstsupidx=smesh->getMeshBufferCount();

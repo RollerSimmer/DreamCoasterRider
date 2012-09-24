@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
 
    IGUIFont*font=guienv->getBuiltInFont();
    vector<IGUIStaticText*> msgary;
-   const int amtmsgs=10;
+   const int amtmsgs=11;
    msgary.clear();
    {
    int y=0;
@@ -177,17 +177,36 @@ int main(int argc, char* argv[])
 	CreateTrackOperatorA:
 		TrackOperator*trackop;
 		trackop=new TrackOperator(track);
-		float speedmph,accelmphs,finput;
+		float forespeedmph,foreaccelmphs,backspeedmph,backaccelmphs,finput;
 
 		trackop->trains.clear();
 		trackop->blocks.clear();
 		trackop->trains.push_back(TrainFactory::getinstance()
 		                          ->createATestTrain());
 		float trainpos;
+		cout<<"Enter track's operation mode:\n";
+		cout<<"\t( 0=laps (default)\n";
+		cout<<"\t  1=shuttle back thru station\n";
+		cout<<"\t  2=reverse chain drop\n";
+		cout<<"\t  3=accel/decel shuttle (stop at station)\n";
+		cout<<"\t  4=transport shuttle  )\n";
+		int modeint;
+		cin>>modeint;
+		switch(modeint)
+			{
+			case 0: trackop->mode=TrackOperator::tom_laps; break;
+			case 1: trackop->mode=TrackOperator::tom_shuttle_thru_station; break;
+			case 2: trackop->mode=TrackOperator::tom_reverse_chain_drop; break;
+			case 3: trackop->mode=TrackOperator::tom_accel_decel_shuttle; break;
+			case 4: trackop->mode=TrackOperator::tom_transport_shuttle; break;
+			default: trackop->mode=TrackOperator::tom_laps; break;
+			}
+		trackop->stage=0;
+
 		cout<<"Enter starting track position of trailing car in train: "; cin>>trainpos; cout<<endl;
 		cout<<"> You entered: "<<trainpos<<endl;
 		trackop->setTrainPos(0,trainpos,true);
-		////cout<<"Automatically lift the car below min speed even off lift blocks? (1=yes, 0=no) ";
+		////cout<<"Automatically  the car below min speed even off lift blocks? (1=yes, 0=no) ";
 		////cin>>trackop->autolift;	cout<<endl;
 		////cout<<"> You entered: "<<trackop->autolift<<endl;
 
@@ -211,32 +230,49 @@ int main(int argc, char* argv[])
 				cout<<"> You entered: "<<blockstart<<endl;
 				cout<<"Block length: "; cin>>blocklen;	cout<<endl;
 				cout<<"> You entered: "<<blocklen<<endl;
-				cout<<"BlockType? (lowercase choices: trim,lift,target): ";	cin>>blocktype; cout<<endl;
+				cout<<"BlockType? (lowercase choices: normal,trim,lift,boost,station): ";	cin>>blocktype; cout<<endl;
 				cout<<"> You entered: "<<blocktype<<endl;
-				if(strcmp(blocktype,"lift")==0)
-					blocktype_enum=Block::bt_lift;
+				if(strcmp(blocktype,"normal")==0)
+					blocktype_enum=Block::bt_normal;
 				else if(strcmp(blocktype,"trim")==0)
 					blocktype_enum=Block::bt_trim;
-				else if(strcmp(blocktype,"target")==0)
-					blocktype_enum=Block::bt_target;
+				else if(strcmp(blocktype,"lift")==0)
+					blocktype_enum=Block::bt_lift;
+				else if(strcmp(blocktype,"boost")==0)
+					blocktype_enum=Block::bt_boost;
+				else if(strcmp(blocktype,"station")==0)
+					blocktype_enum=Block::bt_station;
 				else	//default:
-					blocktype_enum=Block::bt_target;
+					blocktype_enum=Block::bt_normal;
 
-				speedmph=10.0;
-				cout<<"Enter block target speed (mph): ";	cin>>finput;	cout<<endl;
+				forespeedmph=10.0;
+				cout<<"Enter block forward speed (mph): ";	cin>>finput;	cout<<endl;
 				cout<<"> You entered: "<<finput<<endl;
-				if(finput>0.0)	speedmph=finput;
+				forespeedmph=finput;
 
-				accelmphs=25.0;
-				cout<<"Enter block control acceleration (mph/s): ";	cin>>finput;	cout<<endl;
+				foreaccelmphs=25.0;
+				cout<<"Enter block forward acceleration (mph/s): ";	cin>>finput;	cout<<endl;
 				cout<<"> You entered: "<<finput<<endl;
-				if(finput>0.0)	accelmphs=finput;
+				foreaccelmphs=finput;
 
-				float targetspeed=miles_per_hour_to_meter_per_second*speedmph;
-				float controlaccel=miles_per_hour_to_meter_per_second*accelmphs;
+				backspeedmph=-10.0;
+				cout<<"Enter block backward speed (mph): ";	cin>>finput;	cout<<endl;
+				cout<<"> You entered: "<<finput<<endl;
+				backspeedmph=finput;
+
+				backaccelmphs=-25.0;
+				cout<<"Enter block backward acceleration (mph/s): ";	cin>>finput;	cout<<endl;
+				cout<<"> You entered: "<<finput<<endl;
+				backaccelmphs=finput;
+
+				float forespeed=miles_per_hour_to_meter_per_second*forespeedmph;
+				float foreaccel=miles_per_hour_to_meter_per_second*foreaccelmphs;
+				float backspeed=miles_per_hour_to_meter_per_second*backspeedmph;
+				float backaccel=miles_per_hour_to_meter_per_second*backaccelmphs;
 
 				trackop->AddBlock(blockstart,blocklen,blocktype_enum
-				                  ,targetspeed,controlaccel);
+				                  ,forespeed,backspeed
+				                  ,foreaccel,backaccel);
 				++blockcount;
 				}
 			}	while(doaddblock);
@@ -244,6 +280,20 @@ int main(int argc, char* argv[])
 	// light is just for nice effects
 
 	TrackMesh mesh(track,smgr,driver);
+
+	EnterTrackMeshColors:
+		{
+		u32 railcolor,rungcolor,supcolor;
+		cout<<"Enter rail color in hex format (0xRRGGBB): ";
+		cin>>hex>>railcolor;
+		cout<<"Enter rung color in hex format (0xRRGGBB): ";
+		cin>>hex>>rungcolor;
+		cout<<"Enter support color in hex format (0xRRGGBB): ";
+		cin>>hex>>supcolor;
+		mesh.railcolor=railcolor;
+		mesh.rungcolor=rungcolor;
+		mesh.supcolor=supcolor;
+		}
 
 	mesh.init(track,1.0);
 
@@ -257,6 +307,11 @@ int main(int argc, char* argv[])
 	backlight->setLightType(ELT_DIRECTIONAL);
 	backlight->setRotation(vector3df(-60.0,0.0,0.0));
 	*/
+
+
+
+
+
 
 	#if 1
 		bool dofps=false;
@@ -296,6 +351,10 @@ int main(int argc, char* argv[])
 	f32 trainspeed=0.0f;
 
 	bool done=false;
+	bool init=false;
+
+	Train*leadtrain;
+	leadtrain=trackop->trains.at(0);
 
 	while(!done)
 		{
@@ -306,7 +365,7 @@ int main(int argc, char* argv[])
 			done=done||true;
 			}
 
-		#if 1
+		#if 0
 		if(!device->isWindowActive())
 			{
 			device->sleep(100);
@@ -322,7 +381,10 @@ int main(int argc, char* argv[])
 			}
 
 		UpdateTime:
-			lasttime=thistime;
+			if(!init)
+				lasttime=timer->getTime()-1.0;
+			else
+				lasttime=thistime;
 			thistime=timer->getTime();
 			timeElapsed=thistime-lasttime;
 			timeElapsed/=1000.0f;
@@ -439,7 +501,8 @@ int main(int argc, char* argv[])
 							{
 							ss.str("");
 							int casev=0;	//casev is for a dynamic "switch/case" equivalent block
-							if(i==casev++)	ss<<"track len (m) = "<<tracklen;
+							if(i==casev++)	ss<<"op mode stage = "<<int(trackop->stage);
+							else if(i==casev++)	ss<<"track len (m) = "<<tracklen;
 							else if(i==casev++)	ss<<"track pos (m) = "<<trackpos;
 							else if(i==casev++)	ss<<"pos_inc (m) = "<<trackpos_inc;
 							else if(i==casev++)	ss<<"appx cur ht (m) = "<<ori.pos.Y;
@@ -484,7 +547,14 @@ int main(int argc, char* argv[])
 		guienv->drawAll();
 		driver->endScene();
 
-		}
+		if(!init)
+			{
+			timer->setSpeed(0.0f);
+			init=true;
+			}
+
+
+		}  //end of while(!done) loop
 
 	device->drop();
 

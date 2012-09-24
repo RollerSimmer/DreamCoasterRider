@@ -120,7 +120,7 @@ SupportMesh*SkinnyTubeSupportMeshFactory::create(
 		{
 		//initialize the vertex count:
 			u32 maxprim=driver->getMaximalPrimitiveCount();
-			const int amt_vertices=12;	//five rings
+			const int amt_vertices=18;	//five rings
 			assert(maxprim>=amt_vertices);
 			sup->Vertices.set_used(amt_vertices);
 		//make top and bottom rings:
@@ -137,11 +137,12 @@ SupportMesh*SkinnyTubeSupportMeshFactory::create(
 			j=0;
 			for(int i=0;i<6;i++)
 				{
+				S3DVertex&v_top=sup->Vertices[j+12];
 				S3DVertex&v=sup->Vertices[j+6];
 				S3DVertex&v_base=sup->Vertices[j];
 				//make flat ring top:
 					x=cx+suprad*cosf(ndpiover6[i]);
-					y=cy;
+					y=cy-0.25;
 					z=cz+suprad*sinf(ndpiover6[i]);
 					v.Pos.set(x,y,z);
 					v.Color=color;
@@ -149,43 +150,50 @@ SupportMesh*SkinnyTubeSupportMeshFactory::create(
 					v.Normal.normalize();
 					v.TCoords.set(0.0,0.0);
 
-				//copy top to base and adjust base to floor height:
+				//copy mid to base and adjust base to floor height:
 					v_base=v;
 					ray.start=ray.end=v.Pos;
 					ray.end.Y=floorY;
-					groundpt.Y=411.0;
+					groundpt.Y=-411.0;
 					snode=colmgr->getSceneNodeAndCollisionPointFromRay(
 											ray,groundpt,coltri);	// only use returned groundpt;
 					wascollision=snode!=0;
 					if(wascollision)
 						{
 						////v_base.Pos=groundpt;
-						v.Pos=groundpt;
+						v_base.Pos=groundpt;
 						}
 					else
 						{
 						////v_base.Pos.Y=floorY;
-						v.Pos.Y=floorY;
+						v_base.Pos.Y=floorY;
 						}
+					//copy mid to top and change x and z to center coords for a spike.
+						v_top=v;
+						x=cx;
+						y=cy;
+						z=cz;
+						v_top.Pos.set(x,y,z);
+
 				j++;
 				}
 		//done with vertex setting, now add triangle faces:
 			{
-			sup->Indices.set_used(3*2*6);
+			sup->Indices.set_used(3*2*12);
 			int j=0;
-			for(int i=0;i<6;i++)
+			for(int i=0;i<12;i++)
 				{
 				int ilat;
 				if(i%6<5)	//no wrap-around
 					ilat=1;
 				else	//wrap-around
 					ilat=-5;
-				sup->Indices[j++]=i;				//6
-				sup->Indices[j++]=i+6;			//5
 				sup->Indices[j++]=i+ilat;		//4
-				sup->Indices[j++]=i+ilat;		//3
-				sup->Indices[j++]=i+6+ilat;	//2
+				sup->Indices[j++]=i+6;			//5
+				sup->Indices[j++]=i;				//6
 				sup->Indices[j++]=i+6;			//1
+				sup->Indices[j++]=i+6+ilat;	//2
+				sup->Indices[j++]=i+ilat;		//3
 				}
 			}
 		}

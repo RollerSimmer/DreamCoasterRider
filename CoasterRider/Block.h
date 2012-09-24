@@ -4,16 +4,24 @@
 class Block
 	{
 	public:	//types
-		typedef enum Type {	bt_trim=0,bt_lift,bt_target	};
+		typedef enum Type  ///block types for different modes of operation								   
+			{	 
+ 			 bt_normal=0	///normal (gravity) block
+         ,bt_trim			///trim brakes (or lift to hit target speed
+         ,bt_lift			///lift block
+		   ,bt_boost		///boost block
+		   ,bt_station		///station block
+		   // Note: some may block types behave similarly, but need to have a different type enum
+		   //         for graphics and sound
+			}; 
 	public:
-		float startpos;			// the progression distance at which the block starts
-		float len;					// the progression length of the block from start
-		Type type;
-		float targetspeed;			/// the target speed of a train
-		float&minspeed;			/// the minimum speed of a non-blocked train
-		float&maxspeed;			/// the maximum speed of a non-blocked train
-		float controlaccel;		/// the amount that the current speed speeds up or
-		                        /// ...slows down to get to target speed
+		float startpos;		/// the progression distance at which the block starts
+		float len;				/// the progression length of the block from start
+		Type type;				/// the type of block;
+		float forespeed;		/// the target speed for forward stages
+		float backspeed;    	/// the target speed for backward stages
+		float foreaccel;		/// the acceleration to get to target for forward stages
+		float backaccel;		/// the acceleration to get to target for backward stages
 	public:
 		Block();
 		virtual ~Block();

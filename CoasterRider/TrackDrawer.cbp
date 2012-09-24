@@ -12,7 +12,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="&lt; input/input_corky.txt" />
+				<Option parameters="&lt; input/input_tophat_shuttle.txt" />
 				<Compiler>
 					<Add option="-w" />
 					<Add option="-g" />
@@ -38,8 +38,6 @@
 		<Unit filename="FullSpline.h" />
 		<Unit filename="HeadingMatrix.cpp" />
 		<Unit filename="HeadingMatrix.h" />
-		<Unit filename="LadderTrackMeshPatternFactory.cpp" />
-		<Unit filename="LadderTrackMeshPatternFactory.h" />
 		<Unit filename="MyEventReceiver.h" />
 		<Unit filename="Orientation.cpp" />
 		<Unit filename="Orientation.h" />
@@ -60,12 +58,16 @@
 		<Unit filename="TrackFileParser.h" />
 		<Unit filename="TrackMesh.cpp" />
 		<Unit filename="TrackMesh.h" />
-		<Unit filename="TrackMeshPattern.cpp" />
-		<Unit filename="TrackMeshPattern.h" />
-		<Unit filename="TrackMeshPatternFactory.cpp" />
-		<Unit filename="TrackMeshPatternFactory.h" />
 		<Unit filename="TrackOperator.cpp" />
 		<Unit filename="TrackOperator.h" />
+		<Unit filename="TrackPatterns/CorkscrewTrackMeshPatternFactory.cpp" />
+		<Unit filename="TrackPatterns/CorkscrewTrackMeshPatternFactory.h" />
+		<Unit filename="TrackPatterns/LadderTrackMeshPatternFactory.cpp" />
+		<Unit filename="TrackPatterns/LadderTrackMeshPatternFactory.h" />
+		<Unit filename="TrackPatterns/TrackMeshPattern.cpp" />
+		<Unit filename="TrackPatterns/TrackMeshPattern.h" />
+		<Unit filename="TrackPatterns/TrackMeshPatternFactory.cpp" />
+		<Unit filename="TrackPatterns/TrackMeshPatternFactory.h" />
 		<Unit filename="Train.cpp" />
 		<Unit filename="Train.h" />
 		<Unit filename="TrainFactory.cpp" />
