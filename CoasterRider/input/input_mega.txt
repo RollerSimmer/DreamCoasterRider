@@ -25,4 +25,7 @@ station
 12.0
 20.0
 0
+0xff00003f
+0xff3f3f3f
+0xffffffff
 0

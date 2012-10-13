@@ -34,7 +34,7 @@ TrackFileParser::~TrackFileParser()
 
 TrackFileParser*TrackFileParser::getinstance()
 	{
-	TrackFileParser*instance=0;
+	static TrackFileParser*instance=0;
 	if(instance==0)	instance=new TrackFileParser();
 	return instance;
 	}

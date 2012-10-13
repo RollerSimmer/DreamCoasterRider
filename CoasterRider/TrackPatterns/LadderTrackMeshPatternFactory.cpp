@@ -160,7 +160,8 @@ TrackMeshPattern*LadderTrackMeshPatternFactory::create(
 						,&vside=pat->Vertices[sideidx]
 						,&vfwd=pat->Vertices[fwdidx]
 						,&vup=pat->Vertices[upidx];
-		vsnap.Pos=core::vector3df(0.0,-rungRad-ladder_track_head_height,raillen/2.0);
+		////ŔŔvsnap.Pos=core::vector3df(0.0,-rungRad-ladder_track_head_height,raillen/2.0);
+		////vsnap.Pos=core::vector3df(0.0,-ladder_track_head_height,raillen/2.0);
 		vside.Pos=core::vector3df(rungwidth*2.0,-rungRad-ladder_track_head_height,raillen/2.0);
 		vup.Pos=vsnap.Pos;
 		vup.Pos.Y+=1.0;

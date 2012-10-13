@@ -63,7 +63,10 @@ void TrackOperator::MoveTrain(int trainI, float timeElapsed)
 
 		prevSpeed=train->speed;
 		v0=train->speed;
-		dt=min(timeleft,max_timespan);
+		if(timeleft>max_timespan)
+			dt=min(timeleft,max_timespan);
+		else
+			dt=min(timeleft,max_timespan);
 
 		//init mass and momentum:
 			ptot=0.0f;
@@ -143,9 +146,9 @@ void TrackOperator::MoveTrain(int trainI, float timeElapsed)
 				train->speed=vavg;
 
 		//lift - cap car speed at minimum speed:
-			LiftTrain(trainI,timeElapsed);
+			LiftTrain(trainI,dt);
 		//lift - cap car speed at minimum speed:
-			BrakeTrain(trainI,timeElapsed);
+			BrakeTrain(trainI,dt);
 
 		//set individual car speeds to train speed:
 			for(int i=0;i<amtcars;i++)

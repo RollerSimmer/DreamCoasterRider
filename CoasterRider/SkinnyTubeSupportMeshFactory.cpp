@@ -62,8 +62,10 @@ SupportMesh*SkinnyTubeSupportMeshFactory::create(
 			anglesinited=true;
 			}
 	MakeSupportShiny:
-		sup->getMaterial().SpecularColor=SColor(255,255,255,255);
-		sup->getMaterial().Shininess=20.0f;
+		SMaterial&mat=sup->getMaterial();
+		mat.SpecularColor=SColor(255,255,255,255);
+		mat.Shininess=20.0f;
+
 		SColor&amb=sup->getMaterial().AmbientColor;
 		amb=color;
 		amb.setRed(amb.getRed()/2);
@@ -155,9 +157,10 @@ SupportMesh*SkinnyTubeSupportMeshFactory::create(
 					ray.start=ray.end=v.Pos;
 					ray.end.Y=floorY;
 					groundpt.Y=-411.0;
-					snode=colmgr->getSceneNodeAndCollisionPointFromRay(
-											ray,groundpt,coltri);	// only use returned groundpt;
-					wascollision=snode!=0;
+					////snode=colmgr->getSceneNodeAndCollisionPointFromRay(
+					////						ray,groundpt,coltri);	// only use returned groundpt;
+					////wascollision=snode!=0;
+					wascollision=false;
 					if(wascollision)
 						{
 						////v_base.Pos=groundpt;

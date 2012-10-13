@@ -1,354 +1,258 @@
 #include "TrackMesh.h"
-#include "Track.h"
-#include "TrackPatterns/LadderTrackMeshPatternFactory.h"
-#include "TrackPatterns/CorkscrewTrackMeshPatternFactory.h"
-#include "SkinnyTubeSupportMeshFactory.h"
-
-#include <cassert>
-#include <cmath>
-#include <algorithm>
+#include "Factory/HandrailMeshFactory.h"
+#include "Factory/CatwalkMeshFactory.h"
+#include "Factory/ChainliftMeshFactory.h"
+#include "Factory/TrackPartMeshFactory.h"
+#include "Factory/TrackRailMeshFactory.h"
+#include "Factory/TrackRungMeshFactory.h"
+#include "Factory/TrackSupportMeshFactory.h"
+#include "Pattern/PartTypes/RailTypes.h"
 #include <iostream>
-#include <sstream>
 
 using namespace std;
 
-/**#######################################################
-	CleanUpForInit() - clean up the mesh and segary before init()
-########################################################*/
-void TrackMesh::CleanUpForInit()
+/**#################################################################
+	TrackMesh() - constructs a TrackMesh object.
+##################################################################*/
+
+TrackMesh::TrackMesh( Track*_track,TrackOperator*_trackop,ISceneManager*_smgr
+                     ,IrrlichtDevice*_device,IVideoDriver*_driver
+						   ,SColor _color1  ,SColor _color2
+						   ,SColor _color3  ,SColor _color4
+						   ,SColor _specular  ,float _shininess
+                     )
+   	:	track(_track)   	,	trackop(_trackop)   	,	smgr(_smgr)
+   	,	manip(0)
+   	,	device(_device)  	,	driver(_driver)
 	{
-	if(meshnode)
-		{
-		while(imesh->getMeshBufferCount()>0)
-			{
-			imesh->getMeshBuffer(imesh->getMeshBufferCount()-1)->drop();
-			delete imesh->getMeshBuffer(imesh->getMeshBufferCount()-1);
-			}
-		while(segary.size()>0)
-			{
-			if(segary.back()!=0)
-				delete segary.back();
-			segary.pop_back();
-			}
-		}
+	colors.c1=_color1;
+	colors.c2=_color2;
+	colors.c3=_color3;
+	colors.c4=_color4;
+	colors.specular = _specular;
+	colors.shininess=_shininess;
+
+	if(smgr!=0)
+		manip=smgr->getMeshManipulator();
+	cat=0;
+	handrail=0;
+	chain=0;
+	rungs=0;
+	rails=0;
+	station=0;
+	supports=0;
+	mesh=0;
+	node=0;
 	}
 
-/**########################################################
-	init() - initialize a TrackMesh
-		Arguments:
-			\param _scale - the scale of the track.
-			\param driver - the video driver.
-#########################################################*/
+/**#################################################################
+	MakeTrack() - make the track mesh.
+		In:
+			type - the type of pattern to repeat over the track.
+			doBuildMesh - should the mesh be built afterwards?
+##################################################################*/
 
-void TrackMesh::init(Track*t,f32 _scale)
+void TrackMesh::MakeTrack(PatternType type,bool doBuildMesh)
 	{
-	track=t;
-	if(t!=0)	//only do anything if the track is not null
-		{
-		scale=_scale;
-		const u32 maxprim=driver->getMaximalPrimitiveCount();
-		seglen=0.75*scale;
-		runglen=1.0*scale;
-		////TrackMeshPatternFactory*factory;
-		////	LadderTrackMeshPatternFactory::getinstance();
-		TrackMeshPatternFactory *factory;
-		enum tracktype { tt_corkscrew,tt_ladder };
-		const tracktype tt=tt_corkscrew;
-		if(tt==tt_corkscrew)
-			factory=CorkscrewTrackMeshPatternFactory::getinstance();
-		else if(tt==tt_ladder)
-			factory=LadderTrackMeshPatternFactory::getinstance();
+	cout<<"TrackMesh::MakeTrack(): making track..."<<endl;
 
-		amtsegs=(int)(t->getTrackLen()/seglen);
-		f32 tracklen_trunc;
-		f32 seglen_stretch;
-		tracklen_trunc=(float)amtsegs*seglen;
-		seglen_stretch=t->getTrackLen()/tracklen_trunc*seglen;
-		seglen=seglen_stretch;
+	DestroyMesh();
 
-		TrackMeshPattern*pat=
-			factory->create(
-									 seglen,runglen,scale*0.1,scale*0.075
+	cout<<"TrackMesh::MakeTrack(): mesh destroyed"<<endl;
 
-									////,SColor(255,255,0,0),SColor(255,0,0,255)	//red and blue
-									,SColor(255,255,255,0),SColor(255,0,0,255)	//blue and yellow
-									////,SColor(255,0,0,0),SColor(255,0,0,255)	//black and blue
-									////,SColor(255,128,128,255),SColor(255,64,64,128)	//blue
-									////,SColor(255,82,67,53),SColor(255,82,67,53)	//brown
-									,driver);
+	MakeCatwalkPlatforms(type);
+	MakeCatwalkHandrails(type);
+	MakeChainlifts(type);
+	MakeSupports(type);
+	MakeTrackRungs(type);
+	MakeTrackRails(type);
 
-		static bool segsinited=false;
-		CleanUpForInit();
-		for(int i=0;i<amtsegs+1;i++)
-			{
-			////if(segary.size()==i)
-			////	std::cout<<"";
-			segary.push_back(MakeSegFromPattern(pat,i));
-			}
-		for(int i=0;i<amtsegs;i++)
-			if(smesh->getMeshBufferCount()<amtsegs)
-				{
-				smesh->addMeshBuffer(segary[i]);
-				}
-		ConformMeshToTrackSpline();
-		UpdateSupports();
-		FixNormals();
-		RecalculateAllBoundingBoxes();
+	cout<<"TrackMesh::MakeTrack(): parts made"<<endl;
+
+	ConformToTrack();
+
+	cout<<"TrackMesh::MakeTrack(): vertices conformed to track"<<endl;
+
+	if(doBuildMesh)
+		BuildMesh();
+
+	cout<<"TrackMesh::MakeTrack(): mesh built"<<endl;
+
+	}
+
+/**#################################################################
+	MakeCatwalkPlatforms() - make the catwalk platform part of the track mesh.
+		In:
+			type - the type of pattern to repeat over the track.
+##################################################################*/
+
+void TrackMesh::MakeCatwalkPlatforms(PatternType type)
+	{
+	cat=CatwalkMeshFactory::getinstance()->create
+			(0,colors,track,trackop);
+	}
+
+/**#################################################################
+	MakeCatwalkHandrails() - make the catwalk handrail part of the track mesh.
+		In:
+			type - the type of pattern to repeat over the track.
+##################################################################*/
+
+void TrackMesh::MakeCatwalkHandrails(PatternType type)
+	{
+	handrail=HandrailMeshFactory::getinstance()->create
+			(0,colors,track,trackop);
+	}
+
+/**#################################################################
+	MakeChainlifts() - make the chainlift part of the track mesh.
+		In:
+			type - the type of pattern to repeat over the track.
+##################################################################*/
+
+void TrackMesh::MakeChainlifts(PatternType type)
+	{
+	chain=ChainliftMeshFactory::getinstance()->create
+			(0,colors,track,trackop);
+	}
+
+/**#################################################################
+	MakeSupports() - make the support part of the track mesh.
+		In:
+			type - the type of pattern to repeat over the track.
+##################################################################*/
+
+void TrackMesh::MakeSupports(PatternType type)
+	{
+	supports=TrackSupportMeshFactory::getinstance()->create
+			(0,colors,track,trackop);
+	}
+
+/**#################################################################
+	MakeTrackRungs() - make the track rung part of the track mesh.
+		In:
+			type - the type of pattern to repeat over the track.
+##################################################################*/
+
+void TrackMesh::MakeTrackRungs(PatternType type)
+	{
+	rungs=TrackRungMeshFactory::getinstance()->create
+		(type,colors,track,trackop);
+	}
+
+/**#################################################################
+	MakeTrackRails() - make the track rail part of the track mesh.
+		In:
+			type - the type of pattern to repeat over the track.
+##################################################################*/
+
+void TrackMesh::MakeTrackRails(PatternType type)
+	{
+	RailType railtype=TrackRailMeshFactory::getRailType(type);
+	rails=TrackRailMeshFactory::getinstance()->create
+		(railtype,colors,track,trackop);
+	}
+
+/**#################################################################
+	BuildMesh() - Build the mesh.
+##################################################################*/
+
+void TrackMesh::BuildMesh()
+	{
+	SMesh *smesh=new SMesh();
+	//add all the track parts to the mesh:
+		if(cat!=0)
+			cat->AddThisToMesh(smesh);
+		if(handrail!=0)
+			handrail->AddThisToMesh(smesh);
+		if(chain!=0)
+			chain->AddThisToMesh(smesh);
+		if(rungs!=0)
+			rungs->AddThisToMesh(smesh);
+		if(rails!=0)
+			rails->AddThisToMesh(smesh);
+		if(station!=0)
+			station->AddThisToMesh(smesh);
+		if(supports!=0)
+			supports->AddThisToMesh(smesh);
+	//recalculate the bounding box for the whole track:
 		smesh->recalculateBoundingBox();
-		AddToScene();
-
-		////imesh->recalculateBoundingBox();
-		}
+	mesh=smesh;
+	//fix the normals: (omitted since this is done at lower level)
+		////	FixNormals();
+	if(node!=0)
+		node->setMesh(mesh);
+	else
+		node=smgr->addMeshSceneNode(smesh);
+	////delete smesh;
 	}
 
-/**########################################################
-	MakeSegFromPattern()	- makes a track segment from a
-										  pattern.
-		Arguments:
-			\param pat - the track mesh pattern to duplicate.
-			\param pos - the position of the pattern in the track.
-			             (serves as an offset.)
-		\return the ladder track segment.
-#########################################################*/
+/**#################################################################
+	DestroyMesh() - destroy the mesh.
+##################################################################*/
 
-TrackMeshPattern*TrackMesh::MakeSegFromPattern(TrackMeshPattern*pat,int pos)
+void TrackMesh::DestroyMesh()
 	{
-	f32 fpos;
-	fpos=pos;
-	fpos*=seglen;
-	TrackMeshPattern*seg=new TrackMeshPattern();
-	if(seg==0||pat==0)	return 0;
-	*seg=*pat;
-	for(int i=0;i<seg->getVertexCount();i++)
-		seg->Vertices[i].Pos+=vector3df(0.0f,0.0f,fpos);
-	return seg;
-	}
-
-/**#########################################
-	ConformMeshToTrackSpline() - conform the mesh of a straight track
-	                             to the track's spline.
-##########################################*/
-
-//note: try using a table for headings at matching z points:
-void TrackMesh::ConformMeshToTrackSpline()
-	{
-	int nloops=0;
-	if(!track)	return;
-	float tracklen=track->getTrackLen();
-	for(int i=0;i<smesh->getMeshBufferCount();i++) //step through mesh buffers;
-
+	if(mesh!=0)
 		{
-		IMeshBuffer*buf=smesh->getMeshBuffer(i);
-		if(buf->getVertexType()==EVT_STANDARD)
-			{
-			S3DVertex*v=(S3DVertex*)buf->getVertices();
-			for(int j=0;j<buf->getVertexCount();j++)
-				{
-				core::vector3df&pt=v[j].Pos;
-				float progress;
-				if(pt.Z>tracklen)
-					progress=tracklen-0.01;
-				else
-					progress=pt.Z;
-				core::vector3df cp,op;	//center and offset points
-				HeadingMatrix hdg;
-				#if 1
-					Orientation ori;
-					////ori=track->getbankedori(progress);
-					ori=track->getbankedori(progress);
-					hdg=ori.hdg;
-					cp=ori.pos;
-				#else
-					track->GetHeadingAndPtAt(progress,hdg,cp);
-				#endif
-				hdg.setfwd(core::vector3df(0,0,0));	//don't need the forward vector
-				#if 0
-					cout<<"the core::vector3d object named pt(old) contains <";
-					cout<<pt.X<<","<<pt.Y<<","<<pt.Z<<">"<<endl;
-				#endif
-				op=hdg*pt;
-				pt=cp+op;
-				#if 0
-					cout<<"the core::vector3d object named pt(new) contains <";
-					cout<<pt.X<<","<<pt.Y<<","<<pt.Z<<">"<<endl;
-					cout<<endl;
-				#endif
-				++nloops;
-				}
-			buf->recalculateBoundingBox();
-			}
+		mesh->drop();
+		delete mesh;
 		}
-	////imesh->recalculateBoundingBox();
-	cout<<"ConformMeshToTrackSpline() processed "<<nloops<<" vertices."<<endl;
+	mesh=0;
+	//stub
 	}
 
-/**###########################################################
-	FixNormals() - Fix the vertex normals.
-############################################################*/
+/**#################################################################
+	RebuildMesh() - rebuild the mesh.
+##################################################################*/
+
+void TrackMesh::RebuildMesh()
+	{
+	DestroyMesh();
+	BuildMesh();
+	}
+
+/**#################################################################
+	ConformToTrack() - conform the mesh to the track
+##################################################################*/
+
+void TrackMesh::ConformToTrack()
+	{
+	if(cat!=0)
+		cat->ConformToTrack();
+	if(handrail!=0)
+		handrail->ConformToTrack();
+	if(chain!=0)
+		chain->ConformToTrack();
+	if(rungs!=0)
+		rungs->ConformToTrack();
+	if(rails!=0)
+		rails->ConformToTrack();
+	if(station!=0)
+		station->ConformToTrack();
+	if(supports!=0)
+		supports->ConformToTrack();
+	}
+
+/**#################################################################
+	FixNormals() - Fix normals on the mesh.
+		Requires; the mesh should be initialized already.
+##################################################################*/
 
 void TrackMesh::FixNormals()
 	{
-	////imesh=meshnode->getMesh();
-
-	#if 0
-	IMeshManipulator*meshmanip=smgr->getMeshManipulator();
-	for(int i=0;i<smesh->getMeshBufferCount();i++) //step through mesh buffers;
+	if(mesh==0)	return;	// return if mesh is not initialized
+	if(manip==0)	return;	// return if the mesh manipulator is not
+								   //   initialized
+	const bool use_manip=false;
+	const bool smooth=true;
+	if(use_manip)
 		{
-		meshmanip->recalculateNormals(smesh->getMeshBuffer(i));
-		}
-	#else
-	for(int i=0;i<smesh->getMeshBufferCount();i++) //step through mesh buffers;
-		{
-		IMeshBuffer*buf=smesh->getMeshBuffer(i);
-		S3DVertex*vertary=(S3DVertex*)buf->getVertices();
-		u16*idxary=buf->getIndices();
-		if(buf->getVertexType()==EVT_STANDARD)
-			{
-			for(int j=0;j<buf->getIndexCount();j+=6)
-				{
-
-				core::vector3df a,b,c,ab,ac,norm;
-				a=vertary[idxary[j]].Pos;
-				b=vertary[idxary[j+1]].Pos;
-				c=vertary[idxary[j+2]].Pos;
-				ab=b-a;
-				ac=c-a;
-				norm=ac.crossProduct(ab);
-				norm.normalize();
-				for(int k=0;k<6;k++)
-					{
-					vertary[idxary[j+k]].Normal=norm;
-					}
-
-				}
-			}
-		else
-			cout<<"What?"<<endl;
-		}
-	////meshnode->setMesh(imesh);
-	#endif
-	}
-
-/**###########################################################
-	AddSupports() - add supports to the track mesh
-############################################################*/
-
-void TrackMesh::AddSupports()
-	{
-	////SColor supcolor(255,255,255,0);	//yellow
-	////SColor supcolor(255,140,140,150);	//silver
-	SColor supcolor(255,255,255,255);	//white
-	////SColor supcolor(128,165,136,108);	//brown
-	if(smesh==0)	return;
-	firstsupidx=smesh->getMeshBufferCount();
-	amtsupports++;
-	for(int i=0;i<amtsegs;i+=segsPerSupport)
-		{
-		HeadingMatrix objhdg;
-		#if 0
-			/*
-			TrackMeshPattern*buf=(TrackMeshPattern*)mesh->getMeshBuffer(i);
-			int jsnap=buf->supportSnapVertexIdx;
-			int jside=buf->supportSideVertexIdx;
-			vector3df snap=buf->Vertices[jsnap].Pos;
-			vector3df side=buf->Vertices[jside].Pos;
-			float snappos=buf->supportSnapTrackPos;
-			track->GetHeadingAndPtAt(snappos,objhdg,
-			*/
-		#endif
-		#if 1
-			IMeshBuffer*buf=smesh->getMeshBuffer(i);
-			S3DVertex*vertary=(S3DVertex*)buf->getVertices();
-			int amtvert=buf->getVertexCount();
-			int jsnap,jside,jfwd,jup;
-			jsnap=amtvert-4;
-			jside=amtvert-3;
-			jfwd=amtvert-2;
-			jup=amtvert-1;
-			vector3df snap,side,fwd,up;
-			snap=vertary[jsnap].Pos;
-			side=vertary[jside].Pos;
-			fwd=vertary[jfwd].Pos;
-			up=vertary[jup].Pos;
-			up=up-snap;
-			fwd=fwd-snap;
-			objhdg.setfromupfwd(up,fwd);
-		#endif
-		SupportMesh*sup;
-		sup=SkinnyTubeSupportMeshFactory::getinstance()->create(
-								 snap,side,supcolor,objhdg
-								,smgr->getSceneCollisionManager(),driver
-								);
-		supary.push_back(sup);
-		if(sup!=0)
-			{
-			smesh->addMeshBuffer(supary.back());
-			}
-
-		////delete sup;
-
+		manip->recalculateNormals(mesh,smooth);
 		}
 	}
 
-/**###########################################################
-	AddSupports() - add supports to the track mesh
-############################################################*/
 
-void TrackMesh::DelSupports()
-	{
-	if(imesh==0) return;
-	if(amtsupports>0)
-		{
-		//stub
-			//put delete code here
-		}
-	}
 
-/**###########################################################
-	AddSupports() - update supports in the track mesh
-############################################################*/
 
-void TrackMesh::UpdateSupports()
-	{
-	segsPerSupport=20;	//default for now...
-	DelSupports();
-	AddSupports();
-	}
 
-/**###########################################################
-	RecalculateAllBoundingBoxes() - recalc all mesh buffer bounding boxes.
-############################################################*/
-
-void TrackMesh::RecalculateAllBoundingBoxes()
-	{
-	////smesh=meshnode->getMesh();
-	int amt=smesh->getMeshBufferCount();
-	for(int i=0;i<amt;i++)
-		smesh->getMeshBuffer(i)->recalculateBoundingBox();
-	////meshnode->setMesh(smesh);
-	}
-
-/**############################################################
-	AddToScene() - adds the initialized mesh to the scene.
-#############################################################*/
-
-void TrackMesh::AddToScene()
-	{
-		// Add the mesh to the scene graph:
-	meshnode = smgr -> addMeshSceneNode(smesh);
-	////SetNodeMeshToSimpleMesh();
-	////smesh->drop();
-	meshnode->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
-	meshnode->setMaterialFlag(video::EMF_POINTCLOUD, false);
-	meshnode->setMaterialFlag(video::EMF_GOURAUD_SHADING, true);
-	meshnode->setMaterialFlag(video::EMF_COLOR_MATERIAL,ECM_DIFFUSE_AND_AMBIENT);
-	meshnode->getMaterial(0).AmbientColor.set(255,255,0,0);
-
-	imesh=meshnode->getMesh();
-	}
-
-void TrackMesh::SetNodeMeshToSimpleMesh()
-	{
-	meshnode->setMesh(smesh);
-	imesh=meshnode->getMesh();
-	}

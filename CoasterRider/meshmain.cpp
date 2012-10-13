@@ -5,16 +5,20 @@
 #include "Track.h"
 #include "Orientation.h"
 #include "TrackFactory.h"
-#include "TrackMesh.h"
+#include "TrackMesh/TrackMesh.h"
 #include "TrackOperator.h"
 #include "TrainFactory.h"
 #include "unitconv.h"
 #include "MyEventReceiver.h"
+
+#include "debugclasses/TrackLabeler.h"
+
 ////#include <string>
 #include <sstream>
 #include <cstdlib>
 #include <cmath>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -48,8 +52,17 @@ int main(int argc, char* argv[])
 	device->setWindowCaption(L"Coaster Rider");
 
    IGUIEnvironment* guienv = device->getGUIEnvironment();
+   ////IGUISkin*guiskin=guienv->createSkin(EGST_WINDOWS_CLASSIC);
 
-   IGUIFont*font=guienv->getBuiltInFont();
+   IGUISkin*guiskin=guienv->getSkin();
+   guienv->setSkin(guiskin);
+
+ 	IGUIFont*font=guienv->getFont("./fonts/courier10px.xml");
+ 	guiskin->setFont(font);
+
+   ////IGUIFont*font=guienv->getBuiltInFont();
+ 	////IGUIFont*font=guienv->getFont("fonts/courier10px.xml");
+
    vector<IGUIStaticText*> msgary;
    const int amtmsgs=11;
    msgary.clear();
@@ -58,7 +71,7 @@ int main(int argc, char* argv[])
    for(int i=0;i<amtmsgs;i++)
 		{
 		msgary.push_back(guienv->addStaticText(L"text line",
-                				rect<s32>(0,y,160,y+12), true)		);
+                				rect<s32>(0,y,200,y+12), true)		);
 		y+=12;
 		}
    }
@@ -277,41 +290,62 @@ int main(int argc, char* argv[])
 				}
 			}	while(doaddblock);
 
+
+	CreateTrackLabeler:
+		TrackLabeler tlabel(smgr,guienv,trackop);
+		tlabel.LabelTrack();
+
+
 	// light is just for nice effects
 
-	TrackMesh mesh(track,smgr,driver);
-
+	u32 railcolor,rungcolor,supcolor,handcolor;
+	#if 1
 	EnterTrackMeshColors:
 		{
-		u32 railcolor,rungcolor,supcolor;
 		cout<<"Enter rail color in hex format (0xRRGGBB): ";
 		cin>>hex>>railcolor;
 		cout<<"Enter rung color in hex format (0xRRGGBB): ";
 		cin>>hex>>rungcolor;
 		cout<<"Enter support color in hex format (0xRRGGBB): ";
 		cin>>hex>>supcolor;
-		mesh.railcolor=railcolor;
-		mesh.rungcolor=rungcolor;
-		mesh.supcolor=supcolor;
+		////mesh.railcolor=railcolor;
+		////mesh.rungcolor=rungcolor;
+		////mesh.supcolor=supcolor;
 		}
+	#else
+		{
+		railcolor=0xffff0000;
+		rungcolor=0xffffff00;
+		supcolor =0xff0000ff;
+		}
+	#endif
 
-	mesh.init(track,1.0);
+	handcolor =0xffffffff;
+
+	cout<<"creating track mesh..."<<endl;
+
+	//set specular and shininess to constants for now:
+		SColor specular=SColor(255,255,255,255);
+		float shininess=5.0;
+
+	TrackMesh mesh(track,trackop,smgr,device,driver
+	               ,railcolor,rungcolor,supcolor,handcolor
+	               ,specular,shininess);
+
+	////mesh.init(track,1.0);
+	mesh.MakeTrack(TrackMesh::pat_lattice,true);			//edit this line to change track type
+	cout<<"Track mesh was created"<<endl;
 
 	ILightSceneNode *node = smgr->addLightSceneNode(0, vector3df(0,0,1000000),
 									SColorf(1.0f,1.0f,1.0f,1.0f), 1.0f);
 	node->setLightType(ELT_DIRECTIONAL);
-	node->setRotation(vector3df(60.0,0.0,0.0));
+	node->setRotation(vector3df(75.0,0.0,0.0));
 	/*
 	ILightSceneNode *backlight = smgr->addLightSceneNode(0, vector3df(0,0,1000000),
 									SColorf(1.0f,0.1f,0.1f,0.1f), 1.0f);
 	backlight->setLightType(ELT_DIRECTIONAL);
 	backlight->setRotation(vector3df(-60.0,0.0,0.0));
 	*/
-
-
-
-
-
 
 	#if 1
 		bool dofps=false;
@@ -324,21 +358,41 @@ int main(int argc, char* argv[])
 		#define dofps 0
 	#endif
 
+	bool camchanged=false;
 	ICameraSceneNode* camera;
+	ICameraSceneNode* camfps;
+	ICameraSceneNode* campov;
+	enum CamType	{	ct_fps=0,ct_pov	};
+	CamType camtype;
+	campov = smgr->addCameraSceneNode();
+	camfps = smgr->
+		addCameraSceneNodeFPS
+			( 	0,100.0f,0.05f,-1,0,0,false,0.f,false,true);
 	if(dofps)
-		camera = smgr->
-			addCameraSceneNodeFPS
-				( 	0,100.0f,0.05f,-1,0,0,false,0.f,false,true);
-	else
-		camera = smgr->addCameraSceneNode();
-
-
-	if(camera)
 		{
-		camera->setPosition(vector3df(0.f, 25.f, 0.f));
-		camera->setTarget(vector3df(0.f, 0.f, 0.f));
-		camera->setFarValue(20000.0f);
-		camera->setNearValue(0.05f);
+		camtype=ct_fps;
+		camera=camfps;
+		}
+	else
+		{
+		camtype=ct_pov;
+		camera=campov;
+		}
+	smgr->setActiveCamera(camera);
+
+	if(campov)
+		{
+		campov->setPosition(vector3df(0.f, 25.f, 0.f));
+		campov->setTarget(vector3df(0.f, 0.f, 0.f));
+		campov->setFarValue(20000.0f);
+		campov->setNearValue(0.05f);
+		}
+	if(camfps)
+		{
+		camfps->setPosition(vector3df(0.f, 25.f, 0.f));
+		camfps->setTarget(vector3df(0.f, 0.f, 0.f));
+		camfps->setFarValue(20000.0f);
+		camfps->setNearValue(0.05f);
 		}
 
 	/*
@@ -360,10 +414,6 @@ int main(int argc, char* argv[])
 		{
 		done=!device->run();
 
-		if(receiver.IsKeyDown(irr::KEY_ESCAPE))
-			{
-			done=done||true;
-			}
 
 		#if 0
 		if(!device->isWindowActive())
@@ -373,11 +423,18 @@ int main(int argc, char* argv[])
 			}
 		#endif
 
-		mesh.meshnode->setMaterialFlag(video::EMF_WIREFRAME, false);
+		#if 1
+		mesh.node->setMaterialFlag(video::EMF_WIREFRAME, false);
 		if(receiver.IsKeyDown(irr::KEY_KEY_W))
 			{
 			////meshnode->setMaterialFlag(video::EMF_WIREFRAME, !meshnode->getMaterial(0).Wireframe);
-			mesh.meshnode->setMaterialFlag(video::EMF_WIREFRAME, true);
+			mesh.node->setMaterialFlag(video::EMF_WIREFRAME, true);
+			}
+		#endif
+
+		if(receiver.IsKeyDown(irr::KEY_ESCAPE))
+			{
+			done=done||true;
 			}
 
 		UpdateTime:
@@ -388,6 +445,23 @@ int main(int argc, char* argv[])
 			thistime=timer->getTime();
 			timeElapsed=thistime-lasttime;
 			timeElapsed/=1000.0f;
+
+
+		ToggleLabels:
+			{
+			static bool waitForLRelease=false;
+			if(receiver.IsKeyDown(irr::KEY_KEY_L))
+				{
+				if(!waitForLRelease)
+					{
+					tlabel.ToggleVisibility();
+					waitForLRelease=true;
+					}
+				}
+			else
+				waitForLRelease=false;
+			}
+
 
 		ModifySpeed:
 			const float max_speed=30.0f;
@@ -403,14 +477,16 @@ int main(int argc, char* argv[])
 				trackpos_inc=(trackpos_inc-accel>-max_speed)?	trackpos_inc-accel : -max_speed;
 
 
-		if(receiver.IsKeyDown(irr::KEY_KEY_S))
+		////if(receiver.IsKeyDown(irr::KEY_KEY_S))
 			{
 			trackpos_inc=0;
 			////'device->sleep(10);
 			}
 
-		if(!dofps)
+		////if(!dofps)
+
 			{
+
 			float raisemul=speedmul;
 
 			static f32 headht=0.0f;		//0.75 meters off the track
@@ -433,16 +509,6 @@ int main(int argc, char* argv[])
 				{
 				timer->setSpeed(16.0f);
 				}
-			if(receiver.IsKeyDown(irr::KEY_UP))
-				{
-				//inverted coaster
-				headht+=raisemul*0.0001f;
-				}
-			if(receiver.IsKeyDown(irr::KEY_DOWN))
-				{
-				//inverted coaster
-				headht-=raisemul*0.0001f;
-				}
 
 			if(receiver.IsKeyDown(irr::KEY_KEY_I))
 				{
@@ -454,7 +520,21 @@ int main(int argc, char* argv[])
 				headht=headht_from_track;
 				}
 
-			if(camera)
+			if(receiver.IsKeyDown(irr::KEY_KEY_C))		//change _C_amera
+				{
+				if(!camchanged)
+					{
+					if(camtype==ct_fps)
+						{	camera=campov;	camtype=ct_pov;	}
+					else if(camtype==ct_pov)
+						{	camera=camfps;	camtype=ct_fps;	}
+					camchanged=true;
+					}
+				}
+			else
+				camchanged=false;
+
+			if(campov)
 				{
 				SetOrientation:
 					Orientation ori;
@@ -480,15 +560,13 @@ int main(int argc, char* argv[])
 						cout<<trackpos<<"("<<(trackpos/track->getTrackLen()*100.0)<<"%):"<<endl;
 						ori.debugprint("",0);
 						}
-				SetCamera:
+				SetCamPOV:
 					ori.pos=ori.pos+headht*ori.hdg.getup();
-
-
-					camera->setPosition(ori.pos);
-					camera->setTarget(ori.pos+ori.hdg.getfwd());
-					camera->setUpVector(ori.hdg.getup());
-					camera->setFarValue(20000.0f);
-					camera->setNearValue(0.05f);
+					campov->setPosition(ori.pos);
+					campov->setTarget(ori.pos+ori.hdg.getfwd());
+					campov->setUpVector(ori.hdg.getup());
+					campov->setFarValue(20000.0f);
+					campov->setNearValue(0.05f);
 				DisplayInfo:
 					if(timer->getTime()%10==0)
 						{
@@ -527,18 +605,55 @@ int main(int argc, char* argv[])
 						}
 				}
 
-			}
+			}	// end of if(!dofps)
+		////else
+			{
+			if(  receiver.IsKeyDown(irr::KEY_UP)||receiver.IsKeyDown(irr::KEY_DOWN)
+			   ||receiver.IsKeyDown(irr::KEY_RIGHT)||receiver.IsKeyDown(irr::KEY_LEFT)
+			   ||receiver.IsKeyDown(irr::KEY_PRIOR)||receiver.IsKeyDown(irr::KEY_NEXT)	 )
+				{
+				vector3df campos=camfps->getPosition();
+				vector3df camfwd,camrgt,camup;
+				camfwd=camfps->getTarget()-campos;
+				camup=camfps->getUpVector();
+				camrgt=camup.crossProduct(camfwd);
+				camfwd.normalize();
+				camrgt.normalize();
+				float movescale;
+				if(receiver.IsKeyDown(irr::KEY_LCONTROL)||receiver.IsKeyDown(irr::KEY_RCONTROL))
+					movescale=0.01;
+				else if(receiver.IsKeyDown(irr::KEY_LSHIFT)||receiver.IsKeyDown(irr::KEY_RSHIFT))
+					movescale=1.0;
+				else
+					movescale=0.1;
+
+				if(receiver.IsKeyDown(irr::KEY_UP))
+					camfps->setPosition(camfps->getPosition()+camfwd*movescale);
+				if(receiver.IsKeyDown(irr::KEY_DOWN))
+					camfps->setPosition(camfps->getPosition()-camfwd*movescale);
+				if(receiver.IsKeyDown(irr::KEY_RIGHT))
+					camfps->setPosition(camfps->getPosition()+camrgt*movescale);
+				if(receiver.IsKeyDown(irr::KEY_LEFT))
+					camfps->setPosition(camfps->getPosition()-camrgt*movescale);
+				if(receiver.IsKeyDown(irr::KEY_PRIOR))
+					camfps->setPosition(camfps->getPosition()+camup*movescale);
+				if(receiver.IsKeyDown(irr::KEY_NEXT))
+					camfps->setPosition(camfps->getPosition()-camup*movescale);
+				}
+			}	//end of else
 
 
 		if(receiver.IsKeyDown(irr::KEY_KEY_T))
 			{
 			//top-down view:
-				camera->setPosition(vector3df(0.0f,200.0f,0.0f));
-				camera->setTarget(vector3df(0.0f,0.0f,0.0f));
-				////camera->setFarValue(20000.0f);
-				////camera->setNearValue(0.05f);
+				camfps->setPosition(vector3df(0.0f,200.0f,0.0f));
+				camfps->setTarget(vector3df(0.0f,0.0f,0.0f));
+				////camfps->setFarValue(20000.0f);
+				////camfps->setNearValue(0.05f);
 			////'device->sleep(10);
 			}
+
+		smgr->setActiveCamera(camera);
 
 		node->getLightData().AmbientColor.set(0.0,0.0,0.0);
 

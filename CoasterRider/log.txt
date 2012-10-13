@@ -102,7 +102,34 @@
 2012:Sep:23:PM:06:08
 	+	small power outage; almost lost some work.
 	+	tested 4 operation modes and they seem to work fine.  now to add full stops and station loads...
-	
+2012:Sep:26:PM:07:58
+	+	added track block labels.  now a small billboard will be above the track and tell which type of block
+		that track is.
+2012:Sep:30:AM:03:00
+	+	in trying to redesign the track mesh classes, I added interfaces.  Now I need to make the implementations.
+2012:Oct:01:PM:04:24
+	+	added some more new TrackMesh methods for that mesh's redesign.
+2012:Oct:03:AM:12:15
+	+	added even more new TrackMesh methods for that mesh's redesign.
+	+	still a ways to go.
+2012:Oct:03:PM:05:48
+	+	redid the TrackPartMesh to include the vertex and shape information in lists of TrackPartPattern.
+	+	renamed some fields and classes in the TrackMesh redesign.
+	+	close to getting to where I can define different patterns and make them into meshes.
+2012:Oct:05:PM:09:43
+	+	added some functions for converting track part meshes to full irrlicht meshes.
+2012:Oct:06:PM:02:44
+	+	added functions for conforming parts and vertices to a track path.
+2012:Oct:06:PM:04:16
+	+	more code on the seemingly endless TrackMesh redesign.  Getting closer, but 
+	   mesh node still won't show...
+2012:Oct:07:PM:09:40
+	+	corkscrew rails finally show with new system.  now to add code for other parts...
+2012:Oct:07:PM:10:14
+	+	(tried to) make correction to ambient lighting.  i don't notice any difference though.
+2012:Oct:08:PM:05:40
+	+	added some more rail types to RailPatternFactory.
+	+	Next up: adding rungs (crossbars)	
 
 
 	
