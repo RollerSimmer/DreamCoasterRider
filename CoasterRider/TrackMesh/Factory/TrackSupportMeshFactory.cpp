@@ -1,4 +1,5 @@
 #include "TrackSupportMeshFactory.h"
+#include "../Pattern/SupportPatternFactory.h"
 
 /**###################################################################################
 	TrackSupportMeshFactory() - constructor for objects of this class
@@ -39,8 +40,33 @@ TrackSupportMeshFactory*TrackSupportMeshFactory::getinstance()
 		OUT: (return value) - a pointer to the the created TrackPartMesh
 ####################################################################################*/
 
-TrackPartMesh*TrackSupportMeshFactory::create(int type,TrackColors&colors,Track*track,TrackOperator*trackop)
+TrackPartMesh*TrackSupportMeshFactory::create(int type,TrackMesh*tmesh,TrackColors&colors,Track*track,TrackOperator*trackop)
 	{
-	return 0;	//stub
+	part=0;
+	part=new TrackPartMesh(trackop);
+
+	int amtsegs=ceil(track->getTrackLen()/seglen);
+	for(int i=0;i<amtsegs;i++)
+		{
+		Orientation ori[2];
+		if(i+1<amtsegs)
+			{
+				TrackPartPattern*pat
+						// i still need to define the following class and it's create method:
+						=SupportPatternFactory::getinstance()->create
+											(  type
+												,i
+												,seglen
+												,tmesh
+												////,spacemap
+												,colors
+											);
+				////if(pat&&pat->vertices.size()>0)
+					part->segs.push_back(*pat);
+
+			}
+		}
+
+	return part;
 	}
 

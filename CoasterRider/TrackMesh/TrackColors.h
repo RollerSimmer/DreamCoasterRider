@@ -5,10 +5,13 @@
 class TrackColors
 	{
 	public:
-	   SColor c1;						// the first color option
-		SColor c2;						// the second color
-		SColor c3;						// the third color
-		SColor c4;						// the fourth color
+	   SColor rail;						// rail color
+	   SColor spine;						// spine color
+		SColor rung;						// rung color
+		SColor catwalk;					// catwalk color
+		SColor handrail;					// handrail color
+		SColor handrung;					// handrail color
+		SColor support;					// support color
 		SColor specular;				// the specular color of the track
 		float shininess;				// the shininess of the track
 	};

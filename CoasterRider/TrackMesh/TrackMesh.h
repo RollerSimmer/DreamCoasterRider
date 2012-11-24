@@ -8,6 +8,7 @@
 using namespace std;
 
 class Track;
+class SupportPatternFactory;
 
 /**###################################################################################
 	TrackMesh - The mesh for a track. It defines the Irrlicht mesh geometry while
@@ -21,6 +22,7 @@ class Track;
 
 class TrackMesh
 	{
+	friend class SupportPatternFactory;
 	public: //type
 		enum	PatternType	// track pattern types
 			{
@@ -29,7 +31,11 @@ class TrackMesh
 			,pat_looper					//steel looper like Schwarzkopf
 			,pat_beamer					//steel twister like B&M
 			,pat_lattice				//steel twister/giga like Intamin
+			,pat_rocket					//a thinner lattice found on Schwarzkopf jumbo jet
+			                        //  and similar rides.
 			,pat_wood					//good ol' woody track.
+			,pat_kamikaze				// steel track like Togo track
+			,pat_derby					// single rail like steeplechase and soap box derby.
 			};
 	protected:	//state
 		TrackPartMesh*cat;				//the catwalk
@@ -42,8 +48,9 @@ class TrackMesh
 		Track*track;						//the track that dictates the shape of the mesh
 		TrackOperator*trackop;			//the track operator, for determining blocks,
 												//		and which parts are visible/added for each block.
-		deque<TrackVertex> supSnaps;	//support snap points (usually the bottom of the track
-		deque<TrackVertex> supSides;	//support side points - where the "side" of the track
+		deque<TrackVertex> supSnaps;	//support spine snap points (usually the bottom of the track
+		deque<TrackVertex> supLefts;
+		deque<TrackVertex> supRights;	//support side points - where the "side" of the track
 		                              //		is for inverted "pull" supports
 		                              //		(normal supports "push" up from the ground,
 		                              //		inverted ones "pull" the track)
@@ -64,12 +71,13 @@ class TrackMesh
 		IrrlichtDevice*device;			//the Irrlicht device.
 		IVideoDriver*driver;				//The Irrlicht video driver.
 	public: //constructor
-		TrackMesh(Track*_track,TrackOperator*_trackop
-		          ,ISceneManager*_smgr,IrrlichtDevice*_device
-		          ,IVideoDriver*_driver
-		          ,SColor _color1    ,SColor _color2
-		          ,SColor _color3    ,SColor _color4
-		          ,SColor _specular  ,float shininess
+		TrackMesh(Track*_track,TrackOperator*_trackop,ISceneManager*_smgr
+                     ,IrrlichtDevice*_device,IVideoDriver*_driver
+						   ,SColor railcolor  ,SColor spinecolor
+						   ,SColor rungcolor  ,SColor catwalkcolor
+						   ,SColor handrailcolor,SColor handrungcolor
+						   ,SColor supportcolor						   
+						   ,SColor specular  ,float shininess
 		          );
 	public: //function
 		void MakeCatwalkPlatforms(PatternType type);
@@ -78,11 +86,13 @@ class TrackMesh
 		void MakeSupports(PatternType type);
 		void MakeTrackRungs(PatternType type);
 		void MakeTrackRails(PatternType type);
+		void FigureSupSnaps(PatternType type);
 		void MakeTrack(PatternType type,bool doBuildMesh);
 		void BuildMesh();
 		void DestroyMesh();
 		void RebuildMesh();
 		void ConformToTrack();
 		void FixNormals();
+		float getTrackBottom(PatternType type);
 	};
 

@@ -1,0 +1,17 @@
+Name: Kiddie Roller Coaster Train
+
+Description: A multi-unit train for Kiddie Coasters.  Each Car can hold 2 Peeps.
+
+Modelers:  mopaso
+
+Version: 1
+
+Poly Counts:
+  Lead Truck : 526
+  Kiddie Car : 591
+  Lap Bar  :    30
+
+Texture Count: 4
+Extra Textures : 7
+
+Type: Tracked Ride

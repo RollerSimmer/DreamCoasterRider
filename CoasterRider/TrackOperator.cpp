@@ -109,9 +109,9 @@ void TrackOperator::MoveTrain(int trainI, float timeElapsed)
 						{	s+=tracklen;	}
 					Orientation ori;
 					#if 0
-					if(isnan(s))
-						ori=track->getbankedori(s);
-					else
+					////if(TrackPartMeshFactory(s))
+					////	ori=track->getbankedori(s);
+					////else
 					#endif
 						ori=track->getbankedori(s);
 					y=ori.pos.Y;
@@ -140,10 +140,10 @@ void TrackOperator::MoveTrain(int trainI, float timeElapsed)
 
 		//calc new train speed from total momentum and total mass
 			vavg=(1.0f/mtot)*ptot;
-			if(isnan(vavg))
+			////if(isnan(vavg))
 				train->speed=vavg;
-			else
-				train->speed=vavg;
+			////else
+			////	train->speed=vavg;
 
 		//lift - cap car speed at minimum speed:
 			LiftTrain(trainI,dt);
@@ -573,13 +573,15 @@ void TrackOperator::setTrainPos(int trainI,float linpos,bool fromback)
 	if(trainI>=trains.size())	return;
 	float curpos=linpos;
 	Train*train=trains.at(trainI);
+	const float car_spacing=4.0;
+
 	if(fromback)
 		{
 		for(int i=train->cars.size()-1;i>=0;i--)
 			{
 			Car&car=train->cars.at(i);
 			car.linpos=curpos;
-			curpos+=2.0;
+			curpos+=car_spacing;
 			}
 		}
 	else
@@ -588,7 +590,7 @@ void TrackOperator::setTrainPos(int trainI,float linpos,bool fromback)
 			{
 			Car&car=train->cars.at(i);
 			car.linpos=curpos;
-			curpos-=2.0;
+			curpos-=car_spacing;
 			}
 		}
 	}
@@ -724,6 +726,28 @@ TrackOperator::Stage&TrackOperator::Stage::operator ++()
 	return*this;
 	}
 
+/**##################################################################
+	getBlockType() - gets the block type at a track position
+		In: trackpos - the track position
+		Out: (return value) - the block type at that position.
+###################################################################*/
+
+Block::Type TrackOperator::getBlockType(float trackpos)
+	{
+	int blockI=0;
+	bool blockfound=false;
+	for(int i=0;i<blocks.size();i++)
+		{
+		if(IsPosInBlock(trackpos,i))
+			{
+			blockI=i;
+			blockfound=true;
+			return blocks.at(blockI).type;
+			break;
+			}
+		}
+	return Block::bt_normal;
+	}
 
 
 

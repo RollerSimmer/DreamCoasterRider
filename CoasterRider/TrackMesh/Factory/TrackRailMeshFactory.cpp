@@ -56,13 +56,13 @@ TrackPartMesh*TrackRailMeshFactory::create( int type,TrackColors&colors
 		                            (  type,0.0,seglen,seglen,1.0,0.08,0.125
 		                              ,colors
 		                              ,0  ) ;
-		part->seglen=seglen;
-		int amtsegs=ceil(track->getTrackLen()/seglen);
-		for(int i=0;i<amtsegs;i++)
-			{
-			part->segs.push_back(*pat);
-			pat->addK(seglen);
-			}
+	part->seglen=seglen;
+	int amtsegs=ceil(track->getTrackLen()/seglen);
+	for(int i=0;i<amtsegs;i++)
+		{
+		part->segs.push_back(*pat);
+		pat->addK(seglen);
+		}
 	return part;
 	}
 
@@ -77,6 +77,7 @@ RailType TrackRailMeshFactory::getRailType(int type)
 	switch (type)
 		{
 		case TrackMesh::pat_corkscrew:
+		case TrackMesh::pat_kamikaze:
 			return rail_tripletube_deep;
 		case TrackMesh::pat_looper:
 			return rail_tripletube;
@@ -86,7 +87,10 @@ RailType TrackRailMeshFactory::getRailType(int type)
 			return rail_quadtube;
 		case TrackMesh::pat_wood:
 			return rail_woodbeams;
+		case TrackMesh::pat_derby:
+			return rail_doubletube_vertical;
 		case TrackMesh::pat_ladder:
+		case TrackMesh::pat_rocket:
 		default:
 			return rail_doubletube;
 		}

@@ -73,6 +73,7 @@ class TrackOperator
 		bool ShouldChangeModeStage( float frontpos,float backpos
 		                           ,float prevspeed=1.0,float curspeed=1.0);
 		bool AtFirstStation(	float frontpos,float backpos);
+		Block::Type getBlockType(float trackpos);
 	protected:
 	private:
 

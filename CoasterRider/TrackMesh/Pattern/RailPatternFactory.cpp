@@ -40,8 +40,11 @@ TrackPartPattern*RailPatternFactory::create( int type
 	this->patlen=patlen;
 	this->k_start=k_start;
 
-	SColor&patcolor1=pat->colors.c1;
-	SColor&patcolor2=pat->colors.c2;
+	SColor&railcolor=pat->colors.rail;
+	SColor&rungcolor=pat->colors.rung;
+	SColor&spinecolor=pat->colors.spine;
+	SColor&handrailcolor=pat->colors.handrail;
+	SColor&catwalkcolor=pat->colors.catwalk;
 
 	//create some rails here:
 		switch(RailType(type))
@@ -49,18 +52,24 @@ TrackPartPattern*RailPatternFactory::create( int type
 			case rail_woodbeams:
 				{
 				//wood rails:
-					addBoxRail(-rungwidth*0.5,0,railrad*0.5,railrad*0.5,patcolor1);
-					addBoxRail(+rungwidth*0.5,0,railrad*0.5,railrad*0.5,patcolor1);
+					float railwidth=railrad*2.0;
+					addBoxRail((-rungwidth-railwidth)*0.5,0,railwidth,railrad*0.5,railcolor);
+					addBoxRail((+rungwidth+railwidth)*0.5,0,railwidth,railrad*0.5,railcolor);
 				//wood handrails (built-in, no catwalk handrails):
-					addBoxRail(-rungwidth,+rungwidth*0.5
-					           ,railrad*0.5,railrad*0.25,patcolor1);
-					addBoxRail(+rungwidth,+rungwidth*0.5
-					           ,railrad*0.5,railrad*0.25,patcolor1);
+					addBoxRail(-rungwidth,+rungwidth*0.85
+					           ,railrad*0.5,railrad*0.25,handrailcolor);
+					addBoxRail(+rungwidth,+rungwidth*0.85
+					           ,railrad*0.5,railrad*0.25,handrailcolor);
 				//wood catwalk platform (built-in, no separate catwalks):
 					addBoxRail(-rungwidth*0.8,-2.5*railrad
-					           ,rungwidth*0.35,railrad*0.5,patcolor2);
+					           ,rungwidth*0.35,railrad*0.5,catwalkcolor);
 					addBoxRail(+rungwidth*0.8,-2.5*railrad
-					           ,rungwidth*0.35,railrad*0.5,patcolor2);
+					           ,rungwidth*0.35,railrad*0.5,catwalkcolor);
+				break;
+				}
+			case rail_doubletube_vertical:
+				{
+				addTubeRail(0.0,0.0,railrad,railcolor);
 				break;
 				}
 			case rail_doubletube:
@@ -69,8 +78,8 @@ TrackPartPattern*RailPatternFactory::create( int type
 			case rail_tubeRailsBoxSpine:
 			default:
 				{
-				addTubeRail(-rungwidth/2,0,railrad,patcolor1);
-				addTubeRail(+rungwidth/2,0,railrad,patcolor1);
+				addTubeRail(-rungwidth*0.5,0.0,railrad,railcolor);
+				addTubeRail(+rungwidth*0.5,0.0,railrad,railcolor);
 				break;
 				}
 			}
@@ -79,23 +88,28 @@ TrackPartPattern*RailPatternFactory::create( int type
 			{
 			case rail_tripletube:
 				{
-				addTubeRail(0,-rungwidth*0.25,railrad*2.5,patcolor1);
+				addTubeRail(0,-rungwidth*0.25,railrad*2.5,spinecolor);
 				break;
 				}
 			case rail_tripletube_deep:
 				{
-				addTubeRail(0,-rungwidth*0.5,railrad*2.5,patcolor1);
+				addTubeRail(0,-rungwidth*0.5,railrad*2.5,spinecolor);
 				break;
 				}
 			case rail_quadtube:
 				{
-				addTubeRail(-rungwidth/2,-rungwidth,railrad,patcolor1);
-				addTubeRail(+rungwidth/2,-rungwidth,railrad,patcolor1);
+				addTubeRail(-rungwidth/2,-rungwidth,railrad,spinecolor);
+				addTubeRail(+rungwidth/2,-rungwidth,railrad,spinecolor);
 				break;
 				}
 			case rail_tubeRailsBoxSpine:
 				{
-				addBoxRail(0,-rungwidth*0.35,railrad*2.9,railrad*2.9,patcolor1);
+				addBoxRail(0,-rungwidth*0.35,railrad*2.9,railrad*2.9,spinecolor);
+				break;
+				}
+			case rail_doubletube_vertical:
+				{
+				addTubeRail(0.0,-0.5*rungwidth,0.7*railrad,spinecolor);
 				break;
 				}
 			default:

@@ -46,54 +46,55 @@ FullSpline&PathSpline::MakeFullSpline(
 							  ,bool docircuit)
 	{
 	static FullSpline fs;
-	core::vector3df cp,up;
+	core::vector3df fcp[4],fup[4];
 	//normalize the heading:
 		hdg.normalize();
 		starthdg.normalize();
 	//the first point is just the previous point:
-		cp=pt;
-		fs.setcp(0,cp);
+		fcp[0]=pt;
+		////fs.setcp(0,cp);
 	//the second is the first point plus startlen*fwd:
-		cp=startlen*hdg.getfwd();
-		cp+=pt;
-		fs.setcp(1,cp);
+		fcp[1]=startlen*hdg.getfwd();
+		fcp[1]+=pt;
+		////fs.setcp(1,cp);
 	if(docircuit)
 		{
 		//the fourth cp is the start point
-			cp=startpt;
-			fs.setcp(3,cp);
+			fcp[3]=startpt;
+			////fs.setcp(3,cp);
 		//the third cp is the start point minus endlen*start fwd
 			f32 endlen=cpary[0].getDistanceFrom(cpary[1]);
-			cp=-endlen*starthdg.getfwd();
-			cp+=startpt;
-			fs.setcp(2,cp);
+			fcp[2]=-endlen*starthdg.getfwd();
+			fcp[2]+=startpt;
+			////fs.setcp(2,cp);
 		//the fourth up is the start up;
-			up=starthdg.getup();
-			fs.setup(3,up);
+			fup[3]=starthdg.getup();
+			////fs.setup(3,up);
 		}
 	else
 		{
-		//the third is the first point plus heading matrix * cp[0]
-			cp=hdg*cpary[0];
-			cp+=pt;
-			fs.setcp(2,cp);
-		//the fourth is the first point plus heading matrix * cp[1]
-			cp=hdg*cpary[1];
-			cp+=pt;
-			fs.setcp(3,cp);
-		//the fourth up is heading matrix * up[2]:
-			up=hdg*upary[2];
-			fs.setup(3,up);
+		//the third is the first point plus heading matrix * fcp[0]
+			fcp[2]=hdg*cpary[0];
+			fcp[2]+=pt;
+			////fs.setcp(2,cp);
+		//the fourth is the first point plus heading matrix * fcp[1]
+			fcp[3]=hdg*cpary[1];
+			fcp[3]+=pt;
+			////fs.setcp(3,cp);
+		//the fourth up is heading matrix * fup[2]:
+			fup[3]=hdg*upary[2];
+			////fs.setup(3,up);
 		}
 	//the first up is the previous up:
-		up=hdg.getup();
-		fs.setup(0,up);
-	//the second up is heading matrix * up[0]:
-		up=hdg*upary[0];
-		fs.setup(1,up);
-	//the third up is heading matrix * up[1]:
-		up=hdg*upary[1];
-		fs.setup(2,up);
+		fup[0]=hdg.getup();
+		////fs.setup(0,up);
+	//the second up is heading matrix * fup[0]:
+		fup[1]=hdg*upary[0];
+		////fs.setup(1,up);
+	//the third up is heading matrix * fup[1]:
+		fup[2]=hdg*upary[1];
+		////fs.setup(2,up);
+	fs.set(fcp[0],fcp[1],fcp[2],fcp[3],fup[0],fup[1],fup[2],fup[3]);
 
 	//return the full spline:
 		return fs;

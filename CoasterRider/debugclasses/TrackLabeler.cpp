@@ -54,8 +54,9 @@ void TrackLabeler::LabelTrack()
 			boardnode=smgr->addBillboardSceneNode();
 
 		//move the position 3m off the track:
+			const float labelht=2.75;
 			ori=track->getbankedori(trackpos);
-			ori.pos=ori.pos+ori.hdg.getup()*1.0;
+			ori.pos=ori.pos+ori.hdg.getup()*labelht;
 			ori_board=ori;
 			ori_board.pos=ori.pos+ori.hdg.getfwd()*0.01;
 			if(labelnode)
@@ -73,14 +74,14 @@ void TrackLabeler::LabelTrack()
 			if(labelnode)
 				{
 				labelnode->setColor(SColor(255,255,255,0));
-				labelnode->setSize(dimension2df(1.0,0.2));
+				labelnode->setSize(dimension2df(1.5,0.2));
 				}
 			if(boardnode)
 				{
 				SColor boardcolor=SColor(255,0,0,127);
 				boardcolor.setAlpha(255);
 				boardnode->setColor(boardcolor);
-				boardnode->setSize(dimension2df(1.1,0.2));
+				boardnode->setSize(dimension2df(1.6,0.2));
 				}
 
 		//add that pointer to label list:
@@ -122,9 +123,11 @@ void TrackLabeler::DeleteLabels()
 
 const wchar_t*TrackLabeler::getLabelText(float trackpos)
 	{
-	static basic_string<wchar_t> s;
+	static basic_string<wchar_t> s;		//the label string
+	wchar_t ns[8];									//number string
 	s.clear();
-	Block::Type blocktype=getBlockType(trackpos);
+	Block::Type blocktype=trackop->getBlockType(trackpos);
+	float trackht=getTrackHt(trackpos);
 	switch(blocktype)
 		{
 		case Block::bt_trim: 	{ s=L"trim block";		break; }
@@ -136,32 +139,28 @@ const wchar_t*TrackLabeler::getLabelText(float trackpos)
 		case Block::bt_normal:
 		default:						{ s=L"normal block";		break; }
 		}
+	//add position to the string:
+		s+=L"(";
+		swprintf(ns,sizeof(ns)/sizeof(ns[0])-1,L"%0.1f",trackpos);
+		s+=ns;
+		s+=L"m, ht=";
+		swprintf(ns,sizeof(ns)/sizeof(ns[0])-1,L"%0.1f",trackht);
+		s+=ns;
+		s+=L"m)";
 	return s.c_str();
 	}
 
+
 /**##################################################################
-	getBlockType() - gets the block type at a track position
+	getTrackHt() - gets the track height above ground/base height.
 		In: trackpos - the track position
-		Out: (return value) - the block type at that position.
+		Out: (return value) - the track height in meters.
 ###################################################################*/
 
-Block::Type TrackLabeler::getBlockType(float trackpos)
+float TrackLabeler::getTrackHt(float trackpos)
 	{
-	int blockI=0;
-	bool blockfound=false;
-	for(int i=0;i<trackop->blocks.size();i++)
-		{
-		if(trackop->IsPosInBlock(trackpos,i))
-			{
-			blockI=i;
-			blockfound=true;
-			return trackop->blocks.at(blockI).type;
-			break;
-			}
-		}
-	return Block::bt_normal;
+	return trackop->track->htAt(trackpos);
 	}
-
 
 /**##################################################################
 	getBlockType() - toggle the visibility of each individual label

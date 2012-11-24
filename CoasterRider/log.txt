@@ -129,8 +129,69 @@
 	+	(tried to) make correction to ambient lighting.  i don't notice any difference though.
 2012:Oct:08:PM:05:40
 	+	added some more rail types to RailPatternFactory.
-	+	Next up: adding rungs (crossbars)	
-
+	+	Next up: adding rungs (crossbars)
+2012:Oct:15:PM:05:48
+	+	what happened to last week's log entries?
+	+	over the past week:
+		>	added rungs for various track styles
+		>	added function to change the view from coaster cam to free view 
+	+	today:
+		>	added two new track styles: kamikaze and rocket.  rungs have yet to be done on kamikaze.  they 
+			will be modeled after togo tracks.
+2012:Oct:15:PM:09:26
+	+	added derby track type.
+2012:Oct:17:PM:09:12
+	+	added a barrel roll element.  It veers a slight angle (tan(angle) = +-4/1). 
+	+	barrel doesn't have perfect zero g readings., but maybe that's an error
+		in the reading more than the element.
+2012:Oct:21:AM:12:55
+	+	finally added train/car mesh nodes. now trains can be tracked from free view
+		as well as first person.
+2012:Oct:21:AM:01:26
+	+	oops.  i really need to fix the headings for distance along track.  it is not steadily increasing
+		along the spline, but shrinks and expands if there is a big disparity betweeen control point spans
+2012:Oct:22:PM:07:54
+	+	just added a FullSpline reparameterization function.  trains paths aren't stretched or squeezed anymore.
+2012:Oct:22:PM:09:57
+	+	alignment for track is fixed.  I forgot to use the setFromUpForward() function and double up on up 
+		calculation. (rgt = fwd x up; then up = rgt x fwd - that makes for a more perpendicular set of 
+		heading vectors)
+2012:Nov:16:PM:11:09
+	+	it's been almost a month since last update...
+	+	added class for support patterns
+	+	supports are built with simple collision-ignoring poles
+	+	next step: work collision into supports and add more complex supports
+	+	TODO: create space map class and any thing else needed for collisions.
+	         (it is planned out on paper already)
+2012:Nov:17:PM:08:45
+	+	Lattice (wooden) supports are now in.  
+	+	still no collision tests, so riders get a face full of supports
+	+	need to fix the beams drawn on supports so they align properly right now they 
+		are rotated sometimes.
+2012:Nov:18:AM:02:17
+	+	now there are seven colors in the TrackColor struct/class, one for each component of track
+		(rail, rung, spine, catwalk, handrail, handrung, support)
+	+	i need to fix trains that face the wrong direction over certain points along short segments
+		i don't know what is causing it yet.  it is happening a lot on vertical tophats and sharp 
+		changes in direction.  though there is one case on the top hat hydraulic launch track that 
+		has the car facing completely backwards on the first brake.
+	+	mesh supports on shuttle loop are going all the way to the start from the finish.  i need to 
+		fix this
+2012:Nov:18:PM:05:16
+	+	fixed the shuttle supports. 
+	+	fixed some upside down supports so that they don't go through track.  (still need to make actual supports for 
+		upside down parts.
+	+	TODO: make space map and run checks with it on individual beam placement for supports.
+2012:Nov:23:PM:11:41
+	+	Catwalks and handrails added. 
+	+	for chains, I can make "chains" be either boosters, trim brakes, or actual chains
+	+	or i could just rename chain to control
+	+	i need a break.
+	+	still need to do space map and intersection code for supports.  today
+		was just getting the other parts out of the way.	
+	
+	
+		
 
 	
 

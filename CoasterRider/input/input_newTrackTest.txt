@@ -2,6 +2,12 @@ tracks/newTrackTest.xml
 0.0
 0
 0xffff0000
+0xff00ff00
 0xff0000ff
+0xffffff00
 0xffff00ff
+0xff00ffff
+0xffffffff
+kamikaze
 1
+

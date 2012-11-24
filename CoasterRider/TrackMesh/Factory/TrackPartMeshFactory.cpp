@@ -5,8 +5,9 @@
 ####################################################################################*/
 
 TrackPartMeshFactory::TrackPartMeshFactory()
+	:	seglen(1.0)
 	{
-		
+
 	}
 
 /**###################################################################################
@@ -15,9 +16,9 @@ TrackPartMeshFactory::TrackPartMeshFactory()
 
 TrackPartMeshFactory::~TrackPartMeshFactory()
 	{
-	
+
 	}
-	
+
 /**###################################################################################
 	create() - get the singleton instance of the class
 		IN:

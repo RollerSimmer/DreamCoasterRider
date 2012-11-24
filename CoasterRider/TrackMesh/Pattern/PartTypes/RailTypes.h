@@ -8,4 +8,5 @@ enum RailType
 	,rail_tubeRailsBoxSpine				//two tube rails, one box spine
 	,rail_woodbeams						//two box rails, two box handrails, two, box catwalks
 	,rail_quadtube							//four tubes.  two rails, and two tubes directly underneath, in a square cross-section
+	,rail_doubletube_vertical			//two parallel tubes on top of each other
 	};

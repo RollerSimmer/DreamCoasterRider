@@ -25,7 +25,8 @@ SupportMeshFactory::SupportMeshFactory()
 		\return - the pointer to the SupportMesh
 #################################################################*/
 
-SupportMesh*SupportMeshFactory::create( vector3df snappt,vector3df sidept
+SupportMesh*SupportMeshFactory::create( vector3df snappt,vector3df leftpt
+                                       ,vector3df rightpt
 													,SColor color
 													,HeadingMatrix objhdg
 													,ISceneCollisionManager*colmgr

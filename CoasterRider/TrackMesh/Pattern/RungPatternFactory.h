@@ -27,5 +27,7 @@ class RungPatternFactory: public TrackPartPatternFactory
 		void addBoxRung_Skewed(vector3df p1,vector3df p2,float w,float h,SColor color)	{}
 		void addCorkURung(vector3df cp	,float width
                     		,float radius  ,SColor color);
+		void addURung( vector3df cp	,float width
+               	  ,float radius  ,SColor color);
 		void addArrowheadRung(vector3df cp	,float width,float radius  ,SColor color);
 };

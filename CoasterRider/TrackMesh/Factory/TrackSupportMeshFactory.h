@@ -8,7 +8,7 @@
 
 using namespace std;
 
-class TrackSupportMeshFactory: TrackPartMeshFactory
+class TrackSupportMeshFactory: public TrackPartMeshFactory
 	{
 	public:	//constructor
 		TrackSupportMeshFactory();
@@ -16,7 +16,7 @@ class TrackSupportMeshFactory: TrackPartMeshFactory
 		~TrackSupportMeshFactory();
 	public:	//function
 		static TrackSupportMeshFactory*getinstance();
-		virtual TrackPartMesh*create(int type,TrackColors&colors,Track*track,TrackOperator*trackop);
+		virtual TrackPartMesh*create(int type,TrackMesh*tmesh,TrackColors&colors,Track*track,TrackOperator*trackop);
 	};
 
 

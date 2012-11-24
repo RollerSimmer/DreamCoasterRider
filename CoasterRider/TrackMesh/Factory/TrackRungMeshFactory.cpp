@@ -51,7 +51,8 @@ TrackPartMesh*TrackRungMeshFactory::create(int type,TrackColors&colors,Track*tra
 
 	//create pattern to repeat over track:
 		TrackPartPattern*pat=RungPatternFactory::getinstance()->create
-		                            (  rungtype,0.0,seglen,seglen,1.0,0.08,0.125
+		                            (  rungtype,0.0,seglen,seglen,1.0
+		                              ,0.08,0.07	//rail rad and rung rad
 		                              ,colors
 		                              ,0  ) ;
 		part->seglen=seglen;
@@ -80,9 +81,15 @@ RungType TrackRungMeshFactory::getRungType(int type)
 		case TrackMesh::pat_corkscrew:
 			return rung_corkU;
 		case TrackMesh::pat_lattice:
-			return rung_lattice;
+			return rung_lattice_box;
+		case TrackMesh::pat_rocket:
+			return rung_lattice_flat;
 		case TrackMesh::pat_wood:
 			return rung_woodbox;
+		case TrackMesh::pat_kamikaze:
+			return rung_U;
+		case TrackMesh::pat_derby:
+			return rung_singletube_vert;
 		case TrackMesh::pat_ladder:
 		default:
 			return rung_singletube;

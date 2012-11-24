@@ -5,7 +5,7 @@
 
 class RailPatternFactory: public TrackPartPatternFactory
 {
-	private: //state
+	protected: //state
 		TrackPartPattern*pat;
 		////SColor color;
 	private: //constructor:

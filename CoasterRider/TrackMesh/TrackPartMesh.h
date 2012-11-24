@@ -17,13 +17,18 @@ class TrackOperator;
 class TrackPartMeshFactory;
 class TrackRailMeshFactory;
 class TrackRungMeshFactory;
-
+class TrackSupportMeshFactory;
+class CatwalkMeshFactory;
+class HandrailMeshFactory;
 class TrackPartMesh
 	{
 	public:
 		friend class TrackPartMeshFactory;
 		friend class TrackRailMeshFactory;
 		friend class TrackRungMeshFactory;
+		friend class TrackSupportMeshFactory;
+		friend class CatwalkMeshFactory;
+		friend class HandrailMeshFactory;
 	protected:	//state
 		deque<TrackPartPattern> segs;
 		float seglen;

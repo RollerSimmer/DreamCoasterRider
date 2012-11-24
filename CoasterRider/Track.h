@@ -11,6 +11,10 @@ class TrackFactory;
 class TrackFileParser;
 ////int main_track();
 
+/**###################################################################################
+	Track - defines a list of splines that define the track's course.
+####################################################################################*/
+
 class Track
 	{
 	#ifdef main_track_defined

@@ -28,7 +28,7 @@ IMeshBuffer*TrackPartPattern::MakeMeshBuffer()
 			mat.Shininess=colors.shininess;
 		//set ambient color:
 			SColor&amb=mat.AmbientColor;
-			amb=colors.c1;
+			amb=colors.rail;
 			amb.setRed(amb.getRed()/2);
 			amb.setGreen(amb.getGreen()/2);
 			amb.setBlue(amb.getBlue()/2);

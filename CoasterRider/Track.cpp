@@ -219,8 +219,8 @@ void Track::GetHeadingAndPtAt( float distance
 			float progress_scale=(distance-distancesum)/elmtlens[i];
 
 			core::vector3df rgt,up,fwd;
-			pt=fspline.ptInterpolate(progress_scale);
-			up=fspline.upInterpolate(progress_scale);
+			pt=fspline.ptInterpolate_reparam(progress_scale);
+			up=fspline.upInterpolate_reparam(progress_scale);
 			//find forward:
 				if(progress_scale==0.0f)
 					fwd=fspline.getcp(1)-fspline.getcp(0);
@@ -232,16 +232,18 @@ void Track::GetHeadingAndPtAt( float distance
 					if(ahead_scale>1.0)	ahead_scale=1.0;
 					float behind_scale=progress_scale-0.0001;
 					if(behind_scale<0.0)	behind_scale=0.0;
-					fwd=fspline.ptInterpolate(ahead_scale);
-					fwd-=fspline.ptInterpolate(behind_scale);
+					fwd=fspline.ptInterpolate_reparam(ahead_scale);
+					fwd-=fspline.ptInterpolate_reparam(behind_scale);
 					}
 				fwd.normalize();
-			rgt=up.crossProduct(fwd);
-			rgt.normalize();
+			////rgt=up.crossProduct(fwd);
+			////rgt.normalize();
+
 			//finally, set the heading:
-				hdg.setrgt(rgt);
-				hdg.setup(up);
-				hdg.setfwd(fwd);
+				hdg.setfromupfwd(up,fwd,true);
+				////hdg.setrgt(rgt);
+				////hdg.setup(up);
+				////hdg.setfwd(fwd);
 			}
 		else	//return dummy heading:
 			{

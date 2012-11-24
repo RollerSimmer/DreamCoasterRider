@@ -1,5 +1,7 @@
 #include "FullSpline.h"
 #include <cmath>
+#include <iostream>
+using namespace std;
 
 /**###########################################################
 	FullSpline() - construct a FullSpline object
@@ -7,7 +9,127 @@
 
 FullSpline::FullSpline()
 	{
-	//ctor
+	arclens.clear();
+	}
+
+/**###########################################################
+	set() - set the control points and up vectors.
+		IN:
+			cpX (X is the number) - the Xth control point (4 control points)
+			upX (X is the number) - the Xth up vector (4 up vectors)
+###########################################################*/
+
+void FullSpline::set( vector3df cp1,vector3df cp2,vector3df cp3,vector3df cp4
+				         ,vector3df up1,vector3df up2,vector3df up3,vector3df up4)
+	{
+	cpary[0]=cp1;
+	cpary[1]=cp2;
+	cpary[2]=cp3;
+	cpary[3]=cp4;
+	upary[0]=up1;
+	upary[1]=up2;
+	upary[2]=up3;
+	upary[3]=up4;
+
+	UpdateArcLens();
+	}
+
+/**###########################################################
+	reparam() - reparameterize the curve to a more balanced
+					distribution
+		IN:
+			s - the target arclength percentage (0.0 to 1.0)
+		OUT:
+			(return value) - a parameter from 0.0 to 1.0 that
+								  can serve as an interpolation scale
+								  directly.
+###########################################################*/
+
+float FullSpline::reparam(float s)
+	{
+	if(arclens.empty()) return 0.0;
+	if(s<=0.0)	return 0.0;
+	if(s>=1.0)	return 1.0;
+
+	float targetlen=s*arclens.back();
+	float totlen=arclens.back();
+	int a,b,c;
+	a=0;
+	int i_last=arclens.size()-1;
+	c=i_last;
+	b=a+(c-a)/2;
+	bool found=false;
+	//binary search for arclen:
+		while(!found)
+			{
+			float b_len=arclens.at(b);
+			if(arclens.at(a)==targetlen)
+				return (float)a/max((float)i_last,(float)1.0);
+			if(arclens.at(c)==targetlen)
+				return (float)c/max((float)i_last,(float)1.0);
+			if(arclens.at(b)==targetlen)
+				return (float)b/max((float)i_last,(float)1.0);
+			else if(arclens.at(b)>targetlen)
+				c=b;
+			else//// if(arclens.at(b)>targetlen)
+				a=b;
+			b=a+(c-a)/2;
+			if(a==c)
+				return (float)a/max((float)i_last,(float)1.0);
+			else if(c<=a+1)
+				found=true;
+			else
+				found=false;
+			}
+	//a and c should be found now, and t will be the returned reparameterization:
+		float t,a_scale,c_scale,a_len,c_len,ac_dist,ad,dc,ac;
+		a_len=arclens.at(a);
+		c_len=arclens.at(c);
+		//target length should be between a_len and c_len
+			if(targetlen>a_len&&targetlen<c_len)
+				{
+				ad=targetlen-a_len;
+				dc=c_len-targetlen;
+				ac=c_len-a_len;
+				a_scale=dc/ac;
+				c_scale=ad/ac;
+				t=a_scale*(float)a + c_scale*(float)c;
+				t/=max((float)i_last,(float)1.0);
+				return t;
+				}
+			else
+				{
+				//something's is messed up....
+				return 0.0;
+				}
+	}
+
+/**###########################################################
+	UpdateArcLens() - update the arc length table of the spline.
+###########################################################*/
+
+void FullSpline::UpdateArcLens()
+	{
+	float estlen=0.0;		//length estimate
+	for(int i=0;i<3;i++)
+		{
+		estlen+=cpary[i].getDistanceFrom(cpary[i+1]);
+		}
+	arclens.clear();
+	int nentries=max(int(estlen+1.0),16);
+	vector3df pprev,p;		//points from which to measure length
+	pprev=ptInterpolate(0.0);
+	float curlen=0.0;	//current length
+	for(int i=0;i<nentries;i++)
+		{
+		float t;		//interpolation scale
+		t=1.0*(float)i/(float)(nentries-1);
+		t=min(t,(float)1.0);
+		p=ptInterpolate(t);
+		curlen+=p.getDistanceFrom(pprev);
+		arclens.push_back(curlen);
+		pprev=p;
+		}
 	}
 
 /**###########################################################
@@ -17,11 +139,26 @@ FullSpline::FullSpline()
 		\return resultant point.
 ############################################################*/
 
-core::vector3df&FullSpline::ptInterpolate(float progress)
+vector3df&FullSpline::ptInterpolate(float progress)
 	{
 	static core::vector3df cp;
 	cp=interpolate(cpary,progress);
 	return cp;
+	}
+
+/**###########################################################
+	ptInterpolate_reparam() - find the point interpolation
+	                          along a spline, using arc length
+	                          reparameterization
+		Arguments:
+			\param s - the length scale 0.0..1.0 along spline.
+		\return resultant point.
+############################################################*/
+
+vector3df&FullSpline::ptInterpolate_reparam(float s)
+	{
+	float t=reparam(s);
+	return ptInterpolate(t);
 	}
 
 /**###########################################################
@@ -31,13 +168,29 @@ core::vector3df&FullSpline::ptInterpolate(float progress)
 		\return resultant up vector.
 ############################################################*/
 
-core::vector3df&FullSpline::upInterpolate(float progress)
+vector3df&FullSpline::upInterpolate(float progress)
 	{
 	static core::vector3df up;
 	up=interpolate(upary,progress);
 	up.normalize();
 	return up;
 	}
+
+/**###########################################################
+	upInterpolate_reparam() - find the up vector interpolation
+	                          along a spline, using arc length
+	                          reparameterization
+		Arguments:
+			\param s - the length scale 0.0..1.0 along spline.
+		\return resultant up vector.
+############################################################*/
+
+vector3df&FullSpline::upInterpolate_reparam(float s)
+	{
+	float t=reparam(s);
+	return upInterpolate(t);
+	}
+
 
 /**###########################################################
 	interpolate() - generic interpolation of 4 control points.
@@ -169,3 +322,40 @@ void FullSpline::reverse()
 	}
 
 
+#if FullSpline_debug
+
+/**###################################################
+	debugprint() - print the contents of the spline in a
+	               meaningful way for debugging.
+###################################################*/
+
+void FullSpline::debugprint()
+	{
+	cout<<"Full Spline Structure:"<<endl;
+	for(int i=0;i<4;i++)
+		{
+		cout<<"\tcp["<<i<<"]=("<<cpary[i].X
+									  <<","<<cpary[i].Y
+									  <<","<<cpary[i].Z<<")"<<endl;
+		}
+	for(int i=0;i<4;i++)
+		{
+		cout<<"\tup["<<i<<"]=("<<upary[i].X
+									  <<","<<upary[i].Y
+									  <<","<<upary[i].Z<<")"<<endl;
+		}
+	for(int i=0;i<arclens.size();i++)
+		{
+		cout<<"\tarclens.at("<<i<<")="<<arclens.at(i)<<endl;
+		}
+	for(float s=0.0;s<=1.01;s+=0.05)
+		{
+		float t=reparam(s);
+		cout<<"reparam("<<s<<")="<<t<<endl;
+		vector3df r;
+		r=ptInterpolate_reparam(s);
+		cout<<"ptInterpolate_reparam("<<s<<") = ("<<r.X<<","<<r.Y<<","<<r.Z<<")"<<endl;
+		}
+	}
+
+#endif

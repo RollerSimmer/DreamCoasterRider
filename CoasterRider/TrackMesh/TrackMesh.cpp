@@ -17,20 +17,25 @@ using namespace std;
 
 TrackMesh::TrackMesh( Track*_track,TrackOperator*_trackop,ISceneManager*_smgr
                      ,IrrlichtDevice*_device,IVideoDriver*_driver
-						   ,SColor _color1  ,SColor _color2
-						   ,SColor _color3  ,SColor _color4
-						   ,SColor _specular  ,float _shininess
+						   ,SColor railcolor  ,SColor spinecolor
+						   ,SColor rungcolor  ,SColor catwalkcolor
+						   ,SColor handrailcolor,SColor handrungcolor
+						   ,SColor supportcolor
+						   ,SColor specular  ,float shininess
                      )
    	:	track(_track)   	,	trackop(_trackop)   	,	smgr(_smgr)
    	,	manip(0)
    	,	device(_device)  	,	driver(_driver)
 	{
-	colors.c1=_color1;
-	colors.c2=_color2;
-	colors.c3=_color3;
-	colors.c4=_color4;
-	colors.specular = _specular;
-	colors.shininess=_shininess;
+	colors.rail=railcolor;
+	colors.spine=spinecolor;
+	colors.rung=rungcolor;
+	colors.catwalk=catwalkcolor;
+	colors.handrail=handrailcolor;
+	colors.handrung=handrungcolor;
+	colors.support=supportcolor;
+	colors.specular = specular;
+	colors.shininess=shininess;
 
 	if(smgr!=0)
 		manip=smgr->getMeshManipulator();
@@ -43,6 +48,7 @@ TrackMesh::TrackMesh( Track*_track,TrackOperator*_trackop,ISceneManager*_smgr
 	supports=0;
 	mesh=0;
 	node=0;
+	seglen=1.0;
 	}
 
 /**#################################################################
@@ -63,7 +69,6 @@ void TrackMesh::MakeTrack(PatternType type,bool doBuildMesh)
 	MakeCatwalkPlatforms(type);
 	MakeCatwalkHandrails(type);
 	MakeChainlifts(type);
-	MakeSupports(type);
 	MakeTrackRungs(type);
 	MakeTrackRails(type);
 
@@ -72,6 +77,11 @@ void TrackMesh::MakeTrack(PatternType type,bool doBuildMesh)
 	ConformToTrack();
 
 	cout<<"TrackMesh::MakeTrack(): vertices conformed to track"<<endl;
+
+	FigureSupSnaps(type);
+	MakeSupports(type);
+
+	cout<<"TrackMesh::MakeTrack(): supports made"<<endl;
 
 	if(doBuildMesh)
 		BuildMesh();
@@ -88,8 +98,9 @@ void TrackMesh::MakeTrack(PatternType type,bool doBuildMesh)
 
 void TrackMesh::MakeCatwalkPlatforms(PatternType type)
 	{
+	int cattype=type==pat_wood? 0 : 1 ;
 	cat=CatwalkMeshFactory::getinstance()->create
-			(0,colors,track,trackop);
+				(cattype,colors,track,trackop);
 	}
 
 /**#################################################################
@@ -100,8 +111,9 @@ void TrackMesh::MakeCatwalkPlatforms(PatternType type)
 
 void TrackMesh::MakeCatwalkHandrails(PatternType type)
 	{
+	int handtype=type==pat_wood? 0 : 1 ;
 	handrail=HandrailMeshFactory::getinstance()->create
-			(0,colors,track,trackop);
+						(handtype,colors,track,trackop);
 	}
 
 /**#################################################################
@@ -125,7 +137,7 @@ void TrackMesh::MakeChainlifts(PatternType type)
 void TrackMesh::MakeSupports(PatternType type)
 	{
 	supports=TrackSupportMeshFactory::getinstance()->create
-			(0,colors,track,trackop);
+			(type,this,colors,track,trackop);
 	}
 
 /**#################################################################
@@ -230,8 +242,8 @@ void TrackMesh::ConformToTrack()
 		rails->ConformToTrack();
 	if(station!=0)
 		station->ConformToTrack();
-	if(supports!=0)
-		supports->ConformToTrack();
+	////if(supports!=0)
+	////	supports->ConformToTrack();
 	}
 
 /**#################################################################
@@ -252,7 +264,59 @@ void TrackMesh::FixNormals()
 		}
 	}
 
+/**#########################################################################
+	FigureSupSnaps() - figure out the support snaps for each track segment
+#########################################################################**/
 
+void TrackMesh::FigureSupSnaps(PatternType type)
+	{
+	//clear the snap lists:
+		supSnaps.clear();
+		supLefts.clear();
+		supRights.clear();
 
+	//build the lists:
+		for(float p=0;p<track->getTrackLen();p+=seglen)
+			{
+			TrackVertex sv;	//the track vertex for the snap
+			const float u_side=1.0;
+			const float v_bottom=getTrackBottom(type);
 
+			//bottom/spine snap:
+				sv.ijk.set(0,v_bottom,p);
+				sv.updatexyz(track);
+				supSnaps.push_back(sv);
 
+			//right side snap:
+				sv.ijk.set(u_side,v_bottom-0.5,p);
+				sv.updatexyz(track);
+				supRights.push_back(sv);
+
+			//left side snap:
+				sv.ijk.set(-u_side,v_bottom-0.5,p);
+				sv.updatexyz(track);
+				supLefts.push_back(sv);
+			}
+	}
+
+/**################################################################################
+	getTrackBottom()
+		IN: type - the type of track.
+		RET: the 'j' or 'v' coordinate of the bottom of the track.
+################################################################################**/
+
+float TrackMesh::getTrackBottom(PatternType type)
+	{
+	switch(type)
+		{
+		case pat_lattice:
+			return -1.0;
+		case pat_kamikaze:		case pat_corkscrew:		case pat_beamer:
+			return -0.5;
+		case pat_looper:			case pat_wood:
+			return -0.25;
+		case pat_ladder:		case pat_rocket:
+		default:
+			return -0.1;
+		}
+	}

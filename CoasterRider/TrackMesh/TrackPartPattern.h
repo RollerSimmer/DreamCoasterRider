@@ -9,8 +9,10 @@
 	class TrackPartPatternFactory;
 	class RailPatternFactory;
 	class RungPatternFactory;
+	class SupportPatternFactory;
 	class TrackPartMesh;
-
+	class CatwalkPatternFactory;
+	class HandrailPatternFactory;
 
 /**#########################################################################
 	TrackPartPattern - a class for subdividing track into parts.
@@ -27,8 +29,11 @@ class TrackPartPattern
 		friend class RailPatternFactory;
 		friend class TrackPartMesh;
 		friend class RungPatternFactory;
+		friend class SupportPatternFactory;
+		friend class CatwalkPatternFactory;
+		friend class HandrailPatternFactory;
 	protected:	//state
-		TrackColors&colors;								//the color of the element.
+		TrackColors&colors;						//the color of the element.
 		bool visible;								//should this element be shown?
 		deque<TrackVertex> vertices;			//the vertices of the part pattern.
 		deque<unsigned short> indices;		//the vertex indices, grouped in triples, which define

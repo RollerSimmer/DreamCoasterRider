@@ -1,4 +1,6 @@
 #include "CatwalkMeshFactory.h"
+#include "../Pattern/CatwalkPatternFactory.h"
+#include "../../TrackOperator.h"
 
 /**###################################################################################
 	CatwalkMeshFactory() - constructor for objects of this class
@@ -42,6 +44,40 @@ CatwalkMeshFactory*CatwalkMeshFactory::getinstance()
 
 TrackPartMesh*CatwalkMeshFactory::create(int type,TrackColors&colors,Track*track,TrackOperator*trackop)
 	{
-	return 0;	//stub
+	part=new TrackPartMesh(trackop);
+
+	//create pattern to repeat over track:
+		pat=CatwalkPatternFactory::getinstance()->create
+		                            (  type,0.0,seglen,seglen,1.0,0.08,0.125
+		                              ,colors
+		                              ,0  ) ;
+		TrackPartPattern*emptypat=new TrackPartPattern(colors);
+		part->seglen=seglen;
+		int amtsegs=ceil(track->getTrackLen()/seglen);
+		for(int i=0;i<amtsegs;i++)
+			{
+			float t=(float)i*seglen;
+			Block::Type blocktype=trackop->getBlockType(t);
+			bool addcat=false;	// whether or not to add catwalks, depending on block type
+			switch(blocktype)
+				{
+				case Block::bt_trim:
+				case Block::bt_lift:
+				case Block::bt_boost:
+				case Block::bt_station:
+					{ addcat=true;		break; }
+				case Block::bt_normal:
+				default:
+					{ addcat=false;	break; }
+				}
+			if(addcat)
+				part->segs.push_back(*pat);
+			else
+				part->segs.push_back(*emptypat);
+
+			pat->addK(seglen);
+			}
+
+	return part;
 	}
 

@@ -49,7 +49,7 @@ Train*TrainFactory::createATestTrain()
 		simpcar.power=0.0f;		//not self-powered
 		simpcar.linpos=0.0f;
 		simpcar.gforces.set(0.0f,1.0f,0.0f);
-	const int amtcars=8;
+	const int amtcars=6;
 
 	////train->speed=0.0f;
 	train->cars.clear();

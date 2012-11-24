@@ -6,6 +6,7 @@
 
 #include "../../irrlicht.h"
 #include "../TrackPartMesh.h"
+#include "../TrackPartPattern.h"
 #include "../TrackColors.h"
 
 #include <deque>
@@ -16,7 +17,8 @@ class TrackPartMeshFactory
 	{
 	protected:	//state
 		TrackPartMesh*part;
-		static const float seglen=1.0;
+		TrackPartPattern*pat;
+		float seglen;
 	public: //structor
 		TrackPartMeshFactory();
 		~TrackPartMeshFactory();

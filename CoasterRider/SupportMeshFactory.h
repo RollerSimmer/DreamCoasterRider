@@ -11,7 +11,8 @@ class SupportMeshFactory
 	public:
 		SupportMeshFactory();
 	public:
-		virtual SupportMesh*create(vector3df snappt,vector3df sidept
+		virtual SupportMesh*create(vector3df snappt,vector3df leftpt
+		                           ,vector3df rightpt
 											,SColor color
 											,HeadingMatrix objhdg
 											,ISceneCollisionManager*colmgr

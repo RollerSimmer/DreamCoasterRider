@@ -10,8 +10,10 @@
 #include "TrainFactory.h"
 #include "unitconv.h"
 #include "MyEventReceiver.h"
+#include "TrainNodeList.h"
 
 #include "debugclasses/TrackLabeler.h"
+
 
 ////#include <string>
 #include <sstream>
@@ -64,7 +66,7 @@ int main(int argc, char* argv[])
  	////IGUIFont*font=guienv->getFont("fonts/courier10px.xml");
 
    vector<IGUIStaticText*> msgary;
-   const int amtmsgs=11;
+   const int amtmsgs=12;
    msgary.clear();
    {
    int y=0;
@@ -128,7 +130,8 @@ int main(int argc, char* argv[])
 	ISceneNode*sky;
 	sky=smgr->addSkyDomeSceneNode(driver->getTexture("./textures/skydome.jpg"));
 	sky->setPosition(vector3df(0.0,0.0,0.0));
-	sky->setScale(vector3df(10.0,10.0,10.0));
+	const float	skyscale=0.01;
+	sky->setScale(vector3df(skyscale,skyscale,skyscale));
 
 	//add a terrain:
 	#if 0
@@ -298,29 +301,39 @@ int main(int argc, char* argv[])
 
 	// light is just for nice effects
 
-	u32 railcolor,rungcolor,supcolor,handcolor;
+	u32
+		 railcolor,spinecolor,rungcolor,catwalkcolor
+		,handrailcolor,handrungcolor,supportcolor;
 	#if 1
 	EnterTrackMeshColors:
 		{
 		cout<<"Enter rail color in hex format (0xRRGGBB): ";
 		cin>>hex>>railcolor;
+		cout<<"Enter spine color in hex format (0xRRGGBB): ";
+		cin>>hex>>spinecolor;
 		cout<<"Enter rung color in hex format (0xRRGGBB): ";
 		cin>>hex>>rungcolor;
+		cout<<"Enter catwalk color in hex format (0xRRGGBB): ";
+		cin>>hex>>catwalkcolor;
+		cout<<"Enter handrail color in hex format (0xRRGGBB): ";
+		cin>>hex>>handrailcolor;
+		cout<<"Enter hand-rung color in hex format (0xRRGGBB): ";
+		cin>>hex>>handrungcolor;
 		cout<<"Enter support color in hex format (0xRRGGBB): ";
-		cin>>hex>>supcolor;
-		////mesh.railcolor=railcolor;
-		////mesh.rungcolor=rungcolor;
-		////mesh.supcolor=supcolor;
+		cin>>hex>>supportcolor;
 		}
 	#else
 		{
 		railcolor=0xffff0000;
+		spinecolor=0xff00ff00;
 		rungcolor=0xffffff00;
-		supcolor =0xff0000ff;
+		catwalkcolor=0xffff00ff;
+		handrailcolor=0sff00ffff;
+		handrungcolor=0xffffff00;
+		supportcolor =0xff0000ff;
 		}
 	#endif
 
-	handcolor =0xffffffff;
 
 	cout<<"creating track mesh..."<<endl;
 
@@ -329,11 +342,41 @@ int main(int argc, char* argv[])
 		float shininess=5.0;
 
 	TrackMesh mesh(track,trackop,smgr,device,driver
-	               ,railcolor,rungcolor,supcolor,handcolor
+	               ,railcolor,spinecolor,rungcolor,catwalkcolor
+	               ,handrailcolor,handrungcolor,supportcolor
 	               ,specular,shininess);
 
 	////mesh.init(track,1.0);
-	mesh.MakeTrack(TrackMesh::pat_lattice,true);			//edit this line to change track type
+
+	TrackMesh::PatternType trackstyle;
+	EnterRungType:
+		{
+		std::string stylestr;
+		cout<<"Enter track style (ladder, corkscrew, looper,beamer,lattice,rocket,rocket,wood,kamikaze): ";
+		cin>>stylestr;
+		if(stylestr=="corkscrew")
+			trackstyle=TrackMesh::pat_corkscrew;
+		else if(stylestr=="looper")
+			trackstyle=TrackMesh::pat_looper;
+		else if(stylestr=="beamer")
+			trackstyle=TrackMesh::pat_beamer;
+		else if(stylestr=="lattice")
+			trackstyle=TrackMesh::pat_lattice;
+		else if(stylestr=="rocket")
+			trackstyle=TrackMesh::pat_rocket;
+		else if(stylestr=="wood")
+			trackstyle=TrackMesh::pat_wood;
+		else if(stylestr=="kamikaze")
+			trackstyle=TrackMesh::pat_kamikaze;
+		else if(stylestr=="derby")
+			trackstyle=TrackMesh::pat_derby;
+		////else if(stylestr=="ladder")
+		////	trackstyle=TrackMesh::pat_ladder;
+		else	//default:
+			trackstyle=TrackMesh::pat_ladder;
+		}
+
+	mesh.MakeTrack(trackstyle,true);			//edit this line to change track type
 	cout<<"Track mesh was created"<<endl;
 
 	ILightSceneNode *node = smgr->addLightSceneNode(0, vector3df(0,0,1000000),
@@ -395,6 +438,33 @@ int main(int argc, char* argv[])
 		camfps->setNearValue(0.05f);
 		}
 
+	#if 0
+	//try loading a car model into the scene:
+		IAnimatedMesh* carmesh=smgr->getMesh("models/trackedrides/Cork_Train_2/Cork_Lead_2.3ds");
+		IAnimatedMeshSceneNode* carnode = smgr->addAnimatedMeshSceneNode( carmesh );
+		Orientation carori=track->getbankedori(100.0);
+		carnode->setPosition(carori.pos);
+		matrix4 trans;
+		trans[0]=carori.hdg.getrgt().X;
+		trans[1]=carori.hdg.getrgt().Y;
+		trans[2]=carori.hdg.getrgt().Z;
+		trans[3]=0.0;
+		trans[4+0]=carori.hdg.getup().X;
+		trans[4+1]=carori.hdg.getup().Y;
+		trans[4+2]=carori.hdg.getup().Z;
+		trans[4+3]=0.0;
+		trans[8+0]=carori.hdg.getfwd().X;
+		trans[8+1]=carori.hdg.getfwd().Y;
+		trans[8+2]=carori.hdg.getfwd().Z;
+		trans[8+3]=0.0;
+		trans[12+0]=0.0;
+		trans[12+1]=0.0;
+		trans[12+2]=0.0;
+		trans[12+3]=0.0;
+		vector3df carrot=trans.getRotationDegrees();
+		carnode->setRotation(carrot);
+	#endif
+
 	/*
 	Just a usual render loop with event handling. The custom mesh is
 	a usual part of the scene graph which gets rendered by drawAll.
@@ -403,6 +473,7 @@ int main(int argc, char* argv[])
 	f32 trackpos_inc=0.01f;
 	f32 tracklen=track->getTrackLen();
 	f32 trainspeed=0.0f;
+	f32 maxspeed=0.0f;
 
 	bool done=false;
 	bool init=false;
@@ -410,9 +481,36 @@ int main(int argc, char* argv[])
 	Train*leadtrain;
 	leadtrain=trackop->trains.at(0);
 
+	//load a whole train
+		char carModelAry[2][128]=
+			{
+			////"models/trackedrides/Kiddie_Coaster_Train-mopaso/Lead Truck.3ds"
+			////  "models/trackedrides/Kiddie_Coaster_Train-mopaso/Kiddie Car.3ds"
+			////, "models/trackedrides/Kiddie_Coaster_Train-mopaso/Kiddie Car.3ds"
+			  "models/trackedrides/Corkscrew Train 3DS-TS6/Corkscrew Car 1.3ds"
+			, "models/trackedrides/Corkscrew Train 3DS-TS6/Corkscrew Car 1.3ds"
+			////  "models/trackedrides/Cork_Train_2/Cork_Lead_2.3ds"
+			////, "models/trackedrides/Cork_Train_2/Cork_Rear_2.3ds"
+			};
+		deque<char*> carModelList;
+		for(int i=0;i<leadtrain->cars.size();i++)
+			{
+			if(i==0)
+				carModelList.push_back(carModelAry[0]);
+			else
+				carModelList.push_back(carModelAry[1]);
+			}
+
+		TrainNodeList trainnodes(leadtrain,smgr);
+		trainnodes.build(carModelList);
+
 	while(!done)
 		{
 		done=!device->run();
+
+		//update train car nodes:
+			trainnodes.orientToTrain();
+
 
 
 		#if 0
@@ -509,15 +607,9 @@ int main(int argc, char* argv[])
 				{
 				timer->setSpeed(16.0f);
 				}
-
-			if(receiver.IsKeyDown(irr::KEY_KEY_I))
+			if(receiver.IsKeyDown(irr::KEY_KEY_4))
 				{
-				//inverted coaster
-				headht=-headht_from_track;
-				}
-			else
-				{
-				headht=headht_from_track;
+				timer->setSpeed(64.0f);
 				}
 
 			if(receiver.IsKeyDown(irr::KEY_KEY_C))		//change _C_amera
@@ -534,6 +626,13 @@ int main(int argc, char* argv[])
 			else
 				camchanged=false;
 
+			bool isinverted=false;
+			bool islaydown=false;
+			if(receiver.IsKeyDown(irr::KEY_KEY_I))
+				isinverted=true;
+			else if(receiver.IsKeyDown(irr::KEY_KEY_F))
+				islaydown=true;
+
 			if(campov)
 				{
 				SetOrientation:
@@ -548,6 +647,7 @@ int main(int argc, char* argv[])
 						Car&car=trackop->trains.at(0)->cars.at(0);
 						ori=car.ori;
 						trainspeed=trackop->trains.at(0)->speed;
+						maxspeed=max(trainspeed,maxspeed);
 						trackpos=trackop->trains.at(0)->cars.at(0).linpos;
 					#endif
 				PrintOri:
@@ -561,10 +661,16 @@ int main(int argc, char* argv[])
 						ori.debugprint("",0);
 						}
 				SetCamPOV:
+					headht=isinverted?	1.0	:	(islaydown?	0.50	:	2.0	);
 					ori.pos=ori.pos+headht*ori.hdg.getup();
 					campov->setPosition(ori.pos);
 					campov->setTarget(ori.pos+ori.hdg.getfwd());
-					campov->setUpVector(ori.hdg.getup());
+					if(isinverted)
+						ori.hdg.setup(-ori.hdg.getup());
+					else if(islaydown)
+						ori.hdg.setfromupfwd(ori.hdg.getfwd(),ori.hdg.getup(),true);
+					campov->setTarget(ori.pos+ori.hdg.getfwd());
+					campov->setUpVector( ori.hdg.getup());
 					campov->setFarValue(20000.0f);
 					campov->setNearValue(0.05f);
 				DisplayInfo:
@@ -587,6 +693,7 @@ int main(int argc, char* argv[])
 							else if(i==casev++)	ss<<"appx cur ht (ft) = "<<(ori.pos.Y*feet_per_meter);
 							else if(i==casev++)	ss<<"train speed (m/s) = "<<trainspeed;
 							else if(i==casev++)	ss<<"train speed (mph) = "<<(trainspeed/miles_per_hour_to_meter_per_second);
+							else if(i==casev++)	ss<<"max speed (mph) = "<<(maxspeed/miles_per_hour_to_meter_per_second);
 							else if((i==casev)||(i==casev+1)||(i==casev+2))
 								{
 								vector3df&gf=trackop->trains.at(0)->cars.at(0).gforces;

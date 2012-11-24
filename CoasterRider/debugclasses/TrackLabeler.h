@@ -26,6 +26,7 @@ class TrackLabeler
 	protected: //private functions for getting label text
 		const wchar_t*getLabelText(float trackpos);
 		Block::Type getBlockType(float trackpos)	;
+		float getTrackHt(float trackpos);
 	};
 
 #endif // TRACKLABELER_H
