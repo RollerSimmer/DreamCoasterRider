@@ -1,0 +1,19 @@
+Name: 4 Seat Roller Coaster Train
+
+Description: Train Car for Wooden Roller Coasters.
+
+Modeler: mopaso
+
+Poly Counts: 
+  Train Car:     688
+  Front Lap Bar:   4
+  Rear Lap Bar:    4
+  Name Plate:      4
+
+Texture Count: 5
+
+Ride Type: Tracked Ride (add-on)
+
+Intended Theme: Any
+
+Notes:  Track gauge is 3.5 feet (1.067 meters).  

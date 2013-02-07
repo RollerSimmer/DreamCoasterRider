@@ -189,6 +189,8 @@
 	+	i need a break.
 	+	still need to do space map and intersection code for supports.  today
 		was just getting the other parts out of the way.	
+2012:Nov:26:PM:05:32
+	+	added elapsed time to the display.
 	
 	
 		

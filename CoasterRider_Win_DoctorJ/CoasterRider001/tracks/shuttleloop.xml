@@ -1,0 +1,154 @@
+<!-- XML format for track data -->
+<!-- must maintain order -->
+
+<ELEMENT_DEFS>
+	<!-- straight track -->
+	<ELEMENT_DEF>
+		<NAME> str8 </NAME>
+		<!-- CP_#=control point[#], UP_#=up vector[#] -->
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 6.67 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 10.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 1.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<!-- START_LEN = span between first and second CPs
+		         (  full_cp[0]=prev_cp
+					   full_cp[1]=prev_cp+prev_fwd*startlen
+					   full_cp[2]=prev_cp+prev_hdg*cp[0]
+					   full_cp[3]=prev_cp+prev_hdg*cp[1] )	-->
+		<START_LEN> 3.33 </START_LEN>
+		<!-- EXIT_BANK = the exiting banking angle -->
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<!-- COPY_NAME = the name of the element definition to copy
+		                 (must precede this one -->
+		<COPY_NAME> none </COPY_NAME>
+		<!-- MIRROR_X_FLAG = should the X values be mirrored (negative)? -->
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<!-- FLIP_Y_FLAG = should the Y values be flipped (negative)? -->
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<!-- REVERSE_FLAG = should control points and up vectors in 
+		                    reverse order? -->
+		<REVERSE_FLAG> false </REVERSE_FLAG>		
+	</ELEMENT_DEF>
+	<!-- valley 45 degrees -->
+	<ELEMENT_DEF>
+		<NAME> valley45deg </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 3.53553390593274 </Y> <Z> 13.5355339059327 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 7.07106781186548 </Y> <Z> 17.0710678118655 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 2.0 </Y> <Z> -1.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 2.0 </Y> <Z> -1.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 1.0 </Y> <Z> -1.0 </Z> </UP_2>
+		<START_LEN> 5.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- crest 45 degrees -->
+	<ELEMENT_DEF>
+		<NAME> crest45deg </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> valley45deg </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> true </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- right full loop part 1 -->
+	<ELEMENT_DEF>
+		<NAME> rlooppart1 </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 20.0 </Y> <Z> 20.0 </Z> </CP_0>
+		<CP_1> <X> 1.0 </X> <Y> 20.0 </Y> <Z> 8.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 1.0 </Y> <Z> -1.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> -1.0 </Y> <Z> -1.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> -1.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 20.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> none </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- right full loop part 2 -->
+	<ELEMENT_DEF>
+		<NAME> rlooppart2 </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> rlooppart1 </COPY_NAME>
+		<MIRROR_X_FLAG> false </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> true </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- left full loop part 1 -->
+	<ELEMENT_DEF>
+		<NAME> llooppart1 </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> rlooppart1 </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+	<!-- left full loop part 2 -->
+	<ELEMENT_DEF>
+		<NAME> llooppart2 </NAME>
+		<CP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_0>
+		<CP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </CP_1>
+		<UP_0> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_0>
+		<UP_1> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_1>
+		<UP_2> <X> 0.0 </X> <Y> 0.0 </Y> <Z> 0.0 </Z> </UP_2>
+		<START_LEN> 0.0 </START_LEN>
+		<EXIT_BANK> 0 </EXIT_BANK>
+		<COPY_NAME> rlooppart2 </COPY_NAME>
+		<MIRROR_X_FLAG> true </MIRROR_X_FLAG>
+		<FLIP_Y_FLAG> false </FLIP_Y_FLAG>
+		<REVERSE_FLAG> false </REVERSE_FLAG>
+	</ELEMENT_DEF>
+</ELEMENT_DEFS>
+
+<TRACK_PATH>
+	<!-- BASE = base element name
+	     REPEAT = # of times to repeat element in succession,
+	     SCALE = scaling factor to make the base larger or smaller -->
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 5.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> valley45deg </BASE> <SCALE> 2.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 15.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> rlooppart1 </BASE> <SCALE> 1.1 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> rlooppart2 </BASE> <SCALE> 1.1 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> valley45deg </BASE> <SCALE> 2.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+	<ELEMENT> <REPEAT> 1 </REPEAT> <BASE> str8 </BASE> <SCALE> 5.0 </SCALE> <BANK> 0.0 </BANK> </ELEMENT>
+</TRACK_PATH>
+
+<TRACK_START>
+	<BANK> 0.0 </BANK>
+	<POS>
+		<X> 0.0 </X> <Y> 52.0 </Y>  <Z> 0.0 </Z>
+	</POS>
+	<UP>
+		<X> 0.0 </X> <Y> 1.0 </Y>  <Z> 1.0 </Z>
+	</UP>
+	<FWD>
+		<X> 0.0 </X> <Y> -1.0 </Y>  <Z> 1.0 </Z>
+	</FWD>
+</TRACK_START>
+
+<FULL_CIRCUIT>
+	false
+</FULL_CIRCUIT>
+

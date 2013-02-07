@@ -1,0 +1,10 @@
+tracks/circuittest.xml
+20.0
+1
+20.0
+200.0
+lift
+20.0
+25.0
+0
+0

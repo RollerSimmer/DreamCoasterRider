@@ -66,7 +66,7 @@ int main(int argc, char* argv[])
  	////IGUIFont*font=guienv->getFont("fonts/courier10px.xml");
 
    vector<IGUIStaticText*> msgary;
-   const int amtmsgs=12;
+   const int amtmsgs=13;
    msgary.clear();
    {
    int y=0;
@@ -674,8 +674,11 @@ int main(int argc, char* argv[])
 					campov->setFarValue(20000.0f);
 					campov->setNearValue(0.05f);
 				DisplayInfo:
-					if(timer->getTime()%10==0)
+					static int lasttime=0;
+					bool timetodisplay=(timer->getTime()-lasttime>50);
+					if(timetodisplay)
 						{
+						lasttime=timer->getTime();
 						int i=0;
 						stringstream ss;
 						char s[64];
@@ -684,8 +687,10 @@ int main(int argc, char* argv[])
 						for(int i=0;i<msgary.size();i++)
 							{
 							ss.str("");
+							int curtime=timer->getTime();
 							int casev=0;	//casev is for a dynamic "switch/case" equivalent block
-							if(i==casev++)	ss<<"op mode stage = "<<int(trackop->stage);
+							if(i==casev++)	ss<<"elapsed time = "<<(curtime/1000/60)<<":"<<(curtime/1000%1000)<<"."<<(curtime%1000);
+							else if(i==casev++)	ss<<"op mode stage = "<<int(trackop->stage);
 							else if(i==casev++)	ss<<"track len (m) = "<<tracklen;
 							else if(i==casev++)	ss<<"track pos (m) = "<<trackpos;
 							else if(i==casev++)	ss<<"pos_inc (m) = "<<trackpos_inc;

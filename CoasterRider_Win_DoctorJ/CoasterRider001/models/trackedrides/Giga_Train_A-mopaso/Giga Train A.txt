@@ -1,0 +1,16 @@
+Name: Corkscrew Roller Coaster Train
+
+Description: A multi-unit train for Corkscrew/Looping Roller Coasters.  Each Car can hold 6 Peeps.
+
+Modelers:  mopaso
+
+Version: 1
+
+Poly Counts:
+  Lead Car : 1558
+  Rear Car : 1558
+
+Required Texture Count: 4
+Texture Count: 13 (includes all 10 color schemes)
+
+Type: Tracked Ride

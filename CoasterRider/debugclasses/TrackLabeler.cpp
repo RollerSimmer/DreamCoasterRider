@@ -141,10 +141,22 @@ const wchar_t*TrackLabeler::getLabelText(float trackpos)
 		}
 	//add position to the string:
 		s+=L"(";
-		swprintf(ns,sizeof(ns)/sizeof(ns[0])-1,L"%0.1f",trackpos);
+		swprintf(
+		ns
+		#ifndef DEBUG_WINDOWS
+		,sizeof(ns)/sizeof(ns[0])-1
+		#endif
+		,L"%0.1f"
+		,trackpos);
 		s+=ns;
 		s+=L"m, ht=";
-		swprintf(ns,sizeof(ns)/sizeof(ns[0])-1,L"%0.1f",trackht);
+		swprintf
+		(
+		ns
+		#ifndef DEBUG_WINDOWS
+		,sizeof(ns)/sizeof(ns[0])-1
+		#endif
+		,L"%0.1f",trackht);
 		s+=ns;
 		s+=L"m)";
 	return s.c_str();
